@@ -1,8 +1,8 @@
 # BIDSonym
 
-For more information about the specification of BIDS Apps see [here](https://docs.google.com/document/d/1E1Wi5ONvOVVnGhj21S1bmJJ4kyHFT7tkxnV3C23sjIE/edit#).
+### For more information about the specification of BIDS Apps see [here](https://docs.google.com/document/d/1E1Wi5ONvOVVnGhj21S1bmJJ4kyHFT7tkxnV3C23sjIE/edit#).
 
-Description
+### Description
 A BIDS app for de-identification of neuroimaging data.
 
 ### Documentation
