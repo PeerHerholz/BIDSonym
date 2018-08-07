@@ -1,5 +1,13 @@
 # BIDSonym
 
+[![GitHub issues](https://img.shields.io/github/issues/PeerHerholz/BIDSonym.svg)](https://github.com/PeerHerholz/BIDSonym/issues/)
+[![GitHub pull-requests](https://img.shields.io/github/issues-pr/PeerHerholz/BIDSonym.svg)](https://github.com/PeerHerholz/BIDSonym/pulls/)
+[![GitHub contributors](https://img.shields.io/github/contributors/PeerHerholz/BIDSonym.svg)](https://GitHub.com/PeerHerholz/BIDSonym/graphs/contributors/)
+[![GitHub Commits](https://github-basic-badges.herokuapp.com/commits/PeerHerholz/BIDSonym.svg)](https://github.com/PeerHerholz/BIDSonym/commits/master)
+[![GitHub size](https://github-size-badge.herokuapp.com/PeerHerholz/BIDSonym.svg)](https://github.com/PeerHerholz/BIDSonym/archive/master.zip)
+[![GitHub HitCount](http://hits.dwyl.io/PeerHerholz/BIDSonym.svg)](http://hits.dwyl.io/PeerHerholz/BIDSonym)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
 ### For more information about the specification of BIDS Apps see [here](https://docs.google.com/document/d/1E1Wi5ONvOVVnGhj21S1bmJJ4kyHFT7tkxnV3C23sjIE/edit#).
 
 ### Description
