@@ -11,7 +11,13 @@
 ### For more information about the specification of BIDS Apps see [here](https://docs.google.com/document/d/1E1Wi5ONvOVVnGhj21S1bmJJ4kyHFT7tkxnV3C23sjIE/edit#).
 
 ### Description
-A BIDS app for de-identification of neuroimaging data.
+:hocho: A BIDS app for de-identification of neuroimaging data. Takes BIDS-format T1 and T2-weighted images and applies one of several popular de-identification algorithms. BIDSonym currently supports:
+* Pydeface
+* MRI deface
+* De-identification toolbox
+* Quickshear
+
+Using BIDSonym ensures that you can make collected neuroimaging data available for others without violating subjects' privacy or anonymity.
 
 ### Documentation
 Provide a link to the documention of your pipeline.
