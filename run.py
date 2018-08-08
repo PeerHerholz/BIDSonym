@@ -5,7 +5,7 @@ from subprocess import check_call
 import nibabel
 import numpy
 from glob import glob
-import nipype.pipeline.enginge as pe
+import nipype.pipeline.engine as pe
 from nipype.interfaces import utility as niu
 from nipype.interfaces.quickshear import Quickshear
 from nipype.interfaces.fsl import BET
