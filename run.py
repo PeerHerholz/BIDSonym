@@ -110,4 +110,4 @@ else:
             if args.deid == "mri_deface":
                 run_mri_deface(T1_file, 'fs_data/talairach_mixed_with_skull.gca', 'fs_data/face.gca', T1_file)
             if args.deid == "quickshear":
-                run_quickshear(T1_file)
+                run_quickshear(T1_file, T1_file)
