@@ -8,22 +8,23 @@
 [![GitHub HitCount](http://hits.dwyl.io/PeerHerholz/BIDSonym.svg)](http://hits.dwyl.io/PeerHerholz/BIDSonym)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
-### For more information about the specification of BIDS Apps see [here](https://docs.google.com/document/d/1E1Wi5ONvOVVnGhj21S1bmJJ4kyHFT7tkxnV3C23sjIE/edit#).
-
-### Description
-:hocho: A BIDS app for de-identification of neuroimaging data. Takes BIDS-format T1 and T2-weighted images and applies one of several popular de-identification algorithms. BIDSonym currently supports:
+## Description
+:hocho: :hocho: A BIDS app for de-identification of neuroimaging data. Takes BIDS-format T1 and T2-weighted images and applies one of several popular de-identification algorithms. BIDSonym currently supports:
 * Pydeface
 * MRI deface
 * De-identification toolbox
 * Quickshear
 
-Using BIDSonym ensures that you can make collected neuroimaging data available for others without violating subjects' privacy or anonymity.
+**Using BIDSonym ensures that you can make collected neuroimaging data available for others without violating subjects' privacy or anonymity.**
 
-### Documentation
+## Documentation
 Provide a link to the documention of your pipeline.
 
-### How to report errors
-Provide instructions for users on how to get help and report errors.
+## How to report errors
+Running into any bugs :beetle:? Check out the [open issues](https://github.com/PeerHerholz/BIDSonym/issues) to see if we're already working on it. If not, open up a new issue and we will check it out when we can!
+
+## How to contribute
+Thank you for considering contributing to our project! Before getting involved, please review our [Code of Conduct](https://github.com/PeerHerholz/BIDSonym/blob/master/CODE_OF_CONDUCT.md). Next, you can review  [open issues](https://github.com/PeerHerholz/BIDSonym/issues) that we are looking for help with. If you submit a new pull request please be as detailed as possible in your comments.
 
 ### Acknowledgements
 Describe how would you would like users to acknowledge use of your App in their papers (citation, a paragraph that can be copy pasted, etc.)
