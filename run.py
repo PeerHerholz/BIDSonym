@@ -18,7 +18,7 @@ def run_pydeface(image, outfile):
     return
 
 def run_mri_deface(image, brain_template, face_template, outfile):
-    #pydeface $image --outfile $outfile
+    #mri_deface $image $brain_template $face_template $outfile $buffer
     cmd = ["mri_deface", image,
                          brain_template,
                          face_template,
