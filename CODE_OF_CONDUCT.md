@@ -2,7 +2,7 @@
 
 We value the participation of every member of our community and want to ensure an that every contributer has an enjoyable and fulfilling experience. Accordingly, everyone who participates in the BIDSonym project is expected to show respect and courtesy to other community members at all time.
 
-The lead maintainers of the BIDSonym ([NAME][name-github], [NAME][name-github]) are dedicated to a ***harassment-free experience for everyone***, regardless of gender, gender identity and expression, sexual orientation, disability, physical appearance, body size, race, age or religion. **We do not tolerate harassment by and/or of members of our community in any form**.
+The lead maintainers of the BIDSonym ([Peer Herholz][https://github.com/peerherholz], [Rita Ludwig][https://github.com/rxqx]) are dedicated to a ***harassment-free experience for everyone***, regardless of gender, gender identity and expression, sexual orientation, disability, physical appearance, body size, race, age or religion. **We do not tolerate harassment by and/or of members of our community in any form**.
 
 *We are particularly motivated to support new and/or anxious collaborators, people who are looking to learn and develop their skills, and anyone who has experienced discrimination in the past.*
 
@@ -44,9 +44,9 @@ Project maintainers have the right and responsibility to remove, edit, or reject
 
 ## Enforcement
 
-Members of the community who violate these rules - no matter how much they have contributed to the BIDS Starter Kit, or how specialised their skill set - will be approached by [NAME]. If inappropriate behaviour persists after a discussion with Kirstie, the contributer will be asked to discontinue their participation in the BIDSonym project.
+Members of the community who violate these rules - no matter how much they have contributed to the BIDS Starter Kit, or how specialised their skill set - will be approached by Peer or Rita. If inappropriate behaviour persists after this discussion, the contributer will be asked to discontinue their participation in the BIDSonym project.
 
-**To report an issue you have with community interactions** please contact [NAME][name-github]. All communication will be treated as confidential.
+**To report an issue you have with community interactions** please contact [Peer][https://github.com/peerherholz] or [Rita][https://github.com/rxqx]. All communication will be treated as confidential.
 
 ## Attribution
 
