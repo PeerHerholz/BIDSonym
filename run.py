@@ -31,18 +31,6 @@ def run_mri_deface(image, brain_template, face_template, outfile):
     check_call(cmd)
     return
 
-def run_skullstrip(image):
-    #bet
-    cmd = ["bet", image,
-           "-R",
-           "-f",  0.35,
-           "-g",  0
-           "-m",
-
-           ]
-    check_call(cmd)
-    return
-
 def run_quickshear(image, outfile):
     #quickshear anat_file mask_file defaced_file [buffer]
     deface_wf = pe.Workflow('quickshear')
