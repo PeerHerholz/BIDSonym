@@ -6,7 +6,7 @@ docker run --rm kaczmarj/neurodocker:0.4.0 generate docker \
   --freesurfer version=6.0.0 min=true \
   --miniconda create_env=bidsonym \
               conda_install="python=3.6 traits" \
-              pip_install="nipype nibabel" \
+              pip_install="nipype nibabel pydeface quickshear" \
               activate=true \ > Dockerfile
 
 # Build Docker image using the saved Dockerfile.
