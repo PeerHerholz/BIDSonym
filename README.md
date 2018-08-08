@@ -10,10 +10,9 @@
 
 ## Description
 :hocho: :hocho: A BIDS app for de-identification of neuroimaging data. Takes BIDS-format T1 and T2-weighted images and applies one of several popular de-identification algorithms. BIDSonym currently supports:
-* Pydeface
-* MRI deface
-* De-identification toolbox
-* Quickshear
+* [Pydeface](https://github.com/poldracklab/pydeface)
+* [MRI deface](https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface)
+* [Quickshear](https://github.com/nipy/quickshear)
 
 **Using BIDSonym ensures that you can make collected neuroimaging data available for others without violating subjects' privacy or anonymity.**
 
