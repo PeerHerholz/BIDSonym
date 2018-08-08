@@ -73,8 +73,8 @@ parser.add_argument('-v', '--version', action='version',
 
 args = parser.parse_args()
 
-if not args.skip_bids_validator:
-    run('bids-validator %s'%args.bids_dir)
+#if not args.skip_bids_validator:
+#    run('bids-validator %s'%args.bids_dir)
 
 subjects_to_analyze = []
 # only for a subset of subjects
@@ -95,7 +95,7 @@ if args.analysis_level == "participant":
             if args.deid == "pydeface":
                 run_pydeface(T1_file, T1_file)
             if args.deid == "mri_deface":
-                run_mri_deface(T1_file, 'fs_data/talairach_mixed_with_skull.gca', 'fs_data/face.gca', T1_file)
+                run_mri_deface(T1_file, '/home/fs_data/talairach_mixed_with_skull.gca', '/home/fs_data/face.gca', T1_file)
             if args.deid == "quickshear":
                 run_quickshear(T1_file, T1_file)
 
@@ -108,6 +108,6 @@ else:
             if args.deid == "pydeface":
                 run_pydeface(T1_file, T1_file)
             if args.deid == "mri_deface":
-                run_mri_deface(T1_file, 'fs_data/talairach_mixed_with_skull.gca', 'fs_data/face.gca', T1_file)
+                run_mri_deface(T1_file, '/home/fs_data/talairach_mixed_with_skull.gca', '/home/fs_data/face.gca', T1_file)
             if args.deid == "quickshear":
                 run_quickshear(T1_file, T1_file)
