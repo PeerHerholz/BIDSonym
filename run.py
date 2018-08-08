@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import os
-import subprocess
+from subprocess import check_call
 import nibabel
 import numpy
 from glob import glob
@@ -23,6 +23,7 @@ def run_mri_deface(image, brain_template, face_template, outfile):
                          brain_template,
                          face_template,
                          outfile,
+                         50,
            ]
     check_call(cmd)
     return
@@ -40,7 +41,7 @@ parser.add_argument('--participant_label', help='The label(s) of the participant
                    'provided all subjects should be analyzed. Multiple '
                    'participants can be specified with a space separated list.',
                    nargs="+")
-parser.add_argument('--de-identification', help='Approach to use for de-identifictation.',
+parser.add_argument('--deid', help='Approach to use for de-identifictation.',
                     choices=['pydeface', 'mri_deface', 'quickshear'])
 parser.add_argument('--del_nodeface', help='Overwrite and delete original data or copy original data to different folder.',
                     choices=['del', 'no_del'])
@@ -69,7 +70,18 @@ if args.analysis_level == "participant":
     for subject_label in subjects_to_analyze:
         for T1_file in glob(os.path.join(args.bids_dir, "sub-%s"%subject_label,
                                          "anat", "*_T1w.nii*")) + glob(os.path.join(args.bids_dir,"sub-%s"%subject_label,"ses-*","anat", "*_T1w.nii*")):
-            if args.analysis_level == "pydeface":
+            if args.deid == "pydeface":
                 run_pydeface(T1_file, T1_file)
-            if args.analysis_level == "mri_deface":
-                mri_deface(T1_file, 'fs_data/talairach_mixed_with_skull.gca', 'face.gca', T1_file)
+            if args.deid == "mri_deface":
+                run_mri_deface(T1_file, 'fs_data/talairach_mixed_with_skull.gca', 'fs_data/face.gca', T1_file)
+
+else:
+
+    # find all T1s and de-identify them
+    for subject_label in subjects_to_analyze:
+        for T1_file in glob(os.path.join(args.bids_dir, "sub-%s"%subject_label,
+                                         "anat", "*_T1w.nii*")) + glob(os.path.join(args.bids_dir,"sub-%s"%subject_label,"ses-*","anat", "*_T1w.nii*")):
+            if args.deid == "pydeface":
+                run_pydeface(T1_file, T1_file)
+            if args.deid == "mri_deface":
+                run_mri_deface(T1_file, 'fs_data/talairach_mixed_with_skull.gca', 'fs_data/face.gca', T1_file)
