@@ -5,6 +5,10 @@ from subprocess import check_call
 import nibabel
 import numpy
 from glob import glob
+import nipype.pipeline.enginge as pe
+from nipype.interfaces import utility as niu
+from nipype.interfaces.quickshear import Quickshear
+from nipype.interfaces.fsl import BET
 
 __version__ = open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                 'version')).read()
@@ -18,15 +22,45 @@ def run_pydeface(image, outfile):
     return
 
 def run_mri_deface(image, brain_template, face_template, outfile):
-    #mri_deface $image $brain_template $face_template $outfile $buffer
+    #mri_deface $image $brain_template $face_template $outfile
     cmd = ["mri_deface", image,
                          brain_template,
                          face_template,
                          outfile,
-                         50,
            ]
     check_call(cmd)
     return
+
+def run_skullstrip(image):
+    #bet
+    cmd = ["bet", image,
+           "-R",
+           "-f",  0.35,
+           "-g",  0
+           "-m",
+
+           ]
+    check_call(cmd)
+    return
+
+def run_quickshear(image, outfile):
+    #quickshear anat_file mask_file defaced_file [buffer]
+    deface_wf = pe.Workflow('quickshear')
+    inputnode = pe.Node(niu.IdentityInterface(['in_file']),
+                        name='inputnode')
+    outputnode = pe.Node(niu.IdentityInterface(['out_file']),
+                       name='outputnode')
+    bet = pe.Node(BET(mask=True), name='bet')
+    quickshear = pe.Node(Quickshear(buff=50), name='quickshear')
+    deface_wf.connect([
+        (inputnode, bet, [('in_file', 'in_file')]),
+        (inputnode, quickshear, [('in_file', 'in_file')]),
+        (bet, quickshear, [('mask_file', 'mask_file')]),
+        ])
+    inputnode.inputs.in_file = image
+    quickshear.inputs.out_file = outfile
+    res = deface_wf.run()
+
 
 parser = argparse.ArgumentParser(description='a BIDS app for de-identification of neuroimaging data')
 parser.add_argument('bids_dir', help='The directory with the input dataset '
@@ -74,6 +108,8 @@ if args.analysis_level == "participant":
                 run_pydeface(T1_file, T1_file)
             if args.deid == "mri_deface":
                 run_mri_deface(T1_file, 'fs_data/talairach_mixed_with_skull.gca', 'fs_data/face.gca', T1_file)
+            if args.deid == "quickshear":
+                run_quickshear(T1_file, T1_file)
 
 else:
 
@@ -85,3 +121,5 @@ else:
                 run_pydeface(T1_file, T1_file)
             if args.deid == "mri_deface":
                 run_mri_deface(T1_file, 'fs_data/talairach_mixed_with_skull.gca', 'fs_data/face.gca', T1_file)
+            if args.deid == "quickshear":
+                run_quickshear(T1_file)
