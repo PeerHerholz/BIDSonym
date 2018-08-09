@@ -25,7 +25,7 @@ Provide a link to the documention of your pipeline.
 Running into any bugs :beetle:? Check out the [open issues](https://github.com/PeerHerholz/BIDSonym/issues) to see if we're already working on it. If not, open up a new issue and we will check it out when we can!
 
 ## How to contribute
-Thank you for considering contributing to our project! Before getting involved, please review our [Code of Conduct](https://github.com/PeerHerholz/BIDSonym/blob/master/CODE_OF_CONDUCT.md). Next, you can review  [open issues](https://github.com/PeerHerholz/BIDSonym/issues) that we are looking for help with. If you submit a new pull request please be as detailed as possible in your comments.
+Thank you for considering contributing to our project! Before getting involved, please review our [Code of Conduct](https://github.com/PeerHerholz/BIDSonym/blob/master/CODE_OF_CONDUCT.md). Next, you can review  [open issues](https://github.com/PeerHerholz/BIDSonym/issues) that we are looking for help with. If you submit a new pull request please be as detailed as possible in your comments. Please also have a look at our [contribution guidelines](https://github.com/PeerHerholz/BIDSonym/blob/master/CONTRIBUTING.md).
 
 ### Acknowledgements
 Describe how would you would like users to acknowledge use of your App in their papers (citation, a paragraph that can be copy pasted, etc.)
@@ -70,15 +70,13 @@ To run it in participant level mode (for one participant):
 
     docker run -i --rm \
 		-v /Users/filo/data/ds005:/bids_dataset:ro \
-		-v /Users/filo/outputs:/outputs \
 		bids/bidsonym \
-		/bids_dataset /outputs participant --participant_label 01
+		/bids_dataset participant --deid pydeface --del_nodeface del --participant_label 01
 
 After doing this for all subjects (potentially in parallel), the group level analysis
 can be run:
 
     docker run -i --rm \
 		-v /Users/filo/data/ds005:/bids_dataset:ro \
-		-v /Users/filo/outputs:/outputs \
 		bids/bidsonym \
-		/bids_dataset /outputs group
+		/bids_dataset  group --deid pydeface --del_nodeface del
