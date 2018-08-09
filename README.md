@@ -7,6 +7,8 @@
 [![GitHub size](https://github-size-badge.herokuapp.com/PeerHerholz/BIDSonym.svg)](https://github.com/PeerHerholz/BIDSonym/archive/master.zip)
 [![GitHub HitCount](http://hits.dwyl.io/PeerHerholz/BIDSonym.svg)](http://hits.dwyl.io/PeerHerholz/BIDSonym)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+<a href="https://osf.io/x4dku/">
+<img border="0" alt="W3Schools" src="https://cdn.cos.io/media/images/osf-logo-black.original.png" width="80" height="20">
 
 ## Description
 :hocho: :hocho: A BIDS app for de-identification of neuroimaging data. Takes BIDS-format T1 and T2-weighted images and applies one of several popular de-identification algorithms. BIDSonym currently supports:
