@@ -16,7 +16,7 @@
 
 **Using BIDSonym ensures that you can make collected neuroimaging data available for others without violating subjects' privacy or anonymity.**
 
-<img src="https://github.com/PeerHerholz/BIDSonym/blob/master/img/bidsyonym_example.png" alt="bidsonym example" width="700" height="250" border="100">
+<img src="https://github.com/PeerHerholz/BIDSonym/blob/master/img/bidsyonym_example.png" alt="bidsonym example" width="800" height="250" border="100">
 
 ## Documentation
 Provide a link to the documention of your pipeline.
