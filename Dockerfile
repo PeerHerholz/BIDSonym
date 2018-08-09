@@ -182,4 +182,6 @@ RUN echo '{ \
     \n  ] \
     \n}' > /neurodocker/neurodocker_specs.json
 
+COPY ./run.py /home/run.py
+COPY ./version /home/version
 ENTRYPOINT ["python", "/home/run.py"]
