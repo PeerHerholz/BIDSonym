@@ -1,10 +1,12 @@
 #Generate Dockerfile.
 
-docker run --rm kaczmarj/neurodocker:0.4.0 generate docker \
-  --base debian:stretch --pkg-manager apt \
-  --fsl version=5.0.10 \
-  --freesurfer version=6.0.0 min=true \
-  --miniconda create_env=bidsonym \
+docker run --rm kaczmarj/neurodocker:master generate docker \
+           --base neurodebian:stretch-non-free \
+           --pkg-manager apt \
+           --install fsl \
+           --add-to-entrypoint "source /etc/fsl/fsl.sh" \
+           --freesurfer version=6.0.0 min=true \
+           --miniconda create_env=bidsonym \
               conda_install="python=3.6 traits nipype" \
               pip_install="nibabel pydeface quickshear" \
               activate=true \ > Dockerfile
