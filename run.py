@@ -17,6 +17,7 @@ def run_pydeface(image, outfile):
     #pydeface $image --outfile $outfile
     cmd = ["pydeface", image,
            "--out", outfile,
+           "--force",
            ]
     check_call(cmd)
     return
@@ -33,12 +34,12 @@ def run_mri_deface(image, brain_template, face_template, outfile):
 
 def run_quickshear(image, outfile):
     #quickshear anat_file mask_file defaced_file [buffer]
-    deface_wf = pe.Workflow('quickshear')
+    deface_wf = pe.Workflow('deface_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
-                        name='inputnode')
+                     name='inputnode')
     outputnode = pe.Node(niu.IdentityInterface(['out_file']),
-                       name='outputnode')
-    bet = pe.Node(BET(mask=True), name='bet')
+                      name='outputnode')
+    bet = pe.Node(BET(mask=True, frac=0.5), name='bet')
     quickshear = pe.Node(Quickshear(buff=50), name='quickshear')
     deface_wf.connect([
         (inputnode, bet, [('in_file', 'in_file')]),

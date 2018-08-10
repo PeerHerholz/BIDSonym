@@ -7,7 +7,7 @@
 #
 #     https://github.com/kaczmarj/neurodocker
 
-FROM debian:stretch
+FROM neurodebian:stretch-non-free
 
 ARG DEBIAN_FRONTEND="noninteractive"
 
@@ -39,39 +39,13 @@ RUN export ND_ENTRYPOINT="/neurodocker/startup.sh" \
 
 ENTRYPOINT ["/neurodocker/startup.sh"]
 
-ENV FSLDIR="/opt/fsl-5.0.10" \
-    PATH="/opt/fsl-5.0.10/bin:$PATH"
 RUN apt-get update -qq \
     && apt-get install -y -q --no-install-recommends \
-           bc \
-           dc \
-           file \
-           libfontconfig1 \
-           libfreetype6 \
-           libgl1-mesa-dev \
-           libglu1-mesa-dev \
-           libgomp1 \
-           libice6 \
-           libmng1 \
-           libxcursor1 \
-           libxft2 \
-           libxinerama1 \
-           libxrandr2 \
-           libxrender1 \
-           libxt6 \
-           wget \
+           fsl \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && echo "Downloading FSL ..." \
-    && mkdir -p /opt/fsl-5.0.10 \
-    && curl -fsSL --retry 5 https://fsl.fmrib.ox.ac.uk/fsldownloads/fsl-5.0.10-centos6_64.tar.gz \
-    | tar -xz -C /opt/fsl-5.0.10 --strip-components 1 \
-    && sed -i '$iecho Some packages in this Docker container are non-free' $ND_ENTRYPOINT \
-    && sed -i '$iecho If you are considering commercial use of this container, please consult the relevant license:' $ND_ENTRYPOINT \
-    && sed -i '$iecho https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Licence' $ND_ENTRYPOINT \
-    && sed -i '$isource $FSLDIR/etc/fslconf/fsl.sh' $ND_ENTRYPOINT \
-    && echo "Installing FSL conda environment ..." \
-    && bash /opt/fsl-5.0.10/etc/fslconf/fslpython_install.sh -f /opt/fsl-5.0.10
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN sed -i '$isource /etc/fsl/fsl.sh' $ND_ENTRYPOINT
 
 ENV FREESURFER_HOME="/opt/freesurfer-6.0.0" \
     PATH="/opt/freesurfer-6.0.0/bin:$PATH"
@@ -184,4 +158,16 @@ RUN echo '{ \
 
 COPY ./run.py /home/run.py
 COPY ./version /home/version
+COPY ./fs_data /home/fs_data
+
+
+ENV FSLDIR=/usr/share/fsl/5.0 \
+   FSLOUTPUTTYPE=NIFTI_GZ \
+   FSLMULTIFILEQUIT=TRUE \
+   POSSUMDIR=/usr/share/fsl/5.0 \
+   LD_LIBRARY_PATH=/usr/lib/fsl/5.0:$LD_LIBRARY_PATH \
+   FSLTCLSH=/usr/bin/tclsh \
+   FSLWISH=/usr/bin/wish \
+   PATH=/usr/lib/fsl/5.0:$PATH
+
 ENTRYPOINT ["python", "/home/run.py"]
