@@ -7,6 +7,7 @@
 [![GitHub size](https://github-size-badge.herokuapp.com/PeerHerholz/BIDSonym.svg)](https://github.com/PeerHerholz/BIDSonym/archive/master.zip)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/Django.svg)](https://pypi.python.org/pypi/ansicolortags/)
 [![GitHub HitCount](http://hits.dwyl.io/PeerHerholz/BIDSonym.svg)](http://hits.dwyl.io/PeerHerholz/BIDSonym)
+[![Docker Hub](https://img.shields.io/docker/pulls/peerherholz/bidsonym.svg?maxAge=2592000)](https://hub.docker.com/r/peerherholz/bidsonym/)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 <a href="https://osf.io/x4dku/">
 <img border="0" alt="W3Schools" src="https://cdn.cos.io/media/images/osf-logo-black.original.png" width="80" height="20">
