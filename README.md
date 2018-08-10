@@ -5,6 +5,7 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/PeerHerholz/BIDSonym.svg)](https://GitHub.com/PeerHerholz/BIDSonym/graphs/contributors/)
 [![GitHub Commits](https://github-basic-badges.herokuapp.com/commits/PeerHerholz/BIDSonym.svg)](https://github.com/PeerHerholz/BIDSonym/commits/master)
 [![GitHub size](https://github-size-badge.herokuapp.com/PeerHerholz/BIDSonym.svg)](https://github.com/PeerHerholz/BIDSonym/archive/master.zip)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/Django.svg)](https://pypi.python.org/pypi/ansicolortags/)
 [![GitHub HitCount](http://hits.dwyl.io/PeerHerholz/BIDSonym.svg)](http://hits.dwyl.io/PeerHerholz/BIDSonym)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 <a href="https://osf.io/x4dku/">
