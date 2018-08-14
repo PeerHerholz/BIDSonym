@@ -14,6 +14,7 @@ from shutil import copy
 __version__ = open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                 'version')).read()
 
+# define function for pydeface
 def run_pydeface(image, outfile):
     #pydeface $image --outfile $outfile
     cmd = ["pydeface", image,
@@ -23,6 +24,7 @@ def run_pydeface(image, outfile):
     check_call(cmd)
     return
 
+# define function for mri_deface
 def run_mri_deface(image, brain_template, face_template, outfile):
     #mri_deface $image $brain_template $face_template $outfile
     cmd = ["mri_deface", image,
@@ -33,6 +35,8 @@ def run_mri_deface(image, brain_template, face_template, outfile):
     check_call(cmd)
     return
 
+# define function for quickshear
+# based on the nipype docs quickshear example 
 def run_quickshear(image, outfile):
     #quickshear anat_file mask_file defaced_file [buffer]
     deface_wf = pe.Workflow('deface_wf')
@@ -84,10 +88,8 @@ parser.add_argument('-v', '--version', action='version',
 
 args = parser.parse_args()
 
-#if not args.skip_bids_validator:
-#    run('bids-validator %s'%args.bids_dir)
-
 subjects_to_analyze = []
+
 # only for a subset of subjects
 if args.participant_label:
     subjects_to_analyze = args.participant_label
