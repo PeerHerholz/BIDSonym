@@ -36,7 +36,7 @@ def run_mri_deface(image, brain_template, face_template, outfile):
     return
 
 # define function for quickshear
-# based on the nipype docs quickshear example 
+# based on the nipype docs quickshear example
 def run_quickshear(image, outfile):
     #quickshear anat_file mask_file defaced_file [buffer]
     deface_wf = pe.Workflow('deface_wf')
@@ -106,23 +106,23 @@ if args.analysis_level == "participant":
         for T1_file in glob(os.path.join(args.bids_dir, "sub-%s"%subject_label,
                                          "anat", "*_T1w.nii*")) + glob(os.path.join(args.bids_dir,"sub-%s"%subject_label,"ses-*","anat", "*_T1w.nii*")):
             if args.deid == "pydeface":
-                if args.del_nodeface == "no_del":
-                    copy_no_deid(subject_label)
+                if args.del_nodeface == "del":
                     run_pydeface(T1_file, T1_file)
                 else:
+                    copy_no_deid(subject_label)
                     run_pydeface(T1_file, T1_file)
             if args.deid == "mri_deface":
-                if args.del_nodeface == "no_del":
-                    copy_no_deid(subject_label)
+                if args.del_nodeface == "del":
                     run_mri_deface(T1_file, '/home/fs_data/talairach_mixed_with_skull.gca', '/home/fs_data/face.gca', T1_file)
                 else:
+                    copy_no_deid(subject_label)
                     run_mri_deface(T1_file, '/home/fs_data/talairach_mixed_with_skull.gca', '/home/fs_data/face.gca', T1_file)
             if args.deid == "quickshear":
-                if args.del_nodeface == "no_del":
-                    copy_no_deid(subject_label)
+                if args.del_nodeface == "del":
                     run_quickshear(T1_file, T1_file)
                 else:
                     copy_no_deid(subject_label)
+                    run_quickshear(T1_file, T1_file)
 
 else:
 
@@ -131,20 +131,20 @@ else:
         for T1_file in glob(os.path.join(args.bids_dir, "sub-%s"%subject_label,
                                          "anat", "*_T1w.nii*")) + glob(os.path.join(args.bids_dir,"sub-%s"%subject_label,"ses-*","anat", "*_T1w.nii*")):
             if args.deid == "pydeface":
-                if args.del_nodeface == "no_del":
-                    copy_no_deid(subject_label)
+                if args.del_nodeface == "del":
                     run_pydeface(T1_file, T1_file)
                 else:
+                    copy_no_deid(subject_label)
                     run_pydeface(T1_file, T1_file)
             if args.deid == "mri_deface":
-                if args.del_nodeface == "no_del":
-                    copy_no_deid(subject_label)
+                if args.del_nodeface == "del":
                     run_mri_deface(T1_file, '/home/fs_data/talairach_mixed_with_skull.gca', '/home/fs_data/face.gca', T1_file)
                 else:
+                    copy_no_deid(subject_label)
                     run_mri_deface(T1_file, '/home/fs_data/talairach_mixed_with_skull.gca', '/home/fs_data/face.gca', T1_file)
             if args.deid == "quickshear":
-                if args.del_nodeface == "no_del":
-                    copy_no_deid(subject_label)
+                if args.del_nodeface == "del":
                     run_quickshear(T1_file, T1_file)
                 else:
                     copy_no_deid(subject_label)
+                    run_quickshear(T1_file, T1_file)
