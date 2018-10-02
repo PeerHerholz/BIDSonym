@@ -2,9 +2,9 @@
 
 Welcome to the BIDSonym repository! We're excited you're here and want to contribute.  
 
-These guidelines are designed to make it as easy as possible to get involved. If you have any questions that aren't discussed below, please let us know by opening an [issue][https://github.com/PeerHerholz/BIDSonym/issues]!
+These guidelines are designed to make it as easy as possible to get involved. If you have any questions that aren't discussed below, please let us know by opening an [issue](https://github.com/PeerHerholz/BIDSonym/issues)!
 
-Before you start you'll need to set up a free [GitHub][https://github.com] account and sign in. Here are some [instructions][https://help.github.com/articles/signing-up-for-a-new-github-account/].
+Before you start you'll need to set up a free [GitHub](https://github.com) account and sign in. Here are some [instructions](https://help.github.com/articles/signing-up-for-a-new-github-account/).
 If you are not familiar with version control systems such as git,
  [introductions and tutorials](http://www.reproducibleimaging.org/module-reproducible-basics/02-vcs/)
  may be found on [ReproducibleImaging.org](https://www.reproducibleimaging.org).
