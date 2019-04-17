@@ -57,7 +57,7 @@ def run_quickshear(image, outfile):
 
 def copy_no_deid(subject_label):
     path = os.path.join(args.bids_dir, "derivatives/bidsonym/sub-%s"%subject_label)
-    outfile = "sub-%s_T1w_no_deid.nii.gz"%subject_label
+    outfile = T1_file[T1_file.rfind('/')+1:T1_file.rfind('.nii')]+'_no_deid.nii.gz'
     if os.path.isdir(path) == True:
         copy(T1_file, os.path.join(path, outfile))
     else:
