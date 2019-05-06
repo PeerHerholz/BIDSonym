@@ -9,7 +9,7 @@ import nipype.pipeline.engine as pe
 from nipype.interfaces import utility as niu
 from nipype.interfaces.quickshear import Quickshear
 from nipype.interfaces.fsl import BET
-from shutil import copy
+from shutil import copy, move
 
 __version__ = open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                 'version')).read()
@@ -55,8 +55,24 @@ def run_quickshear(image, outfile):
     quickshear.inputs.out_file = outfile
     res = deface_wf.run()
 
+# define function for mridefacer
+def run_mridefacer(image, subject_label):
+    cmd = ["mridefacer/mridefacer", "--apply",
+                         image]
+    check_call(cmd)
+    path = os.path.join(args.bids_dir, "sourcedata/bidsonym/sub-%s"%subject_label)
+    facemask = os.path.join(args.bids_dir, "sub-%s"%subject_label, "anat/sub-%s_T1w_defacemask.nii.gz"%subject_label)
+    if os.path.isdir(path) == True:
+        move(facemask, os.path.join(path))
+    else:
+        os.makedirs(path)
+        move(facemask, os.path.join(path))
+    return
+
+# define function to copy non deidentified images to sourcedata/,
+# overwriting images in the bids root folder
 def copy_no_deid(subject_label):
-    path = os.path.join(args.bids_dir, "derivatives/bidsonym/sub-%s"%subject_label)
+    path = os.path.join(args.bids_dir, "sourcedata/bidsonym/sub-%s"%subject_label)
     outfile = T1_file[T1_file.rfind('/')+1:T1_file.rfind('.nii')]+'_no_deid.nii.gz'
     if os.path.isdir(path) == True:
         copy(T1_file, os.path.join(path, outfile))
@@ -79,7 +95,7 @@ parser.add_argument('--participant_label', help='The label(s) of the participant
                    'participants can be specified with a space separated list.',
                    nargs="+")
 parser.add_argument('--deid', help='Approach to use for de-identifictation.',
-                    choices=['pydeface', 'mri_deface', 'quickshear'])
+                    choices=['pydeface', 'mri_deface', 'quickshear', 'mridefacer'])
 parser.add_argument('--del_nodeface', help='Overwrite and delete original data or copy original data to different folder.',
                     choices=['del', 'no_del'])
 parser.add_argument('-v', '--version', action='version',
@@ -123,6 +139,12 @@ if args.analysis_level == "participant":
                 else:
                     copy_no_deid(subject_label)
                     run_quickshear(T1_file, T1_file)
+            if args.deid == "mridefacer":
+                if args.del_nodeface == "del":
+                    run_mridefacer(T1_file, subject_label)
+                else:
+                    copy_no_deid(subject_label)
+                    run_mridefacer(T1_file, subject_label)
 
 else:
 
@@ -148,3 +170,9 @@ else:
                 else:
                     copy_no_deid(subject_label)
                     run_quickshear(T1_file, T1_file)
+            if args.deid == "mridefacer":
+                if args.del_nodeface == "del":
+                    run_mridefacer(T1_file)
+                else:
+                    copy_no_deid(subject_label)
+                    run_mridefacer(T1_file)
