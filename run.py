@@ -1,9 +1,8 @@
-#!/usr/bin/env python3
 import argparse
 import os
 from subprocess import check_call
-import nibabel
-import numpy
+import json
+
 from glob import glob
 import nipype.pipeline.engine as pe
 from nipype.interfaces import utility as niu
@@ -72,6 +71,7 @@ def run_mridefacer(image, subject_label):
 # define function to copy non deidentified images to sourcedata/,
 # overwriting images in the bids root folder
 def copy_no_deid(subject_label):
+    # images
     path = os.path.join(args.bids_dir, "sourcedata/bidsonym/sub-%s"%subject_label)
     outfile = T1_file[T1_file.rfind('/')+1:T1_file.rfind('.nii')]+'_no_deid.nii.gz'
     if os.path.isdir(path) == True:
@@ -79,6 +79,52 @@ def copy_no_deid(subject_label):
     else:
         os.makedirs(path)
         copy(T1_file, os.path.join(path, outfile))
+    # meta-data
+    path_task_meta = os.path.join(args.bids_dir, "sourcedata/bidsonym/")
+    path_sub_meta = os.path.join(args.bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
+    list_task_meta_files = glob(os.path.join(args.bids_dir, '*json'))
+    list_sub_meta_files = glob(os.path.join(args.bids_dir, subject_label, '*', '*.json'))
+    for task_meta_data_file in list_task_meta_files:
+        task_out = task_meta_data_file[task_meta_data_file.rfind('/') + 1:task_meta_data_file.rfind('.json')] + '_no_deid.json'
+        copy(task_meta_data_file, os.path.join(path_task_meta, task_out))
+    for sub_meta_data_file in list_sub_meta_files:
+        sub_out = sub_meta_data_file[sub_meta_data_file.rfind('/') + 1:sub_meta_data_file.rfind('.json')] + '_no_deid.json'
+        copy(sub_meta_data_file, os.path.join(path_sub_meta, sub_out))
+
+# define function to remove certain fields from the meta-data files
+# after copying the original ones to sourcedata/
+def del_meta_data(bids_path, subject_label, fields_del):
+
+    list_task_meta_files = glob(os.path.join(bids_path, '*json'))
+
+    list_sub_meta_files = glob(os.path.join(bids_path, 'sub-'+subject_label, '*', '*.json'))
+
+    list_meta_files = list_task_meta_files + list_sub_meta_files
+
+    fields_del= fields_del
+
+    print('working on %s'%subject_label)
+
+    print('found the following meta-data files:')
+    print(*list_meta_files, sep='\n')
+
+    print('the following fields will be deleted:')
+    print(*list_field_del, sep='\n')
+
+    for task_meta_file in list_task_meta_files:
+
+        with open(task_meta_file, 'r') as json_file:
+
+            meta_data = json.load(json_file)
+
+            for field in fields_del:
+
+                meta_data[field] = 'deleted_by_bidsonym'
+
+                with open(task_meta_file, 'w') as json_output_file:
+
+                    json.dump(meta_data, json_output_file, indent=4)
+
 
 
 parser = argparse.ArgumentParser(description='a BIDS app for de-identification of neuroimaging data')
@@ -96,8 +142,11 @@ parser.add_argument('--participant_label', help='The label(s) of the participant
                    nargs="+")
 parser.add_argument('--deid', help='Approach to use for de-identifictation.',
                     choices=['pydeface', 'mri_deface', 'quickshear', 'mridefacer'])
-parser.add_argument('--del_nodeface', help='Overwrite and delete original data or copy original data to different folder.',
+parser.add_argument('--del_nodeface', help='Overwrite and delete original data or copy original data to sourcedata/.',
                     choices=['del', 'no_del'])
+parser.add_argument('--del_meta',
+                    help='Indicate if and which information from the .json meta-data files should be deleted. If so, the original .josn files will be copied to sourcedata/',
+                    nargs="+")
 parser.add_argument('-v', '--version', action='version',
                     version='BIDS-App example version {}'.format(__version__))
 
@@ -114,12 +163,14 @@ else:
     subject_dirs = glob(os.path.join(args.bids_dir, "sub-*"))
     subjects_to_analyze = [subject_dir.split("-")[-1] for subject_dir in subject_dirs]
 
+list_field_del = args.del_meta
+
 # running participant level
 if args.analysis_level == "participant":
 
     # find all T1s and de-identify them
     for subject_label in subjects_to_analyze:
-        for T1_file in glob(os.path.join(args.bids_dir, "sub-%s"%subject_label,
+         for T1_file in glob(os.path.join(args.bids_dir, "sub-%s"%subject_label,
                                          "anat", "*_T1w.nii*")) + glob(os.path.join(args.bids_dir,"sub-%s"%subject_label,"ses-*","anat", "*_T1w.nii*")):
             if args.deid == "pydeface":
                 if args.del_nodeface == "del":
@@ -127,24 +178,28 @@ if args.analysis_level == "participant":
                 else:
                     copy_no_deid(subject_label)
                     run_pydeface(T1_file, T1_file)
+                    del_meta_data(args.bids_dir, subject_label, list_field_del)
             if args.deid == "mri_deface":
                 if args.del_nodeface == "del":
                     run_mri_deface(T1_file, '/home/fs_data/talairach_mixed_with_skull.gca', '/home/fs_data/face.gca', T1_file)
                 else:
                     copy_no_deid(subject_label)
                     run_mri_deface(T1_file, '/home/fs_data/talairach_mixed_with_skull.gca', '/home/fs_data/face.gca', T1_file)
-            if args.deid == "quickshear":
+                    del_meta_data(args.bids_dir, subject_label, list_field_del)
+    if args.deid == "quickshear":
                 if args.del_nodeface == "del":
                     run_quickshear(T1_file, T1_file)
                 else:
                     copy_no_deid(subject_label)
                     run_quickshear(T1_file, T1_file)
-            if args.deid == "mridefacer":
+                    del_meta_data(args.bids_dir, subject_label, list_field_del)
+    if args.deid == "mridefacer":
                 if args.del_nodeface == "del":
                     run_mridefacer(T1_file, subject_label)
                 else:
                     copy_no_deid(subject_label)
                     run_mridefacer(T1_file, subject_label)
+                    del_meta_data(args.bids_dir, subject_label, list_field_del)
 
 else:
 
@@ -158,21 +213,25 @@ else:
                 else:
                     copy_no_deid(subject_label)
                     run_pydeface(T1_file, T1_file)
-            if args.deid == "mri_deface":
+                    del_meta_data(args.bids_dir, subject_label, list_field_del)
+    if args.deid == "mri_deface":
                 if args.del_nodeface == "del":
                     run_mri_deface(T1_file, '/home/fs_data/talairach_mixed_with_skull.gca', '/home/fs_data/face.gca', T1_file)
                 else:
                     copy_no_deid(subject_label)
                     run_mri_deface(T1_file, '/home/fs_data/talairach_mixed_with_skull.gca', '/home/fs_data/face.gca', T1_file)
-            if args.deid == "quickshear":
+                    del_meta_data(args.bids_dir, subject_label, list_field_del)
+    if args.deid == "quickshear":
                 if args.del_nodeface == "del":
                     run_quickshear(T1_file, T1_file)
                 else:
                     copy_no_deid(subject_label)
                     run_quickshear(T1_file, T1_file)
-            if args.deid == "mridefacer":
+                    del_meta_data(args.bids_dir, subject_label, list_field_del)
+    if args.deid == "mridefacer":
                 if args.del_nodeface == "del":
                     run_mridefacer(T1_file)
                 else:
                     copy_no_deid(subject_label)
                     run_mridefacer(T1_file)
+                    del_meta_data(args.bids_dir, subject_label, list_field_del)
