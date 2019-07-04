@@ -49,8 +49,6 @@ Usage
 =====
 This App has the following command line arguments:
 
-.. highlight:: bash
-
 	usage: run.py [-h]
 		      [--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
 		      [--deid {pydeface,mri_deface,quickshear}]
@@ -91,8 +89,6 @@ This App has the following command line arguments:
 
 To run it in participant level mode (for one participant):
 
-.. highlight:: bash
-
 	docker run -i --rm \
 		-v /Users/peer/ds005:/bids_dataset \
 		bids/bidsonym \
@@ -103,8 +99,6 @@ To run it in participant level mode (for one participant):
 
 After doing this for all subjects (potentially in parallel), the group level analysis
 can be run:
-
-.. highlight:: bash
 
 
 	docker run -i --rm \
