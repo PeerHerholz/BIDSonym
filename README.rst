@@ -53,7 +53,7 @@ This App has the following command line arguments:
 		      [--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
 		      [--deid {pydeface,mri_deface,quickshear}]
 		      [--del_nodeface {del,no_del}]
-		[--del_meta META_DATA_FIELD [META_DATA_FIELD ...]]
+		      [--del_meta META_DATA_FIELD [META_DATA_FIELD ...]]
 		      bids_dir {participant,group}
 
 	a BIDS app for de-identification of neuroimaging data
@@ -62,7 +62,7 @@ This App has the following command line arguments:
 	  bids_dir              The directory with the input dataset formatted
 				according to the BIDS standard.
 	  output_dir            The directory where the not de-identified raw files should be stored,
-					    in case you decide to keep them.
+				in case you decide to keep them.
 	  {participant,group}   Level of the analysis that will be performed. Multiple
 				participant level analyses can be run independently
 				(in parallel) using the same output_dir.
