@@ -91,21 +91,26 @@ This App has the following command line arguments:
 
 To run it in participant level mode (for one participant):
 
-docker run -i --rm \
-	-v /Users/peer/ds005:/bids_dataset \
-	bids/bidsonym \
-	/bids_dataset \
-participant --deid pydeface --del_nodeface no_del --del_meta 'InstitutionAddress' \
---participant_label 01
+.. highlight:: bash
+
+	docker run -i --rm \
+		-v /Users/peer/ds005:/bids_dataset \
+		bids/bidsonym \
+		/bids_dataset \
+	participant --deid pydeface --del_nodeface no_del --del_meta 'InstitutionAddress' \
+	--participant_label 01
 
 
 After doing this for all subjects (potentially in parallel), the group level analysis
 can be run:
 
-docker run -i --rm \
-	-v /Users/peer/ds005:/bids_dataset \
-	bids/bidsonym \
-	/bids_dataset  group --deid pydeface --del_nodeface no_del --del_meta 'InstitutionAddress'
+.. highlight:: bash
+
+
+	docker run -i --rm \
+		-v /Users/peer/ds005:/bids_dataset \
+		bids/bidsonym \
+		/bids_dataset  group --deid pydeface --del_nodeface no_del --del_meta 'InstitutionAddress'
 
 
 Documentation
