@@ -26,7 +26,7 @@ BIDSonym
 
 Description
 ===========
-:hocho: :hocho: A BIDS app for de-identification of neuroimaging data. Takes BIDS-format T1 and T2-weighted images and applies one of several popular de-identification algorithms. BIDSonym currently supports:
+A BIDS app for de-identification of neuroimaging data. Takes BIDS-format T1 and T2-weighted images and applies one of several popular de-identification algorithms. BIDSonym currently supports:
 * `Pydeface <https://github.com/poldracklab/pydeface>`_
 * `MRI deface <https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface>`_
 * `Quickshear <https://github.com/nipy/quickshear>`_
@@ -45,61 +45,61 @@ Usage
 =====
 This App has the following command line arguments:
 
-	usage: run.py [-h]
-	              [--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
-	              [--deid {pydeface,mri_deface,quickshear}]
-	              [--del_nodeface {del,no_del}]
-                [--del_meta META_DATA_FIELD [META_DATA_FIELD ...]]
-	              bids_dir {participant,group}
+usage: run.py [-h]
+	      [--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
+	      [--deid {pydeface,mri_deface,quickshear}]
+	      [--del_nodeface {del,no_del}]
+	[--del_meta META_DATA_FIELD [META_DATA_FIELD ...]]
+	      bids_dir {participant,group}
 
-	a BIDS app for de-identification of neuroimaging data
+a BIDS app for de-identification of neuroimaging data
 
-	positional arguments:
-	  bids_dir              The directory with the input dataset formatted
-	                        according to the BIDS standard.
-	  output_dir            The directory where the not de-identified raw files should be stored,
-			                    in case you decide to keep them.
-	  {participant,group}   Level of the analysis that will be performed. Multiple
-	                        participant level analyses can be run independently
-	                        (in parallel) using the same output_dir.
+positional arguments:
+  bids_dir              The directory with the input dataset formatted
+			according to the BIDS standard.
+  output_dir            The directory where the not de-identified raw files should be stored,
+				    in case you decide to keep them.
+  {participant,group}   Level of the analysis that will be performed. Multiple
+			participant level analyses can be run independently
+			(in parallel) using the same output_dir.
 
-	optional arguments:
-	  -h, --help            show this help message and exit
-	  --participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]
-	                        The label(s) of the participant(s) that should be
-	                        analyzed. The label corresponds to
-	                        sub-<participant_label> from the BIDS spec (so it does
-	                        not include "sub-"). If this parameter is not provided
-	                        all subjects should be analyzed. Multiple participants
-	                        can be specified with a space separated list.
-	  --deid {pydeface,mri_deface,quickshear}
-	                        Approach to use for de-identifictation.
-	  --del_nodeface {del,no_del}
-	                        Overwrite and delete original data or copy original
-	                        data to different folder.
-      --del_meta META_DATA_FIELD [META_DATA_FIELD ...]
-                          Indicate if and which information from the .json meta-data
-                          files should be deleted. If so, the original .josn files
-                          will be copied to sourcedata/ .
+optional arguments:
+  -h, --help            show this help message and exit
+  --participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]
+			The label(s) of the participant(s) that should be
+			analyzed. The label corresponds to
+			sub-<participant_label> from the BIDS spec (so it does
+			not include "sub-"). If this parameter is not provided
+			all subjects should be analyzed. Multiple participants
+			can be specified with a space separated list.
+  --deid {pydeface,mri_deface,quickshear}
+			Approach to use for de-identifictation.
+  --del_nodeface {del,no_del}
+			Overwrite and delete original data or copy original
+			data to different folder.
+--del_meta META_DATA_FIELD [META_DATA_FIELD ...]
+		  Indicate if and which information from the .json meta-data
+		  files should be deleted. If so, the original .josn files
+		  will be copied to sourcedata/ .
 
 
 To run it in participant level mode (for one participant):
 
-    docker run -i --rm \
-		-v /Users/peer/ds005:/bids_dataset \
-		bids/bidsonym \
-		/bids_dataset \
-        participant --deid pydeface --del_nodeface no_del --del_meta 'InstitutionAddress' \
-        --participant_label 01
+docker run -i --rm \
+	-v /Users/peer/ds005:/bids_dataset \
+	bids/bidsonym \
+	/bids_dataset \
+participant --deid pydeface --del_nodeface no_del --del_meta 'InstitutionAddress' \
+--participant_label 01
 
 
 After doing this for all subjects (potentially in parallel), the group level analysis
 can be run:
 
-    docker run -i --rm \
-		-v /Users/peer/ds005:/bids_dataset \
-		bids/bidsonym \
-		/bids_dataset  group --deid pydeface --del_nodeface no_del --del_meta 'InstitutionAddress'
+docker run -i --rm \
+	-v /Users/peer/ds005:/bids_dataset \
+	bids/bidsonym \
+	/bids_dataset  group --deid pydeface --del_nodeface no_del --del_meta 'InstitutionAddress'
 
 
 Documentation
