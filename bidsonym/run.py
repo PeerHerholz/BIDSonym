@@ -11,7 +11,7 @@ from nipype.interfaces.fsl import BET
 from shutil import copy, move
 
 __version__ = open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                'version')).read()
+                                '_version.py')).read()
 
 # define function for pydeface
 def run_pydeface(image, outfile):

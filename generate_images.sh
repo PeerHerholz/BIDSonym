@@ -29,9 +29,9 @@ generate_docker() {
              --run-bash "git clone https://github.com/mih/mridefacer" \
              --env MRIDEFACER_DATA_DIR=/mridefacer/data \
              --run-bash "rm -r /usr/share/fsl/data/atlases && rm -r /usr/share/fsl/data/first && rm -r /usr/share/fsl/data/possum" \
-             --copy ./run.py /home/run.py \
-             --copy ./version /home/version \
-             --copy ./fs_data /home/fs_data \
+             --copy bidsonym/run.py /home/run.py \
+             --copy bidsonym/version /home/version \
+             --copy bidsonym/fs_data /home/fs_data \
              --entrypoint "/neurodocker/startup.sh python /home/run.py"
 }
 
@@ -59,9 +59,9 @@ generate_singularity() {
             --run-bash "git clone https://github.com/mih/mridefacer" \
             --env MRIDEFACER_DATA_DIR=/mridefacer/data \
             --run-bash "rm -r /usr/share/fsl/data/atlases && rm -r /usr/share/fsl/data/first && rm -r /usr/share/fsl/data/possum" \
-            --copy ./run.py /home/run.py \
-            --copy ./version /home/version \
-            --copy ./fs_data /home/fs_data \
+            --copy bidsonym/run.py /home/run.py \
+            --copy bidsonym/version /home/version \
+            --copy bidsonym/fs_data /home/fs_data \
             --entrypoint "/neurodocker/startup.sh python /home/run.py"
 }
 
