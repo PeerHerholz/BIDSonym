@@ -27,10 +27,13 @@ BIDSonym
 Description
 ===========
 A BIDS app for de-identification of neuroimaging data. Takes BIDS-format T1 and T2-weighted images and applies one of several popular de-identification algorithms. BIDSonym currently supports:
-| `Pydeface <https://github.com/poldracklab/pydeface>`_
-| `MRI deface <https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface>`_
-| `Quickshear <https://github.com/nipy/quickshear>`_
-| `mridefacer <https://github.com/mih/mridefacer>`_
+`Pydeface <https://github.com/poldracklab/pydeface>`_
+
+`MRI deface <https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface>`_
+
+`Quickshear <https://github.com/nipy/quickshear>`_
+
+`mridefacer <https://github.com/mih/mridefacer>`_
 
 .. image:: img/bidsonym_example.png
    :height: 10px
