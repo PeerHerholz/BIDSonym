@@ -1,3 +1,5 @@
 # List required packages in this file, one per line.
 argparse
+pandas
+nibabel
 nipype

@@ -110,6 +110,7 @@ RUN export PATH="/opt/miniconda-latest/bin:$PATH" \
            'numpy' \
            'nipype' \
            'nibabel' \
+           'pandas' \
     && sync && conda clean --all && sync \
     && sed -i '$isource activate bidsonym' $ND_ENTRYPOINT
 
