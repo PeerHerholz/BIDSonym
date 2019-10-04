@@ -164,12 +164,12 @@ def del_meta_data(bids_path, subject_label, fields_del):
     print(*list_field_del, sep='\n')
 
     #loop over meta data files and delete indicated fields, copying original file to sourcedata
-    for task_meta_file in list_task_meta_files:
-        with open(task_meta_file, 'r') as json_file:
+    for meta_file in list_meta_files:
+        with open(meta_file, 'r') as json_file:
             meta_data = json.load(json_file)
             for field in fields_del:
                 meta_data[field] = 'deleted_by_bidsonym'
-                with open(task_meta_file, 'w') as json_output_file:
+        with open(meta_file, 'w') as json_output_file:
                     json.dump(meta_data, json_output_file, indent=4)
 
 
