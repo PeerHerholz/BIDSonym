@@ -227,10 +227,10 @@ if args.analysis_level == "participant":
             if args.deid == "pydeface":
                 if args.del_nodeface == "del":
                     run_pydeface(T1_file, T1_file)
-                if args.check_meta:
-                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
-                if args.del_meta:
-                    del_meta_data(args.bids_dir, subject_label, list_field_del)
+                    if args.check_meta:
+                        check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                    if args.del_meta:
+                        del_meta_data(args.bids_dir, subject_label, list_field_del)
                 else:
                     copy_no_deid(subject_label)
                     run_pydeface(T1_file, T1_file)
@@ -241,25 +241,45 @@ if args.analysis_level == "participant":
             if args.deid == "mri_deface":
                 if args.del_nodeface == "del":
                     run_mri_deface(T1_file, '/home/fs_data/talairach_mixed_with_skull.gca', '/home/fs_data/face.gca', T1_file)
+                    if args.check_meta:
+                        check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                    if args.del_meta:
+                        del_meta_data(args.bids_dir, subject_label, list_field_del)
                 else:
                     copy_no_deid(subject_label)
                     run_mri_deface(T1_file, '/home/fs_data/talairach_mixed_with_skull.gca', '/home/fs_data/face.gca', T1_file)
-                    del_meta_data(args.bids_dir, subject_label, list_field_del)
+                    if args.check_meta:
+                        check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                    if args.del_meta:
+                        del_meta_data(args.bids_dir, subject_label, list_field_del)
             if args.deid == "quickshear":
                 if args.del_nodeface == "del":
                     run_quickshear(T1_file, T1_file)
+                    if args.check_meta:
+                        check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                    if args.del_meta:
+                        del_meta_data(args.bids_dir, subject_label, list_field_del)
                 else:
                     copy_no_deid(subject_label)
                     run_quickshear(T1_file, T1_file)
-                    del_meta_data(args.bids_dir, subject_label, list_field_del)
+                    if args.check_meta:
+                        check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                    if args.del_meta:
+                        del_meta_data(args.bids_dir, subject_label, list_field_del)
             if args.deid == "mridefacer":
                 if args.del_nodeface == "del":
                     run_mridefacer(T1_file, subject_label)
+                    if args.check_meta:
+                        check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                    if args.del_meta:
+                        del_meta_data(args.bids_dir, subject_label, list_field_del)
                 else:
                     copy_no_deid(subject_label)
                     run_mridefacer(T1_file, subject_label)
-                    del_meta_data(args.bids_dir, subject_label, list_field_del)
-
+                    if args.check_meta:
+                        check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                    if args.del_meta:
+                        del_meta_data(args.bids_dir, subject_label, list_field_del)
 else:
 
     # find all T1s and de-identify them
