@@ -23,6 +23,10 @@ BIDSonym
 .. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
     :alt: License
     :target: https://opensource.org/licenses/BSD-3-Clause
+    
+.. image:: https://upload.wikimedia.org/wikipedia/commons/7/74/Zotero_logo.svg
+    :alt: Zotero
+    :target: https://www.zotero.org/groups/2362367/bidsonym
 
 Description
 ===========
