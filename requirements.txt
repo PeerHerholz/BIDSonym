@@ -3,3 +3,4 @@ argparse
 pandas
 nibabel
 nipype
+niworkflows
