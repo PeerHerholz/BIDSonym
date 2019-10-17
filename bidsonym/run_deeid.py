@@ -61,8 +61,8 @@ def run_deeid():
 
     # find all T1s and de-identify them
     for subject_label in subjects_to_analyze:
-        for T1_file in glob(os.path.join(args.bids_dir, "sub-%s"%subject_label,
-                                     "anat", "*_T1w.nii*")) + glob(os.path.join(args.bids_dir,"sub-%s"%subject_label,"ses-*","anat", "*_T1w.nii*")):
+        for T1_file in glob(os.path.join(args.bids_dir, "sub-%s" % subject_label,
+                                     "anat", "*_T1w.nii*")) + glob(os.path.join(args.bids_dir,"sub-%s" % subject_label,"ses-*","anat", "*_T1w.nii*")):
             if args.deid == "pydeface":
                 if args.del_nodeface == "del":
                     run_pydeface(T1_file, T1_file)
@@ -121,4 +121,6 @@ def run_deeid():
                     del_meta_data(args.bids_dir, subject_label, list_field_del)
 
 if __name__ == "__main__":
+
+    
     run_deeid()

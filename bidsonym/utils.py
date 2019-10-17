@@ -10,6 +10,7 @@ from shutil import copy
 # overwriting images in the bids root folder
 def copy_no_deid(subject_label, bids_dir, T1_file):
 
+
     # images
     path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
     outfile = T1_file[T1_file.rfind('/') + 1:T1_file.rfind('.nii')] + '_no_deid.nii.gz'
@@ -24,18 +25,20 @@ def copy_no_deid(subject_label, bids_dir, T1_file):
     list_task_meta_files = glob(os.path.join(bids_dir, '*json'))
     list_sub_meta_files = glob(os.path.join(bids_dir, subject_label, '*', '*.json'))
     for task_meta_data_file in list_task_meta_files:
-        task_out = task_meta_data_file[task_meta_data_file.rfind('/') +
-                                       1:task_meta_data_file.rfind('.json')]
+        task_out = task_meta_data_file[task_meta_data_file.rfind('/') + \
+                                       1:task_meta_data_file.rfind('.json')] \
                                        + '_no_deid.json'
         copy(task_meta_data_file, os.path.join(path_task_meta, task_out))
     for sub_meta_data_file in list_sub_meta_files:
-        sub_out = sub_meta_data_file[sub_meta_data_file.rfind('/') +
-                                     1:sub_meta_data_file.rfind('.json')] +
+        sub_out = sub_meta_data_file[sub_meta_data_file.rfind('/') + \
+                                     1:sub_meta_data_file.rfind('.json')] + \
                                      '_no_deid.json'
         copy(sub_meta_data_file, os.path.join(path_sub_meta, sub_out))
 
 
 def check_meta_data(bids_path, subject_label, prob_fields):
+
+
     # gather all image files
     list_subject_image_files = glob(os.path.join(bids_path, 'sub-' + subject_label, '*', '*nii.gz'))
     # gather all meta data files
@@ -88,6 +91,7 @@ def check_meta_data(bids_path, subject_label, prob_fields):
 # define function to remove certain fields from the meta-data files
 # after copying the original ones to sourcedata/
 def del_meta_data(bids_path, subject_label, fields_del):
+
 
     # get all .json files for tasks and subjects, combine both lists
     list_task_meta_files = glob(os.path.join(bids_path, '*json'))
