@@ -7,7 +7,6 @@ from nipype.interfaces.fsl import BET
 
 def pydeface_cmd(image, outfile):
 
-
     from subprocess import check_call
 
     cmd = ["pydeface", image,
@@ -27,9 +26,8 @@ def run_pydeface(image, outfile):
                                 output_names=['outfile'],
                                 function=pydeface_cmd),
                                 name='pydeface')
-    deface_wf.connect([
-        (inputnode, pydeface, [('in_file', 'image')]),
-        ])
+    deface_wf.connect([(inputnode, pydeface, [('in_file', 'image')]),
+                     ])
     inputnode.inputs.in_file = image
     pydeface.inputs.outfile = outfile
     res = deface_wf.run()
@@ -37,13 +35,13 @@ def run_pydeface(image, outfile):
 
 def mri_deface_cmd(image, outfile):
 
-
     from subprocess import check_call
 
-    cmd = ["/home/bm/bidsonym/fs_data/mri_deface", image,
-                         '/home/bm/bidsonym/fs_data/talairach_mixed_with_skull.gca',
-                         '/home/bm/bidsonym/fs_data/face.gca',
-                         outfile,
+    cmd = ["/home/bm/bidsonym/fs_data/mri_deface",
+           image,
+           '/home/bm/bidsonym/fs_data/talairach_mixed_with_skull.gca',
+           '/home/bm/bidsonym/fs_data/face.gca',
+           outfile,
            ]
     check_call(cmd)
     return
@@ -115,7 +113,7 @@ def run_mridefacer(image, subject_label, bids_dir):
                                   function=mridefacer_cmd),
                                   name='mridefacer')
     deface_wf.connect([(inputnode, mridefacer, [('in_file', 'image')]),
-                        ])
+                     ])
     inputnode.inputs.in_file = image
     mridefacer.inputs.subject_label = subject_label
     mridefacer.inputs.bids_dir = bids_dir

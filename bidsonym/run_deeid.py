@@ -42,7 +42,6 @@ def run_deeid():
 
 
     args = parser.parse_args()
-
     subjects_to_analyze = []
 
     # running participant level, only for a subset of subjects
@@ -63,7 +62,9 @@ def run_deeid():
     # find all T1s and de-identify them
     for subject_label in subjects_to_analyze:
         for T1_file in glob(os.path.join(args.bids_dir, "sub-%s" % subject_label,
-                                     "anat", "*_T1w.nii*")) + glob(os.path.join(args.bids_dir,"sub-%s" % subject_label,"ses-*","anat", "*_T1w.nii*")):
+                                         "anat", "*_T1w.nii*")) +
+                                         glob(os.path.join(args.bids_dir,"sub-%s" % subject_label,
+                                         "ses-*","anat", "*_T1w.nii*")):
             if args.deid == "pydeface":
                 if args.del_nodeface == "del":
                     run_pydeface(T1_file, T1_file)
