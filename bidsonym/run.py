@@ -4,8 +4,6 @@ import os
 
 from glob import glob
 from .defacing_algorithms import run_pydeface, run_mri_deface, run_mridefacer, run_quickshear
-
-
 from .utils import copy_no_deid, check_meta_data, del_meta_data
 
 __version__ = open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
