@@ -4,12 +4,12 @@ from nipype.interfaces import utility as niu
 from nipype.interfaces.quickshear import Quickshear
 from nipype.interfaces.fsl import BET
 
-# define function for pydeface
+
 def pydeface_cmd(image, outfile):
 
-    
+
     from subprocess import check_call
-    # pydeface $image --outfile $outfile
+
     cmd = ["pydeface", image,
            "--out", outfile,
            "--force",
@@ -34,12 +34,12 @@ def run_pydeface(image, outfile):
     pydeface.inputs.outfile = outfile
     res = deface_wf.run()
 
-# define function for mri_deface
+
 def mri_deface_cmd(image, outfile):
 
 
     from subprocess import check_call
-    # mri_deface $image $brain_template $face_template $outfile
+
     cmd = ["/home/bm/bidsonym/fs_data/mri_deface", image,
                          '/home/bm/bidsonym/fs_data/talairach_mixed_with_skull.gca',
                          '/home/bm/bidsonym/fs_data/face.gca',
@@ -66,12 +66,10 @@ def run_mri_deface(image, outfile):
     res = deface_wf.run()
 
 
-# define function for quickshear
-# based on the nipype docs quickshear example
+
 def run_quickshear(image, outfile):
 
 
-    # quickshear anat_file mask_file defaced_file [buffer]
     deface_wf = pe.Workflow('deface_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
                         name='inputnode')
@@ -86,7 +84,7 @@ def run_quickshear(image, outfile):
     quickshear.inputs.out_file = outfile
     res = deface_wf.run()
 
-# define function for mridefacer
+
 def mridefacer_cmd(image, subject_label, bids_dir):
 
 

@@ -65,7 +65,11 @@ def check_meta_data(bids_path, subject_label, prob_fields):
             else:
                 row['problematic'] = 'no'
         # save image specific df to sourcedata
-        header_df.to_csv(os.path.join(bids_path, 'sourcedata/bidsonym', 'sub-%s' % subject_label, subject_image_file[subject_image_file.rfind('/') + 1:subject_image_file.rfind('.nii.gz')] + '_header_info.csv'), index=False)
+        header_df.to_csv(os.path.join(bids_path, 'sourcedata/bidsonym', \
+                        'sub-%s' % subject_label,
+                         subject_image_file[subject_image_file.rfind('/') + \
+                         1:subject_image_file.rfind('.nii.gz')] + \
+                         '_header_info.csv'), index=False)
 
     # check meta data files, output .csv dataframe with found information and if it might be problematic
     for meta_file in list_meta_files:
@@ -85,7 +89,9 @@ def check_meta_data(bids_path, subject_label, prob_fields):
                 else:
                     row['problematic'] = 'no'
             # save json specifci df to sourcedata
-            json_df.to_csv(os.path.join(bids_path, 'sourcedata/bidsonym', 'sub-%s' % subject_label, meta_file[meta_file.rfind('/') + 1:meta_file.rfind('.json')] + '_json_info.csv'), index=False)
+            json_df.to_csv(os.path.join(bids_path, 'sourcedata/bidsonym', 'sub-%s' % subject_label, \
+                                        meta_file[meta_file.rfind('/') + \
+                                        1:meta_file.rfind('.json')] + '_json_info.csv'), index=False)
 
 
 # define function to remove certain fields from the meta-data files

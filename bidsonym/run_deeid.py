@@ -20,8 +20,9 @@ def run_deeid():
                         'Multiple participant level analyses can be run independently '
                         '(in parallel) using the same output_dir.',
                         choices=['participant', 'group'])
-    parser.add_argument('--participant_label', help='The label(s) of the participant(s) that should be analyzed. The label '
-                        'corresponds to sub-<participant_label> from the BIDS spec '
+    parser.add_argument('--participant_label',
+                        help='The label(s) of the participant(s) that should be analyzed. '
+                        'The label corresponds to sub-<participant_label> from the BIDS spec '
                         '(so it does not include "sub-"). If this parameter is not '
                         'provided all subjects should be analyzed. Multiple '
                         'participants can be specified with a space separated list.',
@@ -120,7 +121,7 @@ def run_deeid():
                 if args.del_meta:
                     del_meta_data(args.bids_dir, subject_label, list_field_del)
 
+
 if __name__ == "__main__":
 
-    
     run_deeid()
