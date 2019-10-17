@@ -24,10 +24,14 @@ def copy_no_deid(subject_label, bids_dir, T1_file):
     list_task_meta_files = glob(os.path.join(bids_dir, '*json'))
     list_sub_meta_files = glob(os.path.join(bids_dir, subject_label, '*', '*.json'))
     for task_meta_data_file in list_task_meta_files:
-        task_out = task_meta_data_file[task_meta_data_file.rfind('/') + 1:task_meta_data_file.rfind('.json')] + '_no_deid.json'
+        task_out = task_meta_data_file[task_meta_data_file.rfind('/') +
+                                       1:task_meta_data_file.rfind('.json')]
+                                       + '_no_deid.json'
         copy(task_meta_data_file, os.path.join(path_task_meta, task_out))
     for sub_meta_data_file in list_sub_meta_files:
-        sub_out = sub_meta_data_file[sub_meta_data_file.rfind('/') + 1:sub_meta_data_file.rfind('.json')] + '_no_deid.json'
+        sub_out = sub_meta_data_file[sub_meta_data_file.rfind('/') +
+                                     1:sub_meta_data_file.rfind('.json')] +
+                                     '_no_deid.json'
         copy(sub_meta_data_file, os.path.join(path_sub_meta, sub_out))
 
 

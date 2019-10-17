@@ -61,11 +61,11 @@ def run_deeid():
 
     # find all T1s and de-identify them
     for subject_label in subjects_to_analyze:
-     for T1_file in glob(os.path.join(args.bids_dir, "sub-%s"%subject_label,
+        for T1_file in glob(os.path.join(args.bids_dir, "sub-%s"%subject_label,
                                      "anat", "*_T1w.nii*")) + glob(os.path.join(args.bids_dir,"sub-%s"%subject_label,"ses-*","anat", "*_T1w.nii*")):
-        if args.deid == "pydeface":
-            if args.del_nodeface == "del":
-                run_pydeface(T1_file, T1_file)
+            if args.deid == "pydeface":
+                if args.del_nodeface == "del":
+                    run_pydeface(T1_file, T1_file)
                 if args.check_meta:
                     check_meta_data(args.bids_dir, subject_label, list_check_meta)
                 if args.del_meta:
@@ -77,9 +77,9 @@ def run_deeid():
                     check_meta_data(args.bids_dir, subject_label, list_check_meta)
                 if args.del_meta:
                     del_meta_data(args.bids_dir, subject_label, list_field_del)
-        if args.deid == "mri_deface":
-            if args.del_nodeface == "del":
-                run_mri_deface(T1_file, T1_file)
+            if args.deid == "mri_deface":
+                if args.del_nodeface == "del":
+                    run_mri_deface(T1_file, T1_file)
                 if args.check_meta:
                     check_meta_data(args.bids_dir, subject_label, list_check_meta)
                 if args.del_meta:
@@ -91,9 +91,9 @@ def run_deeid():
                     check_meta_data(args.bids_dir, subject_label, list_check_meta)
                 if args.del_meta:
                     del_meta_data(args.bids_dir, subject_label, list_field_del)
-        if args.deid == "quickshear":
-            if args.del_nodeface == "del":
-                run_quickshear(T1_file, T1_file)
+            if args.deid == "quickshear":
+                if args.del_nodeface == "del":
+                    run_quickshear(T1_file, T1_file)
                 if args.check_meta:
                     check_meta_data(args.bids_dir, subject_label, list_check_meta)
                 if args.del_meta:
@@ -105,9 +105,9 @@ def run_deeid():
                     check_meta_data(args.bids_dir, subject_label, list_check_meta)
                 if args.del_meta:
                     del_meta_data(args.bids_dir, subject_label, list_field_del)
-        if args.deid == "mridefacer":
-            if args.del_nodeface == "del":
-                run_mridefacer(T1_file, subject_label, args.bids_dir)
+            if args.deid == "mridefacer":
+                if args.del_nodeface == "del":
+                    run_mridefacer(T1_file, subject_label, args.bids_dir)
                 if args.check_meta:
                     check_meta_data(args.bids_dir, subject_label, list_check_meta)
                 if args.del_meta:
