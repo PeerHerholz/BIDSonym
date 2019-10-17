@@ -9,7 +9,6 @@ from shutil import copy
 
 def copy_no_deid(subject_label, bids_dir, T1_file):
 
-
     path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
     outfile = T1_file[T1_file.rfind('/') + 1:T1_file.rfind('.nii')] + '_no_deid.nii.gz'
     if os.path.isdir(path) is True:

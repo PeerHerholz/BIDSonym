@@ -29,13 +29,17 @@ def run_deeid():
                         nargs="+")
     parser.add_argument('--deid', help='Approach to use for de-identifictation.',
                         choices=['pydeface', 'mri_deface', 'quickshear', 'mridefacer'])
-    parser.add_argument('--del_nodeface', help='Overwrite and delete original data or copy original data to sourcedata/.',
+    parser.add_argument('--del_nodeface',
+                        help='Overwrite and delete original data or copy original data to sourcedata/.',
                         choices=['del', 'no_del'])
     parser.add_argument('--check_meta',
-                        help='Indicate if and which information from the image and .json meta-data files should be check for potentially problematic information. If so, indicate strings that should be searched for. The results will be saved to sourcedata/',
+                        help='Indicate if and which information from the image and \
+                        .json meta-data files should be check for potentially problematic information. \
+                        If so, indicate strings that should be searched for. The results will be saved to sourcedata/',
                         nargs="+")
     parser.add_argument('--del_meta',
-                        help='Indicate if and which information from the .json meta-data files should be deleted. If so, the original .josn files will be copied to sourcedata/',
+                        help='Indicate if and which information from the .json meta-data files should be deleted. \
+                        If so, the original .josn files will be copied to sourcedata/',
                         nargs="+")
     parser.add_argument('-v', '--version', action='version',
                         version='BIDS-App example version {}'.format(__version__))
