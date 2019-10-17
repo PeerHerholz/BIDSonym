@@ -11,33 +11,33 @@ from .utils import copy_no_deid, check_meta_data, del_meta_data
 def run_deeid():
 
     __version__ = open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                '_version.py')).read()
+                                    '_version.py')).read()
 
     parser = argparse.ArgumentParser(description='a BIDS app for de-identification of neuroimaging data')
     parser.add_argument('bids_dir', help='The directory with the input dataset '
-                    'formatted according to the BIDS standard.')
+                        'formatted according to the BIDS standard.')
     parser.add_argument('analysis_level', help='Level of the analysis that will be performed. '
-                    'Multiple participant level analyses can be run independently '
-                    '(in parallel) using the same output_dir.',
-                    choices=['participant', 'group'])
+                        'Multiple participant level analyses can be run independently '
+                        '(in parallel) using the same output_dir.',
+                        choices=['participant', 'group'])
     parser.add_argument('--participant_label', help='The label(s) of the participant(s) that should be analyzed. The label '
-                   'corresponds to sub-<participant_label> from the BIDS spec '
-                   '(so it does not include "sub-"). If this parameter is not '
-                   'provided all subjects should be analyzed. Multiple '
-                   'participants can be specified with a space separated list.',
-                   nargs="+")
+                        'corresponds to sub-<participant_label> from the BIDS spec '
+                        '(so it does not include "sub-"). If this parameter is not '
+                        'provided all subjects should be analyzed. Multiple '
+                        'participants can be specified with a space separated list.',
+                        nargs="+")
     parser.add_argument('--deid', help='Approach to use for de-identifictation.',
-                    choices=['pydeface', 'mri_deface', 'quickshear', 'mridefacer'])
+                        choices=['pydeface', 'mri_deface', 'quickshear', 'mridefacer'])
     parser.add_argument('--del_nodeface', help='Overwrite and delete original data or copy original data to sourcedata/.',
-                    choices=['del', 'no_del'])
+                        choices=['del', 'no_del'])
     parser.add_argument('--check_meta',
-                    help='Indicate if and which information from the image and .json meta-data files should be check for potentially problematic information. If so, indicate strings that should be searched for. The results will be saved to sourcedata/',
-                    nargs="+")
+                        help='Indicate if and which information from the image and .json meta-data files should be check for potentially problematic information. If so, indicate strings that should be searched for. The results will be saved to sourcedata/',
+                        nargs="+")
     parser.add_argument('--del_meta',
-                    help='Indicate if and which information from the .json meta-data files should be deleted. If so, the original .josn files will be copied to sourcedata/',
-                    nargs="+")
+                        help='Indicate if and which information from the .json meta-data files should be deleted. If so, the original .josn files will be copied to sourcedata/',
+                        nargs="+")
     parser.add_argument('-v', '--version', action='version',
-                    version='BIDS-App example version {}'.format(__version__))
+                        version='BIDS-App example version {}'.format(__version__))
 
 
     args = parser.parse_args()

@@ -9,8 +9,9 @@ from shutil import copy
 # define function to copy non deidentified images to sourcedata/,
 # overwriting images in the bids root folder
 def copy_no_deid(subject_label, bids_dir, T1_file):
+
     # images
-    path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s"%subject_label)
+    path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
     outfile = T1_file[T1_file.rfind('/') + 1:T1_file.rfind('.nii')] + '_no_deid.nii.gz'
     if os.path.isdir(path) is True:
         copy(T1_file, os.path.join(path, outfile))
@@ -86,14 +87,14 @@ def del_meta_data(bids_path, subject_label, fields_del):
 
     # get all .json files for tasks and subjects, combine both lists
     list_task_meta_files = glob(os.path.join(bids_path, '*json'))
-    list_sub_meta_files = glob(os.path.join(bids_path, 'sub-'+subject_label, '*', '*.json'))
+    list_sub_meta_files = glob(os.path.join(bids_path, 'sub-' + subject_label, '*', '*.json'))
     list_meta_files = list_task_meta_files + list_sub_meta_files
 
     # declare fields that should be deleted from the .json files
     fields_del = fields_del
 
     # provide information on workflow
-    print('working on %s'%subject_label)
+    print('working on %s' % subject_label)
     print('found the following meta-data files:')
     print(*list_meta_files, sep='\n')
     print('the following fields will be deleted:')
