@@ -9,9 +9,9 @@ from shutil import copy, move
 
 # define function to copy non deidentified images to sourcedata/,
 # overwriting images in the bids root folder
-def copy_no_deid(subject_label):
+def copy_no_deid(subject_label, bids_dir, T1_file):
     # images
-    path = os.path.join(args.bids_dir, "sourcedata/bidsonym/sub-%s"%subject_label)
+    path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s"%subject_label)
     outfile = T1_file[T1_file.rfind('/')+1:T1_file.rfind('.nii')]+'_no_deid.nii.gz'
     if os.path.isdir(path) == True:
         copy(T1_file, os.path.join(path, outfile))
@@ -19,10 +19,10 @@ def copy_no_deid(subject_label):
         os.makedirs(path)
         copy(T1_file, os.path.join(path, outfile))
     # meta-data
-    path_task_meta = os.path.join(args.bids_dir, "sourcedata/bidsonym/")
-    path_sub_meta = os.path.join(args.bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
-    list_task_meta_files = glob(os.path.join(args.bids_dir, '*json'))
-    list_sub_meta_files = glob(os.path.join(args.bids_dir, subject_label, '*', '*.json'))
+    path_task_meta = os.path.join(bids_dir, "sourcedata/bidsonym/")
+    path_sub_meta = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
+    list_task_meta_files = glob(os.path.join(bids_dir, '*json'))
+    list_sub_meta_files = glob(os.path.join(bids_dir, subject_label, '*', '*.json'))
     for task_meta_data_file in list_task_meta_files:
         task_out = task_meta_data_file[task_meta_data_file.rfind('/') + 1:task_meta_data_file.rfind('.json')] + '_no_deid.json'
         copy(task_meta_data_file, os.path.join(path_task_meta, task_out))

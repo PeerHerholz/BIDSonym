@@ -37,10 +37,11 @@ def run_pydeface(image, outfile):
 
 # define function for mri_deface
 def mri_deface_cmd(image, outfile):
+    from subprocess import check_call
     #mri_deface $image $brain_template $face_template $outfile
-    cmd = ["mri_deface", image,
-                         '/home/fs_data/talairach_mixed_with_skull.gca',
-                         '/home/fs_data/face.gca',
+    cmd = ["/home/bm/bidsonym/fs_data/mri_deface", image,
+                         '/home/bm/bidsonym/fs_data/talairach_mixed_with_skull.gca',
+                         '/home/bm/bidsonym/fs_data/face.gca',
                          outfile,
            ]
     check_call(cmd)
@@ -53,7 +54,7 @@ def run_mri_deface(image, outfile):
     mri_deface = pe.Node(Function(input_names=['image', 'outfile'],
                                 output_names=['outfile'],
                                 function=mri_deface_cmd),
-                                name='pydeface')
+                                name='mri_deface')
     deface_wf.connect([
         (inputnode, mri_deface, [('in_file', 'image')]),
         ])
@@ -83,12 +84,15 @@ def run_quickshear(image, outfile):
     res = deface_wf.run()
 
 # define function for mridefacer
-def mridefacer_cmd(image, subject_label):
-    cmd = ["mridefacer/mridefacer", "--apply",
+def mridefacer_cmd(image, subject_label, bids_dir):
+    from subprocess import check_call
+    import os
+    from shutil import move
+    cmd = ["/mridefacer/mridefacer", "--apply",
                          image]
     check_call(cmd)
-    path = os.path.join(args.bids_dir, "sourcedata/bidsonym/sub-%s"%subject_label)
-    facemask = os.path.join(args.bids_dir, "sub-%s"%subject_label, "anat/sub-%s_T1w_defacemask.nii.gz"%subject_label)
+    path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s"%subject_label)
+    facemask = os.path.join(bids_dir, "sub-%s"%subject_label, "anat/sub-%s_T1w_defacemask.nii.gz"%subject_label)
     if os.path.isdir(path) == True:
         move(facemask, os.path.join(path))
     else:
@@ -96,18 +100,18 @@ def mridefacer_cmd(image, subject_label):
         move(facemask, os.path.join(path))
     return
 
-def run_mridefacer(image, subject_label):
+def run_mridefacer(image, subject_label, bids_dir):
     deface_wf = pe.Workflow('deface_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
                      name='inputnode')
-    mridefacer = pe.Node(Function(input_names=['image', 'subject_label'],
+    mridefacer = pe.Node(Function(input_names=['image', 'subject_label', 'bids_dir'],
                                 output_names=['outfile'],
-                                function=mri_deface_cmd),
-                                name='pydeface')
-    mridefacer.connect([
+                                function=mridefacer_cmd),
+                                name='mridefacer')
+    deface_wf.connect([
         (inputnode, mridefacer, [('in_file', 'image')]),
         ])
     inputnode.inputs.in_file = image
     mridefacer.inputs.subject_label = subject_label
+    mridefacer.inputs.bids_dir = bids_dir
     res = deface_wf.run()
-

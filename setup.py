@@ -46,6 +46,7 @@ setup(
     packages=find_packages(exclude=['docs', 'tests']),
     entry_points={
         'console_scripts': [
+            'bidsonym = bidsonym.run_deeid:run_deeid',
             # 'command = some.module:some_function',
         ],
     },

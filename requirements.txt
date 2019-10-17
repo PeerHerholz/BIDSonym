@@ -4,4 +4,3 @@ pandas
 nibabel
 nipype
 niworkflows
-deepdefacer[tf_cpu]

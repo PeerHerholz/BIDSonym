@@ -2,7 +2,8 @@
 BIDSonym
 ===============================
 
-
+.. image:: https://img.shields.io/travis/PeerHerholz/BIDSonym.svg
+        :target: https://travis-ci.org/PeerHerholz/BIDSonym
 
 .. image:: https://img.shields.io/github/issues-pr/PeerHerholz/BIDSonym.svg
     :alt: PRs
@@ -20,10 +21,19 @@ BIDSonym
     :alt: Hits
     :target: http://hits.dwyl.io/PeerHerholz/BIDSonym
 
+    
+.. image:: https://img.shields.io/docker/cloud/automated/peerherholz/bidsonym
+    :alt: Dockerbuild
+    :target: https://cloud.docker.com/u/peerherholz/repository/docker/peerherholz/bidsonym
+
+.. image:: https://img.shields.io/docker/pulls/peerherholz/bidsonym
+    :alt: Dockerpulls
+    :target: https://cloud.docker.com/u/peerherholz/repository/docker/peerherholz/bidsonym
+
 .. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
     :alt: License
     :target: https://opensource.org/licenses/BSD-3-Clause
-    
+
 .. image:: https://upload.wikimedia.org/wikipedia/commons/7/74/Zotero_logo.svg
     :alt: Zotero
     :target: https://www.zotero.org/groups/2362367/bidsonym
