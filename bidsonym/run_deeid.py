@@ -35,7 +35,8 @@ def run_deeid():
     parser.add_argument('--check_meta',
                         help='Indicate if and which information from the image and \
                         .json meta-data files should be check for potentially problematic information. \
-                        If so, indicate strings that should be searched for. The results will be saved to sourcedata/',
+                        If so, indicate strings that should be searched for. \
+                        The results will be saved to sourcedata/',
                         nargs="+")
     parser.add_argument('--del_meta',
                         help='Indicate if and which information from the .json meta-data files should be deleted. \

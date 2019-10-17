@@ -46,8 +46,8 @@ def mri_deface_cmd(image, outfile):
     check_call(cmd)
     return
 
-def run_mri_deface(image, outfile):
 
+def run_mri_deface(image, outfile):
 
     deface_wf = pe.Workflow('deface_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
@@ -67,7 +67,6 @@ def run_mri_deface(image, outfile):
 
 def run_quickshear(image, outfile):
 
-
     deface_wf = pe.Workflow('deface_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
                         name='inputnode')
@@ -84,7 +83,6 @@ def run_quickshear(image, outfile):
 
 
 def mridefacer_cmd(image, subject_label, bids_dir):
-
 
     from subprocess import check_call
     import os
@@ -104,7 +102,6 @@ def mridefacer_cmd(image, subject_label, bids_dir):
     return
 
 def run_mridefacer(image, subject_label, bids_dir):
-
 
     deface_wf = pe.Workflow('deface_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
