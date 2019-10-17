@@ -10,10 +10,8 @@ from .utils import copy_no_deid, check_meta_data, del_meta_data
 
 def run_deeid():
 
-
     __version__ = open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                 '_version.py')).read()
-
 
     parser = argparse.ArgumentParser(description='a BIDS app for de-identification of neuroimaging data')
     parser.add_argument('bids_dir', help='The directory with the input dataset '

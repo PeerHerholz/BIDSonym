@@ -1,5 +1,4 @@
 import os
-from subprocess import check_call
 
 import nipype.pipeline.engine as pe
 from nipype import Function
@@ -70,8 +69,6 @@ def run_quickshear(image, outfile):
     deface_wf = pe.Workflow('deface_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
                      name='inputnode')
-    outputnode = pe.Node(niu.IdentityInterface(['out_file']),
-                      name='outputnode')
     bet = pe.Node(BET(mask=True, frac=0.5), name='bet')
     quickshear = pe.Node(Quickshear(buff=50), name='quickshear')
     deface_wf.connect([
@@ -88,6 +85,7 @@ def mridefacer_cmd(image, subject_label, bids_dir):
     from subprocess import check_call
     import os
     from shutil import move
+    
     cmd = ["/mridefacer/mridefacer", "--apply",
                          image]
     check_call(cmd)
