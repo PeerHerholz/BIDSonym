@@ -22,6 +22,7 @@ generate_docker() {
                    PATH=/usr/lib/fsl/5.0:$PATH \
              --miniconda \
                 conda_install="python=3.6 numpy nipype nibabel pandas" \
+                pip_install='deepdefacer[tf_cpu]' \
                 create_env='bidsonym' \
                 activate=true \
              --run-bash "source activate bidsonym && git clone https://github.com/poldracklab/pydeface.git && cd pydeface && python setup.py install && cd -" \
@@ -52,6 +53,7 @@ generate_singularity() {
                   PATH=/usr/lib/fsl/5.0:$PATH \
             --miniconda \
                conda_install="python=3.6 numpy nipype nibabel pandas" \
+               pip_install='deepdefacer[tf_cpu]' \
                create_env='bidsonym' \
                activate=true \
             --run-bash "source activate bidsonym && git clone https://github.com/poldracklab/pydeface.git && cd pydeface && python setup.py install && cd -" \
