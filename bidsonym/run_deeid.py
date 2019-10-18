@@ -1,9 +1,6 @@
 import argparse
 import os
-
-
 from glob import glob
-
 from .defacing_algorithms import run_pydeface, run_mri_deface, run_mridefacer, run_quickshear
 from .utils import copy_no_deid, check_meta_data, del_meta_data
 
@@ -45,17 +42,14 @@ def run_deeid():
     parser.add_argument('-v', '--version', action='version',
                         version='BIDS-App example version {}'.format(__version__))
 
-
     args = parser.parse_args()
     subjects_to_analyze = []
 
-    # running participant level, only for a subset of subjects
     if args.analysis_level == "participant":
         if args.participant_label:
             subjects_to_analyze = args.participant_label
         else:
             print("No participant label indicated. Please do so.")
-    # for all subjects
     else:
         subject_dirs = glob(os.path.join(args.bids_dir, "sub-*"))
         subjects_to_analyze = [subject_dir.split("-")[-1] for subject_dir in subject_dirs]
@@ -64,12 +58,11 @@ def run_deeid():
 
     list_field_del = args.del_meta
 
-    # find all T1s and de-identify them
     for subject_label in subjects_to_analyze:
         for T1_file in glob(os.path.join(args.bids_dir, "sub-%s" % subject_label,
-                                         "anat", "*_T1w.nii*")) +
-                                         glob(os.path.join(args.bids_dir,"sub-%s" % subject_label,
-                                         "ses-*","anat", "*_T1w.nii*")):
+                                         "anat", "*_T1w.nii*")) + \
+                                         glob(os.path.join(args.bids_dir, "sub-%s" % subject_label,
+                                                           "ses-*", "anat", "*_T1w.nii*")):
             if args.deid == "pydeface":
                 if args.del_nodeface == "del":
                     run_pydeface(T1_file, T1_file)

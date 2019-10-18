@@ -22,19 +22,18 @@ def copy_no_deid(subject_label, bids_dir, T1_file):
     list_task_meta_files = glob(os.path.join(bids_dir, '*json'))
     list_sub_meta_files = glob(os.path.join(bids_dir, subject_label, '*', '*.json'))
     for task_meta_data_file in list_task_meta_files:
-        task_out = task_meta_data_file[task_meta_data_file.rfind('/') + \
+        task_out = task_meta_data_file[task_meta_data_file.rfind('/') +
                                        1:task_meta_data_file.rfind('.json')] \
                                        + '_no_deid.json'
         copy(task_meta_data_file, os.path.join(path_task_meta, task_out))
     for sub_meta_data_file in list_sub_meta_files:
-        sub_out = sub_meta_data_file[sub_meta_data_file.rfind('/') + \
-                                     1:sub_meta_data_file.rfind('.json')] + \
+        sub_out = sub_meta_data_file[sub_meta_data_file.rfind('/') +
+                                     1:sub_meta_data_file.rfind('.json')] +\
                                      '_no_deid.json'
         copy(sub_meta_data_file, os.path.join(path_sub_meta, sub_out))
 
 
 def check_meta_data(bids_path, subject_label, prob_fields):
-
 
     list_subject_image_files = glob(os.path.join(bids_path, 'sub-' + subject_label, '*', '*nii.gz'))
     list_task_meta_files = glob(os.path.join(bids_path, '*json'))
@@ -59,11 +58,12 @@ def check_meta_data(bids_path, subject_label, prob_fields):
             else:
                 row['problematic'] = 'no'
 
-        header_df.to_csv(os.path.join(bids_path, 'sourcedata/bidsonym', \
-                        'sub-%s' % subject_label,
-                         subject_image_file[subject_image_file.rfind('/') + \
-                         1:subject_image_file.rfind('.nii.gz')] + \
-                         '_header_info.csv'), index=False)
+        header_df.to_csv(os.path.join(bids_path, 'sourcedata/bidsonym',
+                                      'sub-%s' % subject_label,
+                                      subject_image_file[subject_image_file.rfind('/') +
+                                                         1:subject_image_file.rfind('.nii.gz')] +
+                                      '_header_info.csv'),
+                         index=False)
 
     for meta_file in list_meta_files:
 
@@ -82,14 +82,14 @@ def check_meta_data(bids_path, subject_label, prob_fields):
                 else:
                     row['problematic'] = 'no'
 
-            json_df.to_csv(os.path.join(bids_path, 'sourcedata/bidsonym', 'sub-%s' % subject_label, \
-                                        meta_file[meta_file.rfind('/') + \
-                                        1:meta_file.rfind('.json')] + '_json_info.csv'), index=False)
-
+            json_df.to_csv(os.path.join(bids_path, 'sourcedata/bidsonym', 'sub-%s' % subject_label,
+                                        meta_file[meta_file.rfind('/') +
+                                                  1:meta_file.rfind('.json')] +
+                                        '_json_info.csv'),
+                           index=False)
 
 
 def del_meta_data(bids_path, subject_label, fields_del):
-
 
     list_task_meta_files = glob(os.path.join(bids_path, '*json'))
     list_sub_meta_files = glob(os.path.join(bids_path, 'sub-' + subject_label, '*', '*.json'))
@@ -101,7 +101,7 @@ def del_meta_data(bids_path, subject_label, fields_del):
     print('found the following meta-data files:')
     print(*list_meta_files, sep='\n')
     print('the following fields will be deleted:')
-    print(*list_field_del, sep='\n')
+    print(*fields_del, sep='\n')
 
     for meta_file in list_meta_files:
         with open(meta_file, 'r') as json_file:
@@ -109,4 +109,4 @@ def del_meta_data(bids_path, subject_label, fields_del):
             for field in fields_del:
                 meta_data[field] = 'deleted_by_bidsonym'
         with open(meta_file, 'w') as json_output_file:
-                    json.dump(meta_data, json_output_file, indent=4)
+            json.dump(meta_data, json_output_file, indent=4)
