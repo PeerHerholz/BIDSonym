@@ -40,7 +40,7 @@ BIDSonym
 
 Description
 ===========
-A BIDS app for de-identification of neuroimaging data. Takes BIDS-format T1 and T2-weighted images and applies one of several popular de-identification algorithms. BIDSonym currently supports:
+A BIDS app for de-identification of neuroimaging data. Gathers all T1w images from a BIDS dataset and applies one of several popular de-identification algorithms. BIDSonym currently supports:
 
 `Pydeface <https://github.com/poldracklab/pydeface>`_
 
@@ -63,12 +63,19 @@ Usage
 =====
 This App has the following command line arguments:
 
-usage: run.py [-h]
-	      [--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
-	      [--deid {pydeface,mri_deface,quickshear}]
-	      [--del_nodeface {del,no_del}]
-	      [--del_meta META_DATA_FIELD [META_DATA_FIELD ...]]
-	      bids_dir {participant,group}
+usage:	run.py [-h] 
+
+[--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]] 
+
+[--deid {pydeface,mri_deface,quickshear}] 
+
+[--del_nodeface {del,no_del}] 
+
+[--check_meta]
+
+[--del_meta META_DATA_FIELD [META_DATA_FIELD ...]] 
+
+bids_dir {participant,group} 
 
 a BIDS app for de-identification of neuroimaging data
 
@@ -82,7 +89,6 @@ positional arguments:
 			(in parallel) using the same output_dir.
 
 optional arguments:
-  -h, --help            show this help message and exit
   --participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]
 			The label(s) of the participant(s) that should be
 			analyzed. The label corresponds to
@@ -98,28 +104,37 @@ optional arguments:
 --del_meta META_DATA_FIELD [META_DATA_FIELD ...]
 		  Indicate if and which information from the .json meta-data
 		  files should be deleted. If so, the original .josn files
-		  will be copied to sourcedata/ .
+		  will be copied to :code:`sourcedata/` .
 
 
 To run it in participant level mode (for one participant):
 
-docker run -i --rm \
-	-v /Users/peer/ds005:/bids_dataset \
-	peerherholz/bidsonym \
-	/bids_dataset \
-	participant --deid pydeface --del_nodeface no_del --del_meta 'InstitutionAddress' \
-	--participant_label 01
+.. code-block:: 
+
+	docker run -i --rm \
+		    -v /Users/peer/ds005:/bids_dataset \
+	            peerherholz/bidsonym \
+		    /bids_dataset \
+		    participant --deid pydeface --del_nodeface no_del --del_meta 'InstitutionAddress' \
+		    --participant_label 01
 
 
 After doing this for all subjects (potentially in parallel), the group level analysis
 can be run:
 
+.. code-block:: 
 
-docker run -i --rm \
-	-v /Users/peer/ds005:/bids_dataset \
-	peerherholz/bidsonym \
-	/bids_dataset  group --deid pydeface --del_nodeface no_del --del_meta 'InstitutionAddress'
+	docker run -i --rm \
+		   -v /Users/peer/ds005:/bids_dataset \
+		   peerherholz/bidsonym \
+		   /bids_dataset  group --deid pydeface --del_nodeface no_del --del_meta 'InstitutionAddress'
 
+Installation
+============
+Following the `BIDS apps standard <https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005209>`_ it is recommend to install and use BIDSonym in its Docker or Singularity form. 
+To get the BIDSonym Docker image, you need to `install docker <https://docs.docker.com/install/>`_ and within the terminal of your choice type:
+
+:code:`docker pull peerherholz/bidsonym`
 
 Documentation
 =============
@@ -136,3 +151,4 @@ Thank you for considering contributing to our project! Before getting involved, 
 Acknowledgements
 ================
 If you intend to or already used BIDSonym, we would be very happy if you cite this github repo, till we have "something" out there!
+ 
