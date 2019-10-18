@@ -131,10 +131,14 @@ can be run:
 
 Installation
 ============
-Following the `BIDS apps standard <https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005209>`_ it is recommend to install and use BIDSonym in its Docker or Singularity form. 
+Following the `BIDS apps standard <https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005209>`_ it is recommend to install and use BIDSonym in its Docker or Singularity form. \
 To get the BIDSonym Docker image, you need to `install docker <https://docs.docker.com/install/>`_ and within the terminal of your choice type:
 
 :code:`docker pull peerherholz/bidsonym`
+
+To get its Singularity version, you need to `_install singularity <https://singularity.lbl.gov/all-releases>`_ and within the terminal of your choice type:
+
+:code:`singularity pull docker://peerherholz/bidsonym
 
 Documentation
 =============
