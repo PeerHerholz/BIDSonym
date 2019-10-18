@@ -103,7 +103,7 @@ optional arguments:
 			data to different folder.
 --del_meta META_DATA_FIELD [META_DATA_FIELD ...]
 		  Indicate if and which information from the .json meta-data
-		  files should be deleted. If so, the original .josn files
+		  files should be deleted. If so, the original :code:`.json` files
 		  will be copied to :code:`sourcedata/` .
 
 
