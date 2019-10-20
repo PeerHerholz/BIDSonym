@@ -107,7 +107,7 @@ optional arguments:
 		  will be copied to :code:`sourcedata/` .
 
 
-To run it in participant level mode (for one participant):
+Run it in participant level mode (for one participant):
 
 .. code-block:: 
 
@@ -119,8 +119,7 @@ To run it in participant level mode (for one participant):
 		    --participant_label 01
 
 
-After doing this for all subjects (potentially in parallel), the group level analysis
-can be run:
+Run it in group level mode (for all participants):
 
 .. code-block:: 
 
