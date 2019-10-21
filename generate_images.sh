@@ -12,7 +12,8 @@ generate_docker() {
   docker run --rm kaczmarj/neurodocker:0.5.0 generate docker \
              --base neurodebian:stretch-non-free \
              --pkg-manager apt \
-             --install fsl-complete git num-utils gcc g++\
+             --install fsl-complete git num-utils gcc g++ curl \
+             --run-bash "curl -sL https://deb.nodesource.com/setup_12.x | bash - && apt-get install -y nodejs && apt-get install -y npm"\
              --add-to-entrypoint "source /etc/fsl/fsl.sh" \
              --env FSLDIR=/usr/share/fsl/5.0 \
                    FSLOUTPUTTYPE=NIFTI_GZ \
@@ -36,6 +37,9 @@ generate_docker() {
              --run-bash "chmod a+x /home/bm/bidsonym/fs_data/mri_deface" \
              --run-bash "source activate bidsonym && cd /home/bm && pip install -e ." \
              --copy example_data /home/bidsonym/example_data \
+             --run-bash "npm install -g bids-validator@1.2.3" \
+             --env IS_DOCKER=1 \
+             --workdir '/tmp/' \
              --entrypoint "/neurodocker/startup.sh  bidsonym"
 }
 
@@ -63,12 +67,12 @@ generate_singularity() {
             --run-bash "git clone https://github.com/mih/mridefacer" \
             --env MRIDEFACER_DATA_DIR=/mridefacer/data \
             --run-bash "rm -r /usr/share/fsl/data/atlases && rm -r /usr/share/fsl/data/first && rm -r /usr/share/fsl/data/possum" \
-            --copy bidsonym/bidsonym /home/bidsonym \
-            --copy bidsonym/version /home/version \
-            --copy bidsonym/fs_data /home/fs_data \
-            --run-bash "chmod a+x /home/fs_data/mri_deface" \
-            --copy example_data /home/example_data \
-            --entrypoint "/neurodocker/startup.sh python /home/bidsonym/bidsonym.py"
+            --copy . /home/bm \
+            --run-bash "chmod a+x /home/bm/bidsonym/fs_data/mri_deface" \
+            --run-bash "source activate bidsonym && cd /home/bm && pip install -e ." \
+            --copy example_data /home/bidsonym/example_data \
+            --env IS_DOCKER=1 \
+            --entrypoint "/neurodocker/startup.sh  bidsonym"
 }
 
 # generate files

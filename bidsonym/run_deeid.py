@@ -1,8 +1,9 @@
 import argparse
 import os
+from pathlib import Path
 from glob import glob
 from .defacing_algorithms import run_pydeface, run_mri_deface, run_mridefacer, run_quickshear
-from .utils import copy_no_deid, check_meta_data, del_meta_data
+from .utils import copy_no_deid, check_meta_data, del_meta_data, validate_input_dir
 
 
 def run_deeid():
@@ -11,7 +12,7 @@ def run_deeid():
                                     '_version.py')).read()
 
     parser = argparse.ArgumentParser(description='a BIDS app for de-identification of neuroimaging data')
-    parser.add_argument('bids_dir', help='The directory with the input dataset '
+    parser.add_argument('bids_dir', action='store', type=Path, help='The directory with the input dataset '
                         'formatted according to the BIDS standard.')
     parser.add_argument('analysis_level', help='Level of the analysis that will be performed. '
                         'Multiple participant level analyses can be run independently '
@@ -44,6 +45,18 @@ def run_deeid():
 
     args = parser.parse_args()
     subjects_to_analyze = []
+
+    # special variable set in the container
+    if os.getenv('IS_DOCKER'):
+        exec_env = 'singularity'
+        cgroup = Path('/proc/1/cgroup')
+        if cgroup.exists() and 'docker' in cgroup.read_text():
+            exec_env = 'docker'
+
+    print("Making sure the input data is BIDS compliant (warnings can be ignored in most "
+              "cases).")
+    validate_input_dir(exec_env, args.bids_dir, args.participant_label)
+
 
     if args.analysis_level == "participant":
         if args.participant_label:
