@@ -107,7 +107,7 @@ optional arguments:
 		  will be copied to :code:`sourcedata/` .
 
 
-To run it in participant level mode (for one participant):
+Run it in participant level mode (for one participant):
 
 .. code-block:: 
 
@@ -119,8 +119,7 @@ To run it in participant level mode (for one participant):
 		    --participant_label 01
 
 
-After doing this for all subjects (potentially in parallel), the group level analysis
-can be run:
+Run it in group level mode (for all participants):
 
 .. code-block:: 
 
@@ -138,7 +137,7 @@ To get the BIDSonym Docker image, you need to `install docker <https://docs.dock
 
 To get its Singularity version, you need to `_install singularity <https://singularity.lbl.gov/all-releases>`_ and within the terminal of your choice type:
 
-:code:`singularity pull docker://peerherholz/bidsonym
+:code:`singularity pull docker://peerherholz/bidsonym`
 
 Documentation
 =============
