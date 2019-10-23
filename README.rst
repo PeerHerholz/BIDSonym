@@ -21,7 +21,6 @@ BIDSonym
     :alt: Hits
     :target: http://hits.dwyl.io/PeerHerholz/BIDSonym
 
-    
 .. image:: https://img.shields.io/docker/cloud/automated/peerherholz/bidsonym
     :alt: Dockerbuild
     :target: https://cloud.docker.com/u/peerherholz/repository/docker/peerherholz/bidsonym
@@ -37,6 +36,11 @@ BIDSonym
 .. image:: https://upload.wikimedia.org/wikipedia/commons/7/74/Zotero_logo.svg
     :alt: Zotero
     :target: https://www.zotero.org/groups/2362367/bidsonym
+    
+
+.. image:: https://img.shields.io/badge/Supported%20by-%20CONP%2FPCNO-red
+    :alt: support_conp
+    :target: https://conp.ca/
 
 Description
 ===========
@@ -154,4 +158,11 @@ Thank you for considering contributing to our project! Before getting involved, 
 Acknowledgements
 ================
 If you intend to or already used BIDSonym, we would be very happy if you cite this github repo, till we have "something" out there!
- 
+
+Support
+=======
+This work was supported in part by funding provided by `Brain Canada <https://braincanada.ca/>`_, in partnership with `Health Canada <https://www.canada.ca/en/health-canada.html>`_, for the `Canadian Open Neuroscience Platform initiative <https://conp.ca/>`_.
+
+.. image:: https://conp.ca/wp-content/uploads/elementor/thumbs/logo-2-o5e91uhlc138896v1b03o2dg8nwvxyv3pssdrkjv5a.png
+    :alt: logo_conp
+    :target: https://conp.ca/
