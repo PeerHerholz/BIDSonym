@@ -12,7 +12,6 @@ from nipype.interfaces.base import (
     SimpleInterface)
 from nilearn.plotting import plot_anat, find_cut_slices
 import nibabel as nb
-from niworkflows.utils.bids import BIDS_NAME
 
 
 SUBJECT_TEMPLATE = """\
@@ -89,12 +88,6 @@ class AboutSummary(SummaryInterface):
 def plot_static_defaced(bids_dir, subject_id):
 
     defaced_img = nb.load(glob(os.path.join(bids_dir, 'sub-%s' % subject_id, 'anat/*T1w.nii.gz'))[0])
-    defaced_plot = plot_anat(defaced_img,
-                             draw_cross=False,
-                             annotate=False,
-                             output_file=os.path.join(bids_dir,
-                                                      'sourcedata/bidsonym/sub-%s/sub-%s_deface_static.png'
-                                                      % (subject_id, subject_id)))
 
     f, (ax1, ax2, ax3) = plt.subplots(3)
     plot_anat(defaced_img, draw_cross=False, annotate=False, display_mode='x', cut_coords=8, ax=ax1)
