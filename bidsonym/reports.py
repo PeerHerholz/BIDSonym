@@ -50,6 +50,7 @@ class SubjectSummaryInputSpec(BaseInterfaceInputSpec):
     subjects_dir = Directory(desc='FreeSurfer subjects directory')
     subject_id = Str(desc='Subject ID')
 
+
 class SubjectSummary(SummaryInterface):
     input_spec = SubjectSummaryInputSpec
 
@@ -82,13 +83,13 @@ class AboutSummary(SummaryInterface):
 
 def plot_static_defaced(bids_dir, subject_id):
 
-    defaced_img = nb.load(glob(os.path.join(bids_dir, 'sub-%s'%subject_id, 'anat/*T1w.nii.gz' ))[0])
+    defaced_img = nb.load(glob(os.path.join(bids_dir, 'sub-%s' % subject_id, 'anat/*T1w.nii.gz'))[0])
     defaced_plot = plot_anat(defaced_img,
                              draw_cross=False,
                              annotate=False,
                              output_file=os.path.join(bids_dir,
                                                       'sourcedata/bidsonym/sub-%s/sub-%s_deface_static.png'
-                                                      %(subject_id, subject_id)))
+                                                      % (subject_id, subject_id)))
 
     f, (ax1, ax2, ax3) = plt.subplots(3)
     plot_anat(defaced_img, draw_cross=False, annotate=False, display_mode='x', cut_coords=8, ax=ax1)
@@ -96,16 +97,11 @@ def plot_static_defaced(bids_dir, subject_id):
     plot_anat(defaced_img, draw_cross=False, annotate=False, display_mode='z', cut_coords=8)
     plt.show()
 
-    fig = figure(figsize=(12,7))
+    fig = figure(figsize=(12, 7))
     plt.subplots_adjust(left=0, bottom=0, right=1, top=1, wspace=-0.2, hspace=0)
     for i, e in enumerate(['x', 'y', 'z']):
-            ax = fig.add_subplot(3, 1, i + 1)
-            cuts=find_cut_slices(defaced_img, direction=e, n_cuts=12)[2:-2]
-            plot_anat(defaced_img, display_mode=e,
-                      cut_coords=cuts, annotate=False, axes=ax, dim=-1)
+        ax = fig.add_subplot(3, 1, i + 1)
+        cuts = find_cut_slices(defaced_img, direction=e, n_cuts=12)[2:-2]
+        plot_anat(defaced_img, display_mode=e,
+                  cut_coords=cuts, annotate=False, axes=ax, dim=-1)
     plt.show()
-
-
-
-
-#def plot_gif_defaced(bids_dir, subject_id):

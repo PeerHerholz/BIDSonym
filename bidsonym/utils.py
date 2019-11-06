@@ -131,8 +131,8 @@ def brain_extraction_nb(image, subject_label, bids_dir):
     import os
     from subprocess import check_call
 
-    outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" %subject_label,
-                           "sub-%s_space-native_brainmask.nii.gz" %subject_label)
+    outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
+                           "sub-%s_space-native_brainmask.nii.gz" % subject_label)
 
     cmd = ['nobrainer',
            'predict',
@@ -144,6 +144,7 @@ def brain_extraction_nb(image, subject_label, bids_dir):
     check_call(cmd)
     return
 
+
 def run_brain_extraction_nb(image, subject_label, bids_dir):
 
     brainextraction_wf = pe.Workflow('brainextraction_wf')
@@ -152,11 +153,11 @@ def run_brain_extraction_nb(image, subject_label, bids_dir):
     brainextraction = pe.Node(Function(input_names=['image', 'subject_label', 'bids_dir'],
                                        output_names=['outfile'],
                                        function=brain_extraction_nb),
-                       name='brainextraction')
+                              name='brainextraction')
     brainextraction_wf.connect([(inputnode, brainextraction, [('in_file', 'image')])])
     inputnode.inputs.in_file = image
     brainextraction.inputs.subject_label = subject_label
-    brainextraction.inputs.bids_dir= bids_dir
+    brainextraction.inputs.bids_dir = bids_dir
     brainextraction_wf.run()
 
 
@@ -164,8 +165,8 @@ def run_brain_extraction_bet(image, frac, subject_label, bids_dir):
 
     import os
 
-    outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" %subject_label,
-                           "sub-%s_space-native_brainmask.nii.gz" %subject_label)
+    outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
+                           "sub-%s_space-native_brainmask.nii.gz" % subject_label)
 
     brainextraction_wf = pe.Workflow('brainextraction_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
