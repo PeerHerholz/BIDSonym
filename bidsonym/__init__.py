@@ -2,6 +2,14 @@ from .defacing_algorithms import run_pydeface, run_mri_deface, run_mridefacer, r
 
 from .utils import copy_no_deid, check_meta_data, del_meta_data
 
+from .reports import SubjectSummary, AboutSummary
+
+from niworkflows.interfaces import bids
+
+class DerivativesDataSink(bids.DerivativesDataSink):
+    out_path_base = 'sourcedata/bidsonym'
+
+
 from ._version import get_versions
 __version__ = get_versions()['version']
 del get_versions
@@ -14,4 +22,7 @@ __all__ = [
     'copy_no_deid',
     'check_meta_data',
     'del_meta_data',
+    'SubjectSummary',
+    'AboutSummary',
+    'bids'
 ]
