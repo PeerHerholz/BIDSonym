@@ -1,11 +1,16 @@
 import os
 import time
 
+from glob import glob
+import matplotlib.pyplot as plt
+from matplotlib import figure
+
+
 from nipype.interfaces.base import (
     TraitedSpec, BaseInterfaceInputSpec,
     File, Directory, InputMultiObject, Str, isdefined,
     SimpleInterface)
-from nilearn.plotting import plot_anat
+from nilearn.plotting import plot_anat, find_cut_slices
 import nibabel as nb
 from niworkflows.utils.bids import BIDS_NAME
 
