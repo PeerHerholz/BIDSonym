@@ -3,7 +3,8 @@ import os
 from pathlib import Path
 from glob import glob
 from .defacing_algorithms import run_pydeface, run_mri_deface, run_mridefacer, run_quickshear
-from .utils import check_outpath, copy_no_deid, check_meta_data, del_meta_data, run_brain_extraction_nb, run_brain_extraction_bet, validate_input_dir
+from .utils import check_outpath, copy_no_deid, check_meta_data, del_meta_data,
+                   run_brain_extraction_nb, run_brain_extraction_bet, validate_input_dir
 
 
 def run_deeid():
@@ -41,7 +42,8 @@ def run_deeid():
                         If so, the original .josn files will be copied to sourcedata/',
                         nargs="+")
     parser.add_argument('--brainextraction',
-                        help='What algorithm should be used for pre-defacing brain extraction (outputs will be used in quality control).',
+                        help='What algorithm should be used for pre-defacing brain extraction \
+                        (outputs will be used in quality control).',
                         choices=['bet', 'nobrainer'])
     parser.add_argument('--bet_frac',
                         help='In case BET is used for pre-defacing brain extraction, povide a Frac value.',
@@ -77,7 +79,6 @@ def run_deeid():
     list_field_del = args.del_meta
 
 
-
     for subject_label in subjects_to_analyze:
         for T1_file in glob(os.path.join(args.bids_dir, "sub-%s" % subject_label,
                                          "anat", "*_T1w.nii*")) + \
@@ -86,7 +87,8 @@ def run_deeid():
             check_outpath(args.bids_dir, subject_label)
             if args.brainextraction == 'bet':
                 if args.bet_frac is None:
-                    raise Exception('If you want to use BET for pre-defacing brain extraction, please provide a Frac value. For example: --bet_frac 0.5')
+                    raise Exception('If you want to use BET for pre-defacing brain extraction, \
+                    please provide a Frac value. For example: --bet_frac 0.5')
                 else:
                     run_brain_extraction_bet(T1_file, args.bet_frac[0], subject_label, args.bids_dir)
             elif args.brainextraction == 'nobrainer':

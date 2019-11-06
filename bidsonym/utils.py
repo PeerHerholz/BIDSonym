@@ -12,13 +12,14 @@ from nipype import Function
 from nipype.interfaces import utility as niu
 from nipype.interfaces.fsl import BET
 
-def check_outpath(bids_dir, subject_label):
 
+def check_outpath(bids_dir, subject_label):
 
     out_path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
 
     if os.path.isdir(out_path) is False:
         os.makedirs(out_path)
+
 
 def copy_no_deid(subject_label, bids_dir, T1_file):
 
@@ -130,7 +131,8 @@ def brain_extraction_nb(image, subject_label, bids_dir):
     import os
     from subprocess import check_call
 
-    outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" %subject_label, "sub-%s_space-native_brainmask.nii.gz" %subject_label)
+    outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" %subject_label,
+                           "sub-%s_space-native_brainmask.nii.gz" %subject_label)
 
     cmd = ['nobrainer',
            'predict',
@@ -148,8 +150,8 @@ def run_brain_extraction_nb(image, subject_label, bids_dir):
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
                         name='inputnode')
     brainextraction = pe.Node(Function(input_names=['image', 'subject_label', 'bids_dir'],
-                                output_names=['outfile'],
-                                function=brain_extraction_nb),
+                                       output_names=['outfile'],
+                                       function=brain_extraction_nb),
                        name='brainextraction')
     brainextraction_wf.connect([(inputnode, brainextraction, [('in_file', 'image')])])
     inputnode.inputs.in_file = image
@@ -157,11 +159,13 @@ def run_brain_extraction_nb(image, subject_label, bids_dir):
     brainextraction.inputs.bids_dir= bids_dir
     brainextraction_wf.run()
 
+
 def run_brain_extraction_bet(image, frac, subject_label, bids_dir):
 
     import os
 
-    outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" %subject_label, "sub-%s_space-native_brainmask.nii.gz" %subject_label)
+    outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" %subject_label,
+                           "sub-%s_space-native_brainmask.nii.gz" %subject_label)
 
     brainextraction_wf = pe.Workflow('brainextraction_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
