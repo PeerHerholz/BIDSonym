@@ -2,7 +2,8 @@ import argparse
 import os
 from pathlib import Path
 from glob import glob
-from .defacing_algorithms import run_pydeface, run_mri_deface, run_mridefacer, run_quickshear
+from .defacing_algorithms import (run_pydeface, run_mri_deface, run_mridefacer,
+                                  run_quickshear, run_deepdefacer)
 from .utils import (check_outpath, copy_no_deid, check_meta_data, del_meta_data,
                     run_brain_extraction_nb, run_brain_extraction_bet, validate_input_dir)
 
@@ -27,7 +28,8 @@ def run_deeid():
                         'participants can be specified with a space separated list.',
                         nargs="+")
     parser.add_argument('--deid', help='Approach to use for de-identifictation.',
-                        choices=['pydeface', 'mri_deface', 'quickshear', 'mridefacer'])
+                        choices=['pydeface', 'mri_deface', 'quickshear', 'mridefacer',
+                                 'deepdefacer'])
     parser.add_argument('--del_nodeface',
                         help='Overwrite and delete original data or copy original data to sourcedata/.',
                         choices=['del', 'no_del'])
@@ -144,6 +146,20 @@ def run_deeid():
                 else:
                     copy_no_deid(subject_label, args.bids_dir, T1_file)
                     run_mridefacer(T1_file, subject_label, args.bids_dir)
+                    if args.check_meta:
+                        check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                    if args.del_meta:
+                        del_meta_data(args.bids_dir, subject_label, list_field_del)
+            if args.deid == "deepdefacer":
+                if args.del_nodeface == "del":
+                    run_deepdefacer(T1_file, subject_label, args.bids_dir)
+                if args.check_meta:
+                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                if args.del_meta:
+                    del_meta_data(args.bids_dir, subject_label, list_field_del)
+                else:
+                    copy_no_deid(subject_label, args.bids_dir, T1_file)
+                    run_deepdefacer(T1_file, subject_label, args.bids_dir)
                     if args.check_meta:
                         check_meta_data(args.bids_dir, subject_label, list_check_meta)
                     if args.del_meta:

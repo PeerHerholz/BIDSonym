@@ -111,3 +111,34 @@ def run_mridefacer(image, subject_label, bids_dir):
     mridefacer.inputs.subject_label = subject_label
     mridefacer.inputs.bids_dir = bids_dir
     deface_wf.run()
+
+
+def deepdefacer_cmd(image, subject_label, bids_dir):
+
+    import os
+    from subprocess import check_call
+
+    maskfile = os.path.join(bids_dir,
+                            "sourcedata/bidsonym/sub-%s/sub-%s_T1w_space-native_defacemask-deepdefacer"
+                            % (subject_label, subject_label))
+
+    cmd = ["deepdefacer", "--input_file", image,
+           "--defaced_output_path", image,
+           "--mask_output_path", maskfile]
+    check_call(cmd)
+
+
+def run_deepdefacer(image, subject_label, bids_dir):
+
+    deface_wf = pe.Workflow('deface_wf')
+    inputnode = pe.Node(niu.IdentityInterface(['in_file']),
+                        name='inputnode')
+    deepdefacer = pe.Node(Function(input_names=['image', 'subject_label', 'bids_dir'],
+                                   output_names=['outfile'],
+                                   function=deepdefacer_cmd),
+                          name='deepdefacer')
+    deface_wf.connect([(inputnode, deepdefacer, [('in_file', 'image')])])
+    inputnode.inputs.in_file = image
+    deepdefacer.inputs.subject_label = subject_label
+    deepdefacer.inputs.bids_dir = bids_dir
+    deface_wf.run()
