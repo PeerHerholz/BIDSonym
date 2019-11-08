@@ -12,8 +12,8 @@ generate_docker() {
   docker run --rm kaczmarj/neurodocker:0.5.0 generate docker \
              --base neurodebian:stretch-non-free \
              --pkg-manager apt \
-             --install fsl-complete git num-utils gcc g++ curl \
-             --run-bash "curl -sL https://deb.nodesource.com/setup_12.x | bash - && apt-get install -y nodejs && apt-get install -y npm"\
+             --install fsl-complete git num-utils gcc g++ curl build-essential\
+             --run-bash "curl -sL https://deb.nodesource.com/setup_8.x | bash - && apt-get install -y nodejs && apt-get install -y npm"\
              --add-to-entrypoint "source /etc/fsl/fsl.sh" \
              --env FSLDIR=/usr/share/fsl/5.0 \
                    FSLOUTPUTTYPE=NIFTI_GZ \
@@ -36,6 +36,7 @@ generate_docker() {
              --env MRIDEFACER_DATA_DIR=/mridefacer/data \
              --run-bash "rm -r /usr/share/fsl/data/atlases && rm -r /usr/share/fsl/data/first && rm -r /usr/share/fsl/data/possum" \
              --run-bash "npm install -g bids-validator@1.2.3" \
+             --run-bash "mkdir /home/mri-deface-detector && cd /home/mri-deface-detector && npm install sharp --unsafe-perm && npm install -g mri-deface-detector --unsafe-perm && cd ~" \
              --run-bash "git clone https://github.com/miykael/gif_your_nifti && cd gif_your_nifti && source activate bidsonym && python setup.py install" \
              --copy . /home/bm \
              --run-bash "chmod a+x /home/bm/bidsonym/fs_data/mri_deface" \
