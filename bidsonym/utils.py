@@ -67,9 +67,9 @@ def check_meta_data(bids_path, subject_label, prob_fields=None):
 
         if prob_fields:
 
-           prob_fields = prob_fields
+            prob_fields = prob_fields
 
-           for index, row in header_df.iterrows():
+            for index, row in header_df.iterrows():
                 if any(i.lower() in row['meta_data_field'] for i in prob_fields):
                     row['problematic'] = 'maybe'
                 else:
@@ -95,19 +95,19 @@ def check_meta_data(bids_path, subject_label, prob_fields=None):
 
         if prob_fields:
 
-           prob_fields = prob_fields
+            prob_fields = prob_fields
 
-           for index, row in json_df.iterrows():
+            for index, row in json_df.iterrows():
                 if any(i in row['meta_data_field'] for i in prob_fields):
                     row['problematic'] = 'maybe'
                 else:
                     row['problematic'] = 'no'
 
         json_df.to_csv(os.path.join(bids_path, 'sourcedata/bidsonym', 'sub-%s' % subject_label,
-                                        meta_file[meta_file.rfind('/') +
-                                                  1:meta_file.rfind('.json')] +
-                                        '_json_info.csv'),
-                           index=False)
+                                    meta_file[meta_file.rfind('/') +
+                                              1:meta_file.rfind('.json')] +
+                                    '_json_info.csv'),
+                       index=False)
 
 
 def del_meta_data(bids_path, subject_label, fields_del):
