@@ -1,8 +1,8 @@
 .. include:: links.rst
 
-----------------
+------------------
 Processing details
-----------------
+------------------
 
 When running ``BIDSonym``, the following processing steps are executed:
 
