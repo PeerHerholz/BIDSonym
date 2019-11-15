@@ -27,7 +27,11 @@ Visual Reports
 These reports provide a quick way to make visual inspection of the de-identification easy.
 `View a sample report. <_static/sample_report.html>`_ (This sample report includes data from one of the maintainers
 (Peer Herholz) who provided the data and agreed to sharing it.)
-
+It includes information on the version ``BIDSonym`` that was run and how it was run.
+Furthermore, multiple graphics each displaying the whole ``defaced image`` in 10 slices along different
+directions (x,y,z) are included. To evaluate if the ``defacing`` was too stringent, a ``brainmask`` created before
+the ``defacing`` is overlaid. The reports additionally include a gif within which the ``defaced image`` is scrolled
+through each direction. 
 
 Imaging data
 ------------
@@ -60,7 +64,7 @@ in the ``bids_dataset`` will be defaced via the specified defacing algorithm (pl
 Neither the data structure nor the filenames will be changed. For example:
 ``bids_dataset/sub-<subject_label>/anat/sub-<subject_label>_T1w.nii.gz`` will be defaced, overwriting
 the input image, so that the ``bids_dataset`` directory contains only de-identified data which then
-can be entered into a proceesing pipeline and/or publicly shared (once again, depending on the regulations
+can be entered into a processing pipeline and/or publicly shared (once again, depending on the regulations
 of the country you're in and/or acquired the data in).
 
 
@@ -81,7 +85,7 @@ all information is considered to not be problematic, but the user can provide a 
 in the extracted information via the ``--check_meta_data`` argument. If a certain string, e.g., ``name`` or ``location`` is found,
 the respective field is marked as ``yes`` in the ``problematic`` column.
 Thus users can investigate and evaluate if potentially sensitive information is present in the data and, if not done already, indicate
-metadata fields which information should be deleted through the ``--del_meta_data`` argument. However, only metadata from the
+metadata fields which information should be deleted through the ``--del_meta`` argument. However, only metadata from the
 ``sidecar JSON files`` but not the ``image headers`` will be deleted.
 
 
@@ -98,7 +102,16 @@ This step is intended to keep the ``non-de-identified
 sidecar JSON files`` in case the de-identification did not succeed , so that users can copy
 the ``non-de-identified sidecar JSON files``
 back to the ``bids_dataset`` directory and do not need to do run the conversion again.
+Please not that while de-facing only targets ``structural data``, the ``sidecar JSON files``
+of all modalities will be included.
 
 
 de-identified sidecar JSON files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+If set by the user through the ``--del_meta`` argument, ``BIDSonym`` will deleted
+the value of indicated ``metadata fields`` in the ``sidecar JSON files`` within the
+``bids_dataset`` directory, replacing them with the string ``deleted_by_bidsonym``.
+For example, if the ``metadata field`` ``InstitutionAddress`` should be deleted,
+the respective value of the ``sidecar JSON files`` will change from e.g.,
+``InstitutionAddress : 'A restaurant at the end of the Universe.'``  to
+``InstitutionAddress : 'deleted_by_bidsonym'``.

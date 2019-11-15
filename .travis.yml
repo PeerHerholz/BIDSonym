@@ -6,6 +6,15 @@ cache:
     - $HOME/.cache/pip
     - $HOME/.ccache  # https://github.com/travis-ci/travis-ci/issues/5853
 
+env:
+    global:
+      # Doctr deploy key for PeerHerholz/BIDSonym
+      - secure: "EjUROViVoslz9w79ZOV2jD7Z/oMpjrWALLvpfybgcSSOVHLwHUzEKC1wMsOLg1E58q8qBTs7FfqOUVJn6OstnzEgbWapgCKKxs5svhzixt3twgeSKOmXbnmv5tW
+KNt9ihj+szS8DlsEF3HeAmxa1Qjn8qFjeiY4bHe2lsBJ/tcYFGJW2IqgPkfy3GG6bBne1DushZNW854eEoILSbbtsm0y0QYlYtR4518b93a45qM9OcRpnFcfT4dnO/XFJVqIrF+C5wu92i
+2Rm8HopSoLOdgKGTw9Se8dGiJ7FhurTZkz0hscqwc8nuFXVl8WbpX1aJaNZLwcRUZfQ2Qt3bU/z39DwWv1CEP9SXmiWg2wJy0lhGmc51mDJa7XuMe11J2/fUFwUoMjmIB/2idm/96+J3g0
+MYpGITxbm86/a0mPjQSZ3RKwxq+Pb2C/nkmzQ4n/g+ulKwDpeUjFdj4DaDva5bZbgBYqPG91sLajIp3QTeTqpeePKF1DUeJ0KiO0wM3b0p5J9SkOmbfBnOLGJfsE7qQ7D599ns4H5WGp3c
+yIIs2ZBve7EMyHYBqNADe949Vs+oDNySxaoSiTvli8t2eotHLHstvCiJbvdA2TGNtGy9fuims6US7vdtq4H8sBF+22uzGU9a08DiJEYup/TfxRVJOTgfOldHEE4kcIEQwsEq5A="
+
 install:
   # Install this package and the packages listed in requirements.txt.
   - pip install .
@@ -17,4 +26,7 @@ script:
   - coverage report -m  # Generate test coverage report.
   - codecov  # Upload the report to codecov.
   - flake8 --max-line-length=115  # Enforce code style (but relax line length limit a bit).
-  - make -C docs html  # Build the documentation.
+  - set -e
+  - make -C docs html
+  - pip install doctr
+  - doctr deploy --built-docs docs/build/html .
