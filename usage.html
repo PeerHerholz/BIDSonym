@@ -1,0 +1,396 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Usage &mdash; BIDSonym 0.post56+ga7c77f7 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+        <script type="text/javascript" src="_static/copybutton.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Pipeline details" href="pipeline_details.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> BIDSonym
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.post56+ga7c77f7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#execution-and-the-bids-format">Execution and the BIDS format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-arguments">Command-Line Arguments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Positional Arguments">Positional Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-call-s">Example Call(s)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-1">Example 1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-2">Example 2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#support-and-communication">Support and communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#not-running-on-a-local-machine-data-transfer">Not running on a local machine? - Data transfer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline_details.html">Pipeline details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outputs.html">Outputs of BIDSonym</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ, Tips, and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributing to BIDSonym</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing <em>BIDSonym</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">What’s new</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">BIDSonym</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="execution-and-the-bids-format">
+<h2>Execution and the BIDS format<a class="headerlink" href="#execution-and-the-bids-format" title="Permalink to this headline">¶</a></h2>
+<p>The general input of <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> is a path to the dataset that should
+be de-identified. The input dataset is required to be in valid <abbr title="Brain Imaging Data Structure">BIDS</abbr> format.
+We highly recommend that you validate your dataset before you run <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>
+with the free, online <a class="reference external" href="http://bids-standard.github.io/bids-validator/">BIDS Validator</a>.
+However, the <cite>BIDS Validator</cite> is also run at the beginning of <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> and will
+you make you aware of possible problems and/or inconsistencies.
+The exact command to run <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> depends on the Installation method.
+The common parts of the command follow the <a class="reference external" href="https://github.com/BIDS-Apps">BIDS-Apps</a> definition.
+Here’s a very conceptual example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bidsonym</span> <span class="n">data</span><span class="o">/</span><span class="n">bids_root</span><span class="o">/</span> <span class="n">analysis_level</span> <span class="n">optional_arguments</span>
+</pre></div>
+</div>
+<p>However, it is important to note that <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> is a special case of a <code class="docutils literal notranslate"><span class="pre">BIDS-App</span></code>
+in that it doesn’t create a folder under the <code class="docutils literal notranslate"><span class="pre">derivatives/</span></code> directory within
+which its outputs are written. As <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> is intended to be run after
+conversion (from e.g. <code class="docutils literal notranslate"><span class="pre">DICOM</span></code>) but before any other processing step (e.g.,
+quality control, preprocessing, etc.), the original files (non-defaced images
+and complete JSON) will be copied to <code class="docutils literal notranslate"><span class="pre">sourcedata/bidsonym</span></code> and the files in
+the <code class="docutils literal notranslate"><span class="pre">bids_root</span></code> directory be changed.
+Based on this approach de-identified data will enter the processing stream, but
+in case the defacing was not successful (too much or too little cut out) the
+non-defaced images can be re-used, without the necessity to run the conversion again.</p>
+</div>
+<div class="section" id="command-line-arguments">
+<h2>Command-Line Arguments<a class="headerlink" href="#command-line-arguments" title="Permalink to this headline">¶</a></h2>
+<p><p>a BIDS app for de-identification of neuroimaging data</p>
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">bidsonym</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">participant_label</span> <span class="n">PARTICIPANT_LABEL</span> <span class="p">[</span><span class="n">PARTICIPANT_LABEL</span> <span class="o">...</span><span class="p">]]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">deid</span> <span class="p">{</span><span class="n">pydeface</span><span class="p">,</span><span class="n">mri_deface</span><span class="p">,</span><span class="n">quickshear</span><span class="p">,</span><span class="n">mridefacer</span><span class="p">,</span><span class="n">deepdefacer</span><span class="p">}]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">del_nodeface</span> <span class="p">{</span><span class="k">del</span><span class="p">,</span><span class="n">no_del</span><span class="p">}]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">check_meta</span> <span class="n">CHECK_META</span> <span class="p">[</span><span class="n">CHECK_META</span> <span class="o">...</span><span class="p">]]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">del_meta</span> <span class="n">DEL_META</span> <span class="p">[</span><span class="n">DEL_META</span> <span class="o">...</span><span class="p">]]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">brainextraction</span> <span class="p">{</span><span class="n">bet</span><span class="p">,</span><span class="n">nobrainer</span><span class="p">}]</span> <span class="p">[</span><span class="o">--</span><span class="n">bet_frac</span> <span class="n">BET_FRAC</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span>
+                <span class="n">bids_dir</span> <span class="p">{</span><span class="n">participant</span><span class="p">,</span><span class="n">group</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="Positional Arguments">
+<h3>Positional Arguments<a class="headerlink" href="#Positional Arguments" title="Permalink to this headline">¶</a></h3>
+<dl class="option-list">
+<dt><kbd>bids_dir</kbd></dt>
+<dd><p>The directory with the input dataset formatted according to the BIDS standard.</p>
+</dd>
+<dt><kbd>analysis_level</kbd></dt>
+<dd><p>Possible choices: participant, group</p>
+<p>Level of the analysis that will be performed. Multiple participant level analyses can be run independently (in parallel) using the same output_dir.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="Named Arguments">
+<h3>Named Arguments<a class="headerlink" href="#Named Arguments" title="Permalink to this headline">¶</a></h3>
+<dl class="option-list">
+<dt><kbd>--participant_label</kbd></dt>
+<dd><p>The label(s) of the participant(s) that should be analyzed. The label corresponds to sub-&lt;participant_label&gt; from the BIDS spec (so it does not include “sub-“). If this parameter is not provided all subjects should be analyzed. Multiple participants can be specified with a space separated list.</p>
+</dd>
+<dt><kbd>--deid</kbd></dt>
+<dd><p>Possible choices: pydeface, mri_deface, quickshear, mridefacer, deepdefacer</p>
+<p>Approach to use for de-identifictation.</p>
+</dd>
+<dt><kbd>--del_nodeface</kbd></dt>
+<dd><p>Possible choices: del, no_del</p>
+<p>Overwrite and delete original data or copy original data to sourcedata/.</p>
+</dd>
+<dt><kbd>--check_meta</kbd></dt>
+<dd><p>Indicate which information from the image and                         .json meta-data files should be check for potentially problematic information.                         Indicate strings that should be searched for.                         The results will be saved to sourcedata/</p>
+</dd>
+<dt><kbd>--del_meta</kbd></dt>
+<dd><p>Indicate if and which information from the .json meta-data files should be deleted.                         If so, the original .josn files will be copied to sourcedata/</p>
+</dd>
+<dt><kbd>--brainextraction</kbd></dt>
+<dd><p>Possible choices: bet, nobrainer</p>
+<p>What algorithm should be used for pre-defacing brain extraction                         (outputs will be used in quality control).</p>
+</dd>
+<dt><kbd>--bet_frac</kbd></dt>
+<dd><p>In case BET is used for pre-defacing brain extraction, povide a Frac value.</p>
+</dd>
+<dt><kbd>-v, --version</kbd></dt>
+<dd><p>show program’s version number and exit</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="example-call-s">
+<h3>Example Call(s)<a class="headerlink" href="#example-call-s" title="Permalink to this headline">¶</a></h3>
+<p>Below you’ll find two examples calls that hopefully help
+you to familiarize yourself with <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> and its options.</p>
+<div class="section" id="example-1">
+<h4>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bidsonym <span class="se">\</span>
+/home/peer/bids/ <span class="se">\</span>
+participant <span class="se">\</span>
+--participant_label <span class="m">01</span> <span class="se">\</span>
+--deid pydeface <span class="se">\</span>
+--del_meta <span class="s1">&#39;InstitutionAddress&#39;</span> <span class="se">\</span>
+</pre></div>
+</div>
+<p>Here’s what’s in this call:</p>
+<ul class="simple">
+<li><p>The 1st positional argument is the BIDS directory (<code class="docutils literal notranslate"><span class="pre">/home/peer/bids</span></code>)</p></li>
+<li><p>The 2nd positional argument specifies whether we are running participant-
+or group-level mode. In more detail, if only a certain or all participants
+should be de-identified. You can choose between <code class="docutils literal notranslate"><span class="pre">participant</span></code> and <code class="docutils literal notranslate"><span class="pre">group</span></code>.
+Here we choose <code class="docutils literal notranslate"><span class="pre">participant</span></code>.</p></li>
+<li><p>The 3rd positional argument defines the <code class="docutils literal notranslate"><span class="pre">subject</span> <span class="pre">id</span></code>, thus which specific
+participant should be de-identified. In this case, we choose <code class="docutils literal notranslate"><span class="pre">01</span></code>.</p></li>
+<li><p>The 4th positional argument specifies which defacing algorithm should be run.
+You can choose between <code class="docutils literal notranslate"><span class="pre">mri_deface</span></code>, <code class="docutils literal notranslate"><span class="pre">pydeface</span></code>, <code class="docutils literal notranslate"><span class="pre">quickshear</span></code> and <code class="docutils literal notranslate"><span class="pre">mridefacer</span></code>.
+In this example we choose <code class="docutils literal notranslate"><span class="pre">pydeface</span></code>.</p></li>
+<li><p>The 5th argument indicates which metadata fields of the sidecar JSON file(s) should be deleted.
+This can be any of those included in the <a class="reference external" href="https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/01-magnetic-resonance-imaging-data.html">BIDS specification</a>,
+if it exists in the JSON sidecar files of your <code class="docutils literal notranslate"><span class="pre">BIDS</span> <span class="pre">dataset</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="example-2">
+<h4>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bidsonym <span class="se">\</span>
+/home/peer/bids/ <span class="se">\</span>
+group <span class="se">\</span>
+--deid mridefacer <span class="se">\</span>
+</pre></div>
+</div>
+<p>Here’s what’s in this call:</p>
+<ul class="simple">
+<li><p>The 1st positional argument again is the BIDS directory (<code class="docutils literal notranslate"><span class="pre">/home/peer/bids</span></code>)</p></li>
+<li><p>The 2nd positional argument once more specifies whether we are running participant-
+or group-level mode. In more detail, if only a certain or all participants
+should be de-identified. You can choose between <code class="docutils literal notranslate"><span class="pre">participant</span></code> and <code class="docutils literal notranslate"><span class="pre">group</span></code>.
+Here we choose <code class="docutils literal notranslate"><span class="pre">group</span></code>. Hence, all participants will be de-identified and
+we don’t need to specific a <code class="docutils literal notranslate"><span class="pre">--participant_label</span></code> as in Example 1.</p></li>
+<li><p>The 3rd positional argument specifies which defacing algorithm should be run.
+You can choose between <code class="docutils literal notranslate"><span class="pre">mri_deface</span></code>, <code class="docutils literal notranslate"><span class="pre">pydeface</span></code>, <code class="docutils literal notranslate"><span class="pre">quickshear</span></code> and <code class="docutils literal notranslate"><span class="pre">mridefacer</span></code>.
+This time we choose <code class="docutils literal notranslate"><span class="pre">mridefacer</span></code>.</p></li>
+<li><p>Contrary to Example 1, we don’t delete any metadata field(s) of the sidecar JSON files.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="support-and-communication">
+<h2>Support and communication<a class="headerlink" href="#support-and-communication" title="Permalink to this headline">¶</a></h2>
+<p>The documentation of this project is found here: <a class="reference external" href="http://bidsonym.readthedocs.org/en/latest/">http://bidsonym.readthedocs.org/en/latest/</a>.</p>
+<p>All bugs, concerns and enhancement requests for this software can be submitted here:
+<a class="reference external" href="https://github.com/peerherholz/bidsonym/issues">https://github.com/peerherholz/bidsonym/issues</a>.</p>
+<p>If you have a problem or would like to ask a question about how to use <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>,
+please submit a question to <a class="reference external" href="http://neurostars.org/tags/bidsonym">NeuroStars.org</a> with an <code class="docutils literal notranslate"><span class="pre">bidsonym</span></code> tag.
+NeuroStars.org is a platform similar to StackOverflow but dedicated to neuroinformatics.</p>
+<p>All previous <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> questions are available here:
+<a class="reference external" href="http://neurostars.org/tags/bidsonym/">http://neurostars.org/tags/bidsonym/</a></p>
+<p>To participate in the <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> development-related discussions please use the
+following mailing list: <a class="reference external" href="http://mail.python.org/mailman/listinfo/neuroimaging">http://mail.python.org/mailman/listinfo/neuroimaging</a>
+Please add <em>[bidsonym]</em> to the subject line when posting on the mailing list.</p>
+</div>
+<div class="section" id="not-running-on-a-local-machine-data-transfer">
+<h2>Not running on a local machine? - Data transfer<a class="headerlink" href="#not-running-on-a-local-machine-data-transfer" title="Permalink to this headline">¶</a></h2>
+<p>If you intend to run <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> on a remote system, you will need to
+make your data available within that system first.</p>
+<p>Please contact you local system administrator regarding
+possible and favourable transfer options (e.g., <a class="reference external" href="https://rsync.samba.org/">rsync</a>
+or <a class="reference external" href="https://filezilla-project.org/">FileZilla</a>).</p>
+<p>A very comprehensive approach would be <a class="reference external" href="http://www.datalad.org/">Datalad</a>, which will handle data transfers with the
+appropriate settings and commands.
+Datalad also performs version control over your data.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pipeline_details.html" class="btn btn-neutral float-right" title="Pipeline details" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Peer Herholz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

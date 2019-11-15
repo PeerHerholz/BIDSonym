@@ -1,0 +1,389 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; BIDSonym 0.post56+ga7c77f7 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+        <script type="text/javascript" src="_static/copybutton.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="BIDSonym" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> BIDSonym
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.post56+ga7c77f7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#docker">Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Singularity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#preparing-a-singularity-image-singularity-version-2-5">Preparing a Singularity image (Singularity version &gt;= 2.5)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Preparing a Singularity image (Singularity version &lt; 2.5)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-a-singularity-image">Running a Singularity Image</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#bare-metal-version-python-3-6">Bare metal version (Python 3.6+)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#external-dependencies">External Dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline_details.html">Pipeline details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outputs.html">Outputs of BIDSonym</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ, Tips, and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributing to BIDSonym</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing <em>BIDSonym</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">What’s new</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">BIDSonym</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>Installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>In general, there are two distinct ways to install and use <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>:
+either through virtualization/container technology, that is <a class="reference internal" href="#docker">Docker</a> or
+<a class="reference external" href="https://github.com/singularityware/singularity">Singularity</a>, or in a <a class="reference internal" href="#bare-metal-version-python-3-6">Bare metal version (Python 3.6+)</a>.
+Using local container method is highly recommended.
+Once you are ready to run <code class="docutils literal notranslate"><span class="pre">`BIDSonym`</span></code>, see <a class="reference external" href="./usage.rst">Usage</a> for details.</p>
+<div class="section" id="docker">
+<h2>Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h2>
+<p>In order to run <code class="docutils literal notranslate"><span class="pre">`BIDSonym`</span></code> in a Docker container, Docker must be <a class="reference external" href="https://docs.docker.com/engine/installation/">installed</a>.
+Once Docker is installed, you can get <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> through running the following
+command in the terminal of your choice:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker pull peererholz/bidsonym
+</pre></div>
+</div>
+<p>After the command finished (it may take a while depending on your internet connection),
+you can run <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker run -ti --rm <span class="se">\</span>
+    -v path/to/your/bids_dataset:/bids_dataset:ro <span class="se">\</span>
+    peerherholz/bidsonym:latest <span class="se">\</span>
+    /bids_dataset <span class="se">\</span>
+    participant <span class="se">\</span>
+    --participant_label label <span class="se">\</span>
+    --deid defacing_algorithm <span class="se">\</span>
+</pre></div>
+</div>
+<p>Please have a look at the examples under Usage to get more information
+about and familiarize yourself with <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>’s functionality.</p>
+</div>
+<div class="section" id="id2">
+<h2>Singularity<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>For security reasons, many HPCs (e.g., TACC) do not allow Docker containers, but do
+allow <a class="reference external" href="https://github.com/singularityware/singularity">Singularity</a> containers.</p>
+<div class="section" id="preparing-a-singularity-image-singularity-version-2-5">
+<h3>Preparing a Singularity image (Singularity version &gt;= 2.5)<a class="headerlink" href="#preparing-a-singularity-image-singularity-version-2-5" title="Permalink to this headline">¶</a></h3>
+<p>If the version of Singularity on your HPC is modern enough you can create Singularity
+image directly on the HCP.
+This is as simple as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ singularity build /my_images/fmriprep-&lt;version&gt;.simg docker://peerherholz/bidsonym:&lt;version&gt;
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;version&gt;</span></code> should be replaced with the desired version of <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> that you want to download.</p>
+</div>
+<div class="section" id="id4">
+<h3>Preparing a Singularity image (Singularity version &lt; 2.5)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>In this case, start with a machine (e.g., your personal computer) with Docker installed.
+Use <a class="reference external" href="https://github.com/singularityware/docker2singularity">docker2singularity</a> to
+create a singularity image.
+You will need an active internet connection and some time.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker run --privileged -t --rm \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v D:\host\path\where\to\output\singularity\image:/output \
+    singularityware/docker2singularity \
+    peerherholz/bidsonym:&lt;version&gt;
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">&lt;version&gt;</span></code> should be replaced with the desired version of <code class="docutils literal notranslate"><span class="pre">`BIDSonym`</span></code> that you want
+to download.</p>
+<p>Beware of the back slashes, expected for Windows systems.
+For *nix users the command translates as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker run --privileged -t --rm \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v /absolute/path/to/output/folder:/output \
+    singularityware/docker2singularity \
+    peerherholz/bidsonym:&lt;version&gt;
+</pre></div>
+</div>
+<p>Transfer the resulting Singularity image to the HPC, for example, using <code class="docutils literal notranslate"><span class="pre">scp</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scp peerherholz_bidsonym*.simg user@hcpserver.edu:/my_images
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-a-singularity-image">
+<h3>Running a Singularity Image<a class="headerlink" href="#running-a-singularity-image" title="Permalink to this headline">¶</a></h3>
+<p>If the data to be preprocessed is also on the HPC, you are ready to run bidsonym.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ singularity run --cleanenv /my_images/peerherholz_bidsonym*.simg \
+    path/to/your/bids_dataset \
+    participant \
+    --participant-label label \
+    --deid defacing_algorithm
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Singularity by default <a class="reference external" href="https://github.com/singularityware/singularity/issues/445">exposes all environment variables from the host inside
+the container</a>.
+Because of this your host libraries (such as nipype) could be accidentally used
+instead of the ones inside the container - if they are included in <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>.
+To avoid such situation we recommend using the <code class="docutils literal notranslate"><span class="pre">--cleanenv</span></code> singularity flag
+in production use. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ singularity run --cleanenv /my_images/peerherholz_bidsonym*.simg \
+    path/to/your/bids_dataset \
+    participant \
+    --participant-label label \
+    --deid defacing_algorithm
+</pre></div>
+</div>
+<p>or, unset the <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> variable before running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ unset PYTHONPATH; singularity /my_images/peerherholz_bidsonym*.simg \
+    path/to/your/bids_dataset \
+    participant \
+    --participant-label label \
+    --deid defacing_algorithm
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Depending on how Singularity is configured on your cluster it might or might not
+automatically bind (mount or expose) host folders to the container.
+If this is not done automatically you will need to bind the necessary folders using
+the <code class="docutils literal notranslate"><span class="pre">-B</span> <span class="pre">&lt;host_folder&gt;:&lt;container_folder&gt;</span></code> Singularity argument.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ singularity run --cleanenv -B path/to/bids_dataset/on_host:/bids_dataset \
+    /my_images/peerherholz_bidsonym*.simg \
+    bids_dataset \
+    participant \
+    --participant-label label \
+    --deid defacing_algorithm
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="bare-metal-version-python-3-6">
+<h2>Bare metal version (Python 3.6+)<a class="headerlink" href="#bare-metal-version-python-3-6" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This method is not recommended! Make sure you would rather do this than
+use a <a class="reference internal" href="#docker">Docker</a> or a <a class="reference external" href="https://github.com/singularityware/singularity">Singularity</a>.</p>
+</div>
+<p>Make sure all of <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>’s <a class="reference internal" href="#external-dependencies">External Dependencies</a> are installed.
+These tools must be installed and their binaries available in the
+system’s <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>.
+A relatively interpretable description of how your environment can be set-up
+is found in the <a class="reference external" href="https://github.com/peerherholz/bidsonym/blob/master/Dockerfile">Dockerfile</a>.</p>
+<p>On a functional Python 3.6 (or above) environment with <code class="docutils literal notranslate"><span class="pre">pip</span></code> installed,
+<code class="docutils literal notranslate"><span class="pre">`BIDSonym`</span></code> can be installed using the habitual command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install bidsonym
+</pre></div>
+</div>
+<p>Check your installation with the <code class="docutils literal notranslate"><span class="pre">--version</span></code> argument</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ bidsonym --version
+</pre></div>
+</div>
+<div class="section" id="external-dependencies">
+<h3>External Dependencies<a class="headerlink" href="#external-dependencies" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> is written using Python 3.6 (or above).
+It requires some other neuroimaging software tools that are
+not handled by the Python’s packaging system (Pypi) used to deploy
+the <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> package:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/">FSL</a> (version 5.0.9)</p></li>
+<li><p><a class="reference external" href="https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface">MRI_deface</a></p></li>
+<li><p><a class="reference external" href="https://github.com/nipy/quickshear">Quickshear</a></p></li>
+<li><p><a class="reference external" href="https://github.com/mih/mridefacer">mridefacer</a></p></li>
+<li><p><a class="reference external" href="https://github.com/bids-standard/bids-validator">bids-validator</a> (version 1.2.3)</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="BIDSonym" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Peer Herholz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
