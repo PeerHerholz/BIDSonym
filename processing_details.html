@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Processing details &mdash; BIDSonym 0.post54+ga854c46 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+        <script type="text/javascript" src="_static/copybutton.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Outputs of BIDSonym" href="outputs.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> BIDSonym
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.post54+ga854c46
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Processing details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outputs.html">Outputs of BIDSonym</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ, Tips, and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributing to BIDSonym</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing <em>BIDSonym</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">What’s new</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">BIDSonym</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Processing details</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/processing_details.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="processing-details">
+<h1>Processing details<a class="headerlink" href="#processing-details" title="Permalink to this headline">¶</a></h1>
+<p>When running <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>, the following processing steps are executed:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><strong>running BIDS-validator</strong>:</p></li>
+</ol>
+<blockquote>
+<div><p>Before anything else happens, the <a class="reference external" href="https://github.com/bids-standard/bids-validator">BIDS-validator</a> is run in order to evaluate
+if the provided <cite>bids_dataset</cite> is valid with regard to the <a class="reference external" href="https://bids-specification.readthedocs.io/en/stable/">BIDS specification</a>.
+If that’s the case, <cite>BIDSonym</cite> will continue with the subsequent steps, if not, it will stop and provide
+the user with a message of why the <cite>bids_dataset</cite> was evaluated as <cite>not valid</cite>.
+Users should then conduct the changes necessary to make it valid, as otherwise <cite>BIDSonym</cite> won’t run.
+This step and its implementation is based on and borrowed from the respective
+<a class="reference external" href="https://github.com/poldracklab/fmriprep/blob/a774bb55efb6163e9ad860e6a0be0e4cfa426745/fmriprep/utils/bids.py#L64">fmriprep</a>
+functionality, thus all credits go to their amazing developer team. The same accounts for the copyright.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p><strong>brain extraction applied to non-defaced images</strong>:</p></li>
+</ol>
+<blockquote>
+<div><p>In order to evaluate the success of the de-facing, especially with regard to “cut out too much”,
+a brain extraction/skull stripping procedure will be applied to the images before the de-facing.
+The respective brain mask will be overlaid on the de-faced images within the visual QA report to
+allow an easy assessment of potentially too stringent outcomes.</p>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p><strong>copying of non-de-identified data</strong>:</p></li>
+</ol>
+<blockquote>
+<div><p>The non-de-identified data, that is <code class="docutils literal notranslate"><span class="pre">structural</span> <span class="pre">images</span></code> and <code class="docutils literal notranslate"><span class="pre">sidecar</span> <span class="pre">JSON</span> <span class="pre">files</span></code>, will be copied from the
+<code class="docutils literal notranslate"><span class="pre">bids_dataset</span></code> directory to <code class="docutils literal notranslate"><span class="pre">bids_dataset/sourcedata/bidsonym</span></code> and their filenames complemented
+with a <code class="docutils literal notranslate"><span class="pre">no_deid</span></code> tag. In case the de-identification was not successful (too much or too little
+information deleted), the non-de-identified version can easily be copied back from to the <code class="docutils literal notranslate"><span class="pre">bids_dataset</span></code>
+directory without the necessity to run the corresponding DICOM to Nifti in BIDS conversion again.</p>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p><strong>evalution of metadata</strong>:</p></li>
+</ol>
+<blockquote>
+<div><p>The metadata found in both, the <code class="docutils literal notranslate"><span class="pre">header</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">images</span></code> and <code class="docutils literal notranslate"><span class="pre">sidecar</span> <span class="pre">JSON</span> <span class="pre">files</span></code> will gathered
+and saved in a tabular data file (.tsv) of the form <code class="docutils literal notranslate"><span class="pre">metadata</span> <span class="pre">field</span> <span class="pre">:</span> <span class="pre">value</span></code> to the
+<code class="docutils literal notranslate"><span class="pre">bids_dataset/sourcedata/bidsonym/</span></code> directory. Additionally, a third column <code class="docutils literal notranslate"><span class="pre">problematic</span></code> will
+indicate if the <code class="docutils literal notranslate"><span class="pre">value</span></code> of a certain <code class="docutils literal notranslate"><span class="pre">metadata</span> <span class="pre">field</span></code> is potentially problematic or sensitive.
+By default all values will considered not problematic (<code class="docutils literal notranslate"><span class="pre">no</span></code>). Only if the user specifies a list
+of strings which might be included in problematic or sensitive information (e.g., ‘name’) <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>
+will search for these strings and mark respective <code class="docutils literal notranslate"><span class="pre">values</span></code> of <code class="docutils literal notranslate"><span class="pre">metadata</span> <span class="pre">fields</span></code> as problematic (<code class="docutils literal notranslate"><span class="pre">yes</span></code>)</p>
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p><strong>defacing of images</strong>:</p></li>
+</ol>
+<blockquote>
+<div><p>Subsequently, the chosen defacing algorithm will be applied to the <code class="docutils literal notranslate"><span class="pre">structural</span> <span class="pre">images</span></code>, aiming to remove
+features that could potentially allow or aid the identification of participants’ identity (e.g., their face).
+Depending on the algorithm chosen, more or less features are removed and the sufficieny needs to be evaluated
+by the user (supported through the visual QA reports).</p>
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p><strong>de-indetification of metadata fields</strong>:</p></li>
+</ol>
+<blockquote>
+<div><p>If indicated by the user by a list of strings, the <code class="docutils literal notranslate"><span class="pre">values</span></code> of certain <code class="docutils literal notranslate"><span class="pre">metadata</span> <span class="pre">fields</span></code> will be replaced by the string <code class="docutils literal notranslate"><span class="pre">deleted_by_bidsonym</span></code>.</p>
+</div></blockquote>
+</div></blockquote>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/bids-standard/bids-validator">BIDS-validator</a></p></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="outputs.html" class="btn btn-neutral float-right" title="Outputs of BIDSonym" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Peer Herholz
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

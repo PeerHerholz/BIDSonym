@@ -7,7 +7,7 @@
 ./_sources/installation.rst.txt
 ./_sources/links.rst.txt
 ./_sources/outputs.rst.txt
-./_sources/pipeline_details.rst.txt
+./_sources/processing_details.rst.txt
 ./_sources/release-history.rst.txt
 ./_sources/usage.rst.txt
 ./_static/basic.css
@@ -77,7 +77,7 @@
 ./links.html
 ./objects.inv
 ./outputs.html
-./pipeline_details.html
+./processing_details.html
 ./release-history.html
 ./search.html
 ./searchindex.js

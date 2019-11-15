@@ -20,7 +20,7 @@ command in the terminal of your choice:
 
 .. code-block:: bash
 
-    docker pull peererholz/bidsonym
+    docker pull peerherholz/bidsonym
 
 After the command finished (it may take a while depending on your internet connection),
 you can run ``BIDSonym`` like this:

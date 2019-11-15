@@ -14,7 +14,7 @@ BIDSonym Documentation
 
    installation
    usage
-   pipeline_details
+   processing_details
    outputs
    faq
    contributors
