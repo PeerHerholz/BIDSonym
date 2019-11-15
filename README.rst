@@ -44,7 +44,7 @@ BIDSonym
 
 Description
 ===========
-A `BIDS <https://bids-specification.readthedocs.io/en/stable/>`_ `app <https://bids-apps.neuroimaging.io/>`_ for de-identification of neuroimaging data. Gathers all T1w images from a BIDS dataset and applies one of several popular de-identification algorithms. BIDSonym currently supports:
+A `BIDS <https://bids-specification.readthedocs.io/en/stable/>`_ `app <https://bids-apps.neuroimaging.io/>`_ for the de-identification of neuroimaging data. ``BIDSonym`` gathers all T1w images from a BIDS dataset and applies one of several popular de-identification algorithms. It currently supports:
 
 `MRI deface <https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface>`_, `Pydeface <https://github.com/poldracklab/pydeface>`_, `Quickshear <https://github.com/nipy/quickshear>`_ and `mridefacer <https://github.com/mih/mridefacer>`_.
 

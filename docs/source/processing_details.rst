@@ -1,0 +1,58 @@
+.. include:: links.rst
+
+----------------
+Processing details
+----------------
+
+When running ``BIDSonym``, the following processing steps are executed:
+
+  1. **running BIDS-validator**:
+
+    Before anything else happens, the `BIDS-validator`_ is run in order to evaluate
+    if the provided `bids_dataset` is valid with regard to the `BIDS specification <https://bids-specification.readthedocs.io/en/stable/>`_.
+    If that's the case, `BIDSonym` will continue with the subsequent steps, if not, it will stop and provide
+    the user with a message of why the `bids_dataset` was evaluated as `not valid`.
+    Users should then conduct the changes necessary to make it valid, as otherwise `BIDSonym` won't run.
+    This step and its implementation is based on and borrowed from the respective
+    `fmriprep <https://github.com/poldracklab/fmriprep/blob/a774bb55efb6163e9ad860e6a0be0e4cfa426745/fmriprep/utils/bids.py#L64>`_
+    functionality, thus all credits go to their amazing developer team. The same accounts for the copyright.
+
+  2. **brain extraction applied to non-defaced images**:
+
+    In order to evaluate the success of the de-facing, especially with regard to "cut out too much",
+    a brain extraction/skull stripping procedure will be applied to the images before the de-facing.
+    The respective brain mask will be overlaid on the de-faced images within the visual QA report to
+    allow an easy assessment of potentially too stringent outcomes.
+
+  3. **copying of non-de-identified data**:
+
+    The non-de-identified data, that is ``structural images`` and ``sidecar JSON files``, will be copied from the
+    ``bids_dataset`` directory to ``bids_dataset/sourcedata/bidsonym`` and their filenames complemented
+    with a ``no_deid`` tag. In case the de-identification was not successful (too much or too little
+    information deleted), the non-de-identified version can easily be copied back from to the ``bids_dataset``
+    directory without the necessity to run the corresponding DICOM to Nifti in BIDS conversion again.
+
+  4. **evalution of metadata**:
+
+    The metadata found in both, the ``header of the images`` and ``sidecar JSON files`` will gathered
+    and saved in a tabular data file (.tsv) of the form ``metadata field : value`` to the
+    ``bids_dataset/sourcedata/bidsonym/`` directory. Additionally, a third column ``problematic`` will
+    indicate if the ``value`` of a certain ``metadata field`` is potentially problematic or sensitive.
+    By default all values will considered not problematic (``no``). Only if the user specifies a list
+    of strings which might be included in problematic or sensitive information (e.g., 'name') ``BIDSonym``
+    will search for these strings and mark respective ``values`` of ``metadata fields`` as problematic (``yes``)
+
+  5. **defacing of images**:
+
+    Subsequently, the chosen defacing algorithm will be applied to the ``structural images``, aiming to remove
+    features that could potentially allow or aid the identification of participants' identity (e.g., their face).
+    Depending on the algorithm chosen, more or less features are removed and the sufficieny needs to be evaluated
+    by the user (supported through the visual QA reports).
+
+  6. **de-indetification of metadata fields**:
+
+    If indicated by the user by a list of strings, the ``values`` of certain ``metadata fields`` will be replaced by the string ``deleted_by_bidsonym``.
+
+
+
+- BIDS-validator_

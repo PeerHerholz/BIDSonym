@@ -47,13 +47,12 @@ def copy_no_deid(subject_label, bids_dir, T1_file):
         copy(sub_meta_data_file, os.path.join(path_sub_meta, sub_out))
 
 
-def check_meta_data(bids_path, subject_label, prob_fields):
+def check_meta_data(bids_path, subject_label, prob_fields=None):
 
     list_subject_image_files = glob(os.path.join(bids_path, 'sub-' + subject_label, '*', '*nii.gz'))
     list_task_meta_files = glob(os.path.join(bids_path, '*json'))
     list_sub_meta_files = glob(os.path.join(bids_path, 'sub-' + subject_label, '*', '*.json'))
     list_meta_files = list_task_meta_files + list_sub_meta_files
-    prob_fields = prob_fields
 
     for subject_image_file in list_subject_image_files:
 
@@ -66,11 +65,15 @@ def check_meta_data(bids_path, subject_label, prob_fields):
             dat.append(data)
         header_df = pd.DataFrame({'meta_data_field': keys, 'data': dat, 'problematic': 'no'})
 
-        for index, row in header_df.iterrows():
-            if any(i.lower() in row['meta_data_field'] for i in prob_fields):
-                row['problematic'] = 'maybe'
-            else:
-                row['problematic'] = 'no'
+        if prob_fields:
+
+           prob_fields = prob_fields
+
+           for index, row in header_df.iterrows():
+                if any(i.lower() in row['meta_data_field'] for i in prob_fields):
+                    row['problematic'] = 'maybe'
+                else:
+                    row['problematic'] = 'no'
 
         header_df.to_csv(os.path.join(bids_path, 'sourcedata/bidsonym',
                                       'sub-%s' % subject_label,
@@ -90,13 +93,17 @@ def check_meta_data(bids_path, subject_label, prob_fields):
                 info.append(inf)
             json_df = pd.DataFrame({'meta_data_field': keys, 'information': info, 'problematic': 'no'})
 
-            for index, row in json_df.iterrows():
+        if prob_fields:
+
+           prob_fields = prob_fields
+
+           for index, row in json_df.iterrows():
                 if any(i in row['meta_data_field'] for i in prob_fields):
                     row['problematic'] = 'maybe'
                 else:
                     row['problematic'] = 'no'
 
-            json_df.to_csv(os.path.join(bids_path, 'sourcedata/bidsonym', 'sub-%s' % subject_label,
+        json_df.to_csv(os.path.join(bids_path, 'sourcedata/bidsonym', 'sub-%s' % subject_label,
                                         meta_file[meta_file.rfind('/') +
                                                   1:meta_file.rfind('.json')] +
                                         '_json_info.csv'),
