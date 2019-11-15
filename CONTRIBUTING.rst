@@ -1,13 +1,16 @@
 Contributing to BIDSonym
 ====================
-Welcome to the BIDSonym repository! We're excited you're here and want to contribute.
+
+.. start-marker-cont
+
+Welcome to BIDSonym! We're excited you're here and want to contribute.
 
 These guidelines are designed to make it as easy as possible to get involved. If you have any questions that aren't discussed below, please let us know by opening an `issue <https://github.com/PeerHerholz/BIDSonym>`_!
 
 Before you start you'll need to set up a free `GitHub <https://github.com>`_ account and sign in. Here are some `instructions <https://help.github.com/articles/signing-up-for-a-new-github-account/>`_.
 If you are not familiar with version control systems such as git,
- `introductions and tutorials <http://www.reproducibleimaging.org/module-reproducible-basics/02-vcs/>`_
- may be found on `ReproducibleImaging.org <https://www.reproducibleimaging.org>`_.
+`introductions and tutorials <http://www.reproducibleimaging.org/module-reproducible-basics/02-vcs/>`_
+may be found on `ReproducibleImaging.org <https://www.reproducibleimaging.org>`_.
 
 Already know what you're looking for in this guide? Jump to the following sections:
 
@@ -21,37 +24,41 @@ Issue labels
 ============
 .. image:: https://img.shields.io/badge/-bugs-fc2929.svg
     :alt: Bugs
+
 *These issues point to problems in the project.*
 
-    If you find new a bug, please provide as much information as possible to recreate the error.
-    The `issue template <https://github.com/PeerHerholz/BIDSonym/blob/master/.github/ISSUE_TEMPLATE/bug_report.md>`_ will automatically populate any new issue you open, and contains information we've found to be helpful in addressing bug reports.
-    Please fill it out to the best of your ability!
+If you find new a bug, please provide as much information as possible to recreate the error.
+The `issue template <https://github.com/PeerHerholz/BIDSonym/blob/master/.github/ISSUE_TEMPLATE/bug_report.md>`_ will automatically populate any new issue you open, and contains information we've found to be helpful in addressing bug reports.
+Please fill it out to the best of your ability!
 
-    If you experience the same bug as one already listed in an open issue, please add any additional information that you have as a comment.
+If you experience the same bug as one already listed in an open issue, please add any additional information that you have as a comment.
 
 .. image:: https://img.shields.io/badge/-help%20wanted-c2e0c6.svg
     :alt: Help
+
 *These issues contain a task that a member of the team has determined we need additional help with.*
 
-    If you feel that you can contribute to one of these issues, we especially encourage you to do so!
-    Issues that are also labelled as [good-first-issue][link_good_first_issue] are a great place to start if you're looking to make your first contribution.
+If you feel that you can contribute to one of these issues, we especially encourage you to do so!
+Issues that are also labelled as [good-first-issue][link_good_first_issue] are a great place to start if you're looking to make your first contribution.
 
 .. image:: https://img.shields.io/badge/-enhancement-00FF09.svg
     :alt: Enhancement
+
 *These issues are asking for new features to be added to the project.*
 
-    Please try to make sure that your requested enhancement is distinct from any others that have already been requested or implemented.
-    If you find one that's similar but there are subtle differences, please reference the other request in your issue.
+Please try to make sure that your requested enhancement is distinct from any others that have already been requested or implemented.
+If you find one that's similar but there are subtle differences, please reference the other request in your issue.
 
 .. image:: https://img.shields.io/badge/-orphaned-9baddd.svg
     :alt: Orphaned
+
 *These pull requests have been closed for inactivity.*
 
-    Before proposing a new pull request, browse through the "orphaned" pull requests.
-    You may find that someone has already made significant progress toward your goal, and you can re-use their
-    unfinished work.
-    An adopted PR should be updated to merge or rebase the current master, and a new PR should be created (see
-    below) that references the original PR.
+Before proposing a new pull request, browse through the "orphaned" pull requests.
+You may find that someone has already made significant progress toward your goal, and you can re-use their
+unfinished work.
+An adopted PR should be updated to merge or rebase the current master, and a new PR should be created (see
+below) that references the original PR.
 
 Making a change
 ===============
@@ -109,29 +116,30 @@ The development team may prefer a different path than you've outlined, so it's b
 
 One your PR is ready a member of the development team will review your changes to confirm that they can be merged into the main codebase.
 
-## Notes for New Code
+Notes for New Code
+==================
 
-#### Catching exceptions
+Catching exceptions
+-------------------
 In general, do not catch exceptions without good reason.
 For non-fatal exceptions, log the exception as a warning and add more information about what may have caused the error.
 
 If you do need to catch an exception, raise a new exception using ``raise_from(NewException("message"), oldException)`` from ``future``.
 Do not log this, as it creates redundant/confusing logs.
 
-#### Testing
+Testing
+-------
 New code should be tested, whenever feasible.
 Bug fixes should include an example that exposes the issue.
 Any new features should have tests that show at least a minimal example.
 If you're not sure what this means for your code, please ask in your pull request.
 
-## Recognizing contributions
-
+Recognizing contributions
+-------------------------
 We welcome and recognize all contributions from documentation to testing to code development.
 
 The development team member who accepts/merges your pull request will update the CHANGES file to reference your contribution.
 
-## Thank you!
-
-You're awesome.
+**Thank you! You're awesome.**
 
 Based on contributing guidelines from the `STEMMRoleModels <http://stemmrolemodels.com/>`_ project.*

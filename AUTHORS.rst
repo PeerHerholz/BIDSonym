@@ -12,3 +12,4 @@ Contributors
 ------------
 
 * Kirstie Whitaker <kw401@cam.ac.uk>
+* Jean-Baptiste Poline

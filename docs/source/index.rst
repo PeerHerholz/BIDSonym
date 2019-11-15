@@ -3,12 +3,22 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. include:: ../../README.rst
+    :end-before: intro-marker
+
 BIDSonym Documentation
 ======================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    installation
    usage
+   pipeline_details
+   outputs
+   faq
+   contributors
+   authors
+   citing
    release-history
+   changes

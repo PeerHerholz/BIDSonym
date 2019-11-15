@@ -36,7 +36,7 @@ BIDSonym
 .. image:: https://upload.wikimedia.org/wikipedia/commons/7/74/Zotero_logo.svg
     :alt: Zotero
     :target: https://www.zotero.org/groups/2362367/bidsonym
-    
+
 
 .. image:: https://img.shields.io/badge/Supported%20by-%20CONP%2FPCNO-red
     :alt: support_conp
@@ -44,42 +44,40 @@ BIDSonym
 
 Description
 ===========
-A BIDS app for de-identification of neuroimaging data. Gathers all T1w images from a BIDS dataset and applies one of several popular de-identification algorithms. BIDSonym currently supports:
+A `BIDS <https://bids-specification.readthedocs.io/en/stable/>`_ `app <https://bids-apps.neuroimaging.io/>`_ for de-identification of neuroimaging data. Gathers all T1w images from a BIDS dataset and applies one of several popular de-identification algorithms. BIDSonym currently supports:
 
-`Pydeface <https://github.com/poldracklab/pydeface>`_
+`MRI deface <https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface>`_, `Pydeface <https://github.com/poldracklab/pydeface>`_, `Quickshear <https://github.com/nipy/quickshear>`_ and `mridefacer <https://github.com/mih/mridefacer>`_.
 
-`MRI deface <https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface>`_
-
-`Quickshear <https://github.com/nipy/quickshear>`_
-
-`mridefacer <https://github.com/mih/mridefacer>`_
-
-.. image:: img/bidsonym_example.png
-   :height: 10px
-   :width: 20 px
-   :scale: 10 %
+.. image:: https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/img/bidsonym_example.png
    :alt: alternate text
-   :align: right
+
+Additionally, the user can choose to evaluate the sidecar JSON files regarding potentially sensitive information,
+like for example participant names and define a list of fields which information should be deleted.
 
 **Using BIDSonym ensures that you can make collected neuroimaging data available for others without violating subjects' privacy or anonymity (depending on the regulations of the country you're in).**
 
+.. intro-marker
+
 Usage
 =====
+
+.. usage-marker
+
 This App has the following command line arguments:
 
-usage:	run.py [-h] 
+usage:	run.py [-h]
 
-[--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]] 
+[--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
 
-[--deid {pydeface,mri_deface,quickshear}] 
+[--deid {pydeface,mri_deface,quickshear}]
 
-[--del_nodeface {del,no_del}] 
+[--del_nodeface {del,no_del}]
 
 [--check_meta]
 
-[--del_meta META_DATA_FIELD [META_DATA_FIELD ...]] 
+[--del_meta META_DATA_FIELD [META_DATA_FIELD ...]]
 
-bids_dir {participant,group} 
+bids_dir {participant,group}
 
 a BIDS app for de-identification of neuroimaging data
 
@@ -113,24 +111,27 @@ optional arguments:
 
 Run it in participant level mode (for one participant):
 
-.. code-block:: 
+.. code-block::
 
 	docker run -i --rm \
 		    -v /Users/peer/ds005:/bids_dataset \
 	            peerherholz/bidsonym \
 		    /bids_dataset \
-		    participant --deid pydeface --del_nodeface no_del --del_meta 'InstitutionAddress' \
+		    participant --deid pydeface --del_meta 'InstitutionAddress' \
 		    --participant_label 01
 
 
 Run it in group level mode (for all participants):
 
-.. code-block:: 
+.. code-block::
 
 	docker run -i --rm \
 		   -v /Users/peer/ds005:/bids_dataset \
 		   peerherholz/bidsonym \
-		   /bids_dataset  group --deid pydeface --del_nodeface no_del --del_meta 'InstitutionAddress'
+		   /bids_dataset  group --deid pydeface --del_meta 'InstitutionAddress'
+
+.. usage-marker-end
+
 
 Installation
 ============
@@ -139,7 +140,7 @@ To get the BIDSonym Docker image, you need to `install docker <https://docs.dock
 
 :code:`docker pull peerherholz/bidsonym`
 
-To get its Singularity version, you need to `_install singularity <https://singularity.lbl.gov/all-releases>`_ and within the terminal of your choice type:
+To get its Singularity version, you need to `install singularity <https://singularity.lbl.gov/all-releases>`_ and within the terminal of your choice type:
 
 :code:`singularity pull docker://peerherholz/bidsonym`
 
@@ -157,7 +158,10 @@ Thank you for considering contributing to our project! Before getting involved, 
 
 Acknowledgements
 ================
-If you intend to or already used BIDSonym, we would be very happy if you cite this github repo, till we have "something" out there!
+Please acknowledge this work by mentioning explicitly the name of this software
+(*BIDSonym*) and the version, along with a link to the `GitHub repository
+<https://github.com/peerherholz/bidsonym>`_ or the Zenodo reference.
+For more details, please see :ref:`citation`.
 
 Support
 =======

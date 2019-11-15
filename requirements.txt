@@ -4,3 +4,4 @@ pandas
 nibabel
 nipype
 niworkflows
+duecredit

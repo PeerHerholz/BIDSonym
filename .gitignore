@@ -1,1 +1,35 @@
 # Created by .ignore support plugin (hsz.mobi)
+
+# pycharm project settings
+.idea
+
+#Ipython Notebook
+.ipynb_checkpoints
+
+# Sphinx documentation
+docs/_build/
+build/
+
+# Distribution / packaging
+.Python
+env/
+# build/ # commented due to some strangeness with Docker/circle setup
+develop-eggs/
+dist/
+build/lib*
+build/temp*
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+pip-wheel-metadata/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
