@@ -16,7 +16,6 @@ BIDSonym Documentation
    usage
    processing_details
    outputs
-   faq
    contributors
    authors
    citing
