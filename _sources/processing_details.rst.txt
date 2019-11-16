@@ -22,7 +22,12 @@ When running ``BIDSonym``, the following processing steps are executed:
     In order to evaluate the success of the de-facing, especially with regard to "cut out too much",
     a brain extraction/skull stripping procedure will be applied to the images before the de-facing.
     The respective brain mask will be overlaid on the de-faced images within the visual QA report to
-    allow an easy assessment of potentially too stringent outcomes.
+    allow an easy assessment of potentially too stringent outcomes. A respective example is shown below
+    where the upper panel displays a non-defaced image and the lower one a defaced image. The reddish overlay
+    represents a brain mask that was extracted before the image was defaced.
+
+    .. image:: https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/docs/source/_static/brainext_defacing.png
+       :alt: alternate text
 
   3. **copying of non-de-identified data**:
 

@@ -2,7 +2,6 @@
 ./_sources/changes.rst.txt
 ./_sources/citing.rst.txt
 ./_sources/contributors.rst.txt
-./_sources/faq.rst.txt
 ./_sources/index.rst.txt
 ./_sources/installation.rst.txt
 ./_sources/links.rst.txt
@@ -11,6 +10,7 @@
 ./_sources/release-history.rst.txt
 ./_sources/usage.rst.txt
 ./_static/basic.css
+./_static/brainext_defacing.png
 ./_static/copy-button.svg
 ./_static/copybutton.css
 ./_static/copybutton.js
@@ -70,7 +70,6 @@
 ./changes.html
 ./citing.html
 ./contributors.html
-./faq.html
 ./genindex.html
 ./index.html
 ./installation.html
