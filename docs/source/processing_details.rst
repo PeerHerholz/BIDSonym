@@ -15,9 +15,14 @@ When running ``BIDSonym``, the following processing steps are executed:
     Users should then conduct the changes necessary to make it valid, as otherwise `BIDSonym` won't run.
     This step and its implementation is based on and borrowed from the respective
     `fmriprep <https://github.com/poldracklab/fmriprep/blob/a774bb55efb6163e9ad860e6a0be0e4cfa426745/fmriprep/utils/bids.py#L64>`_
-    functionality, thus all credits go to their amazing developer team. The same accounts for the copyright.
+    functionality, thus all credits go to their amazing developer team. The same accounts for the copyright. Below you see an example
+    of the ``BIDS-validator`` output, providing information about the ``bids_dataset`` and a warning telling you that the ``README``
+    is missing.
 
-  2. **brain extraction applied to non-defaced images**:
+    .. image:: https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/docs/source/_static/bidsvalidator_example.png
+       :alt: alternate text
+
+    2. **brain extraction applied to non-defaced images**:
 
     In order to evaluate the success of the de-facing, especially with regard to "cut out too much",
     a brain extraction/skull stripping procedure will be applied to the images before the de-facing.
@@ -51,7 +56,7 @@ When running ``BIDSonym``, the following processing steps are executed:
 
     Subsequently, the chosen defacing algorithm will be applied to the ``structural images``, aiming to remove
     features that could potentially allow or aid the identification of participants' identity (e.g., their face).
-    Depending on the algorithm chosen, more or less features are removed and the sufficieny needs to be evaluated
+    Depending on the algorithm chosen, more or less features are removed and the sufficiency needs to be evaluated
     by the user (supported through the visual QA reports).
 
   6. **de-indetification of metadata fields**:
