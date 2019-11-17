@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processing details &mdash; BIDSonym 0.post54+gf3b203d documentation</title>
+  <title>Processing details &mdash; BIDSonym 0.post54+g7bdd84a documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.post54+gf3b203d
+                0.post54+g7bdd84a
               </div>
             
           
@@ -176,13 +176,14 @@ the user with a message of why the <cite>bids_dataset</cite> was evaluated as <c
 Users should then conduct the changes necessary to make it valid, as otherwise <cite>BIDSonym</cite> won’t run.
 This step and its implementation is based on and borrowed from the respective
 <a class="reference external" href="https://github.com/poldracklab/fmriprep/blob/a774bb55efb6163e9ad860e6a0be0e4cfa426745/fmriprep/utils/bids.py#L64">fmriprep</a>
-functionality, thus all credits go to their amazing developer team. The same accounts for the copyright.</p>
-</div></blockquote>
+functionality, thus all credits go to their amazing developer team. The same accounts for the copyright. Below you see an example
+of the <code class="docutils literal notranslate"><span class="pre">BIDS-validator</span></code> output, providing information about the <code class="docutils literal notranslate"><span class="pre">bids_dataset</span></code> and a warning telling you that the <code class="docutils literal notranslate"><span class="pre">README</span></code>
+is missing.</p>
+<img alt="alternate text" src="https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/docs/source/_static/bidsvalidator_example.png" />
 <ol class="arabic simple" start="2">
 <li><p><strong>brain extraction applied to non-defaced images</strong>:</p></li>
 </ol>
-<blockquote>
-<div><p>In order to evaluate the success of the de-facing, especially with regard to “cut out too much”,
+<p>In order to evaluate the success of the de-facing, especially with regard to “cut out too much”,
 a brain extraction/skull stripping procedure will be applied to the images before the de-facing.
 The respective brain mask will be overlaid on the de-faced images within the visual QA report to
 allow an easy assessment of potentially too stringent outcomes. A respective example is shown below
@@ -218,7 +219,7 @@ will search for these strings and mark respective <code class="docutils literal 
 <blockquote>
 <div><p>Subsequently, the chosen defacing algorithm will be applied to the <code class="docutils literal notranslate"><span class="pre">structural</span> <span class="pre">images</span></code>, aiming to remove
 features that could potentially allow or aid the identification of participants’ identity (e.g., their face).
-Depending on the algorithm chosen, more or less features are removed and the sufficieny needs to be evaluated
+Depending on the algorithm chosen, more or less features are removed and the sufficiency needs to be evaluated
 by the user (supported through the visual QA reports).</p>
 </div></blockquote>
 <ol class="arabic simple" start="6">
