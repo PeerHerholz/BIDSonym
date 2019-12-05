@@ -22,6 +22,7 @@ When running ``BIDSonym``, the following processing steps are executed:
     .. image:: https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/docs/source/_static/bidsvalidator_example.png
        :alt: alternate text
 
+
     2. **brain extraction applied to non-defaced images**:
 
     In order to evaluate the success of the de-facing, especially with regard to "cut out too much",
