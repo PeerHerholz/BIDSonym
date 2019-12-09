@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 from glob import glob
 from bidsonym.defacing_algorithms import (run_pydeface, run_mri_deface, run_mridefacer,
-                                          run_quickshear, run_deepdefacer)
+                                          run_quickshear, run_deepdefacer, run_t2w_deface)
 from bidsonym.utils import (check_outpath, copy_no_deid, check_meta_data, del_meta_data,
                             run_brain_extraction_nb, run_brain_extraction_bet, validate_input_dir)
 
@@ -30,6 +30,7 @@ def get_parser():
     parser.add_argument('--deid', help='Approach to use for de-identifictation.',
                         choices=['pydeface', 'mri_deface', 'quickshear', 'mridefacer',
                                  'deepdefacer'])
+    parser.add_argument('--deface_t2w', help='Deface T2w images by using defaced T1w image as deface-mask.')
     parser.add_argument('--del_nodeface',
                         help='Overwrite and delete original data or copy original data to sourcedata/.',
                         choices=['del', 'no_del'])
@@ -159,6 +160,12 @@ def run_deeid():
                     check_meta_data(args.bids_dir, subject_label, list_check_meta)
                     if args.del_meta:
                         del_meta_data(args.bids_dir, subject_label, list_field_del)
+            if args.deface_t2w:
+                for T2_file in glob(os.path.join(args.bids_dir, "sub-%s" % subject_label,
+                                                 "anat", "*_T2w.nii*")) + \
+                                                 glob(os.path.join(args.bids_dir, "sub-%s" % subject_label,
+                                                                   "ses-*", "anat", "*_T2w.nii*")):
+                    run_t2w_deface(T2_file, T1_file, T2_file)
 
 
 if __name__ == "__main__":

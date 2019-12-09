@@ -7,6 +7,8 @@ import pandas as pd
 import nibabel as nib
 from shutil import copy
 
+from nibabel import load, Nifti1Image
+
 import nipype.pipeline.engine as pe
 from nipype import Function
 from nipype.interfaces import utility as niu
@@ -273,3 +275,20 @@ def validate_input_dir(exec_env, bids_dir, participant_label):
             subprocess.check_call(['bids-validator', bids_dir, '-c', temp.name])
         except FileNotFoundError:
             print("bids-validator does not appear to be installed", file=sys.stderr)
+
+
+def deface_t2w(infile, warped_mask, outfile):
+
+    # functionality copied from pydeface
+    infile_img = load(infile)
+    warped_mask_img = load(warped_mask)
+    try:
+        outdata = infile_img.get_data().squeeze() * warped_mask_img.get_data()
+    except ValueError:
+        tmpdata = np.stack([warped_mask_img.get_data()] *
+                           infile_img.get_data().shape[-1], axis=-1)
+        outdata = infile_img.get_data() * tmpdata
+
+    masked_brain = Nifti1Image(outdata, infile_img.get_affine(),
+                               infile_img.get_header())
+    masked_brain.to_filename(outfile)
