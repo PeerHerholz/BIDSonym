@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Usage &mdash; BIDSonym 0.post54+geae7e08 documentation</title>
+  <title>Usage &mdash; BIDSonym 0.post54+ga57e618 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.post54+geae7e08
+                0.post54+ga57e618
               </div>
             
           
@@ -210,7 +210,7 @@ non-defaced images can be re-used, without the necessity to run the conversion a
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">bidsonym</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">participant_label</span> <span class="n">PARTICIPANT_LABEL</span> <span class="p">[</span><span class="n">PARTICIPANT_LABEL</span> <span class="o">...</span><span class="p">]]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">deid</span> <span class="p">{</span><span class="n">pydeface</span><span class="p">,</span><span class="n">mri_deface</span><span class="p">,</span><span class="n">quickshear</span><span class="p">,</span><span class="n">mridefacer</span><span class="p">,</span><span class="n">deepdefacer</span><span class="p">}]</span>
-                <span class="p">[</span><span class="o">--</span><span class="n">del_nodeface</span> <span class="p">{</span><span class="k">del</span><span class="p">,</span><span class="n">no_del</span><span class="p">}]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">deface_t2w</span> <span class="n">DEFACE_T2W</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">del_nodeface</span> <span class="p">{</span><span class="k">del</span><span class="p">,</span><span class="n">no_del</span><span class="p">}]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">check_meta</span> <span class="n">CHECK_META</span> <span class="p">[</span><span class="n">CHECK_META</span> <span class="o">...</span><span class="p">]]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">del_meta</span> <span class="n">DEL_META</span> <span class="p">[</span><span class="n">DEL_META</span> <span class="o">...</span><span class="p">]]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">brainextraction</span> <span class="p">{</span><span class="n">bet</span><span class="p">,</span><span class="n">nobrainer</span><span class="p">}]</span> <span class="p">[</span><span class="o">--</span><span class="n">bet_frac</span> <span class="n">BET_FRAC</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span>
@@ -238,6 +238,9 @@ non-defaced images can be re-used, without the necessity to run the conversion a
 <dt><kbd>--deid</kbd></dt>
 <dd><p>Possible choices: pydeface, mri_deface, quickshear, mridefacer, deepdefacer</p>
 <p>Approach to use for de-identifictation.</p>
+</dd>
+<dt><kbd>--deface_t2w</kbd></dt>
+<dd><p>Deface T2w images by using defaced T1w image as deface-mask.</p>
 </dd>
 <dt><kbd>--del_nodeface</kbd></dt>
 <dd><p>Possible choices: del, no_del</p>
