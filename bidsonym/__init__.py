@@ -7,13 +7,13 @@ from .utils import (check_outpath, copy_no_deid, check_meta_data, del_meta_data,
 
 from .reports import SubjectSummary, AboutSummary
 
-#from niworkflows.interfaces import bids
+# from niworkflows.interfaces import bids
 
 __version__ = get_versions()['version']
 del get_versions
 
 
-#class DerivativesDataSink(bids.DerivativesDataSink):
+# class DerivativesDataSink(bids.DerivativesDataSink):
 #    out_path_base = 'sourcedata/bidsonym'
 
 
@@ -31,5 +31,5 @@ __all__ = [
     'validate_input_dir',
     'SubjectSummary',
     'AboutSummary',
-    #'bids'
+    # 'bids'
 ]
