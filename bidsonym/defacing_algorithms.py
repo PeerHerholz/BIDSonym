@@ -4,9 +4,6 @@ from nipype.interfaces import utility as niu
 from nipype.interfaces.quickshear import Quickshear
 from nipype.interfaces.fsl import BET, FLIRT
 
-from bidsonym.utils import deface_t2w
-
-
 def pydeface_cmd(image, outfile):
 
     from subprocess import check_call
@@ -148,6 +145,8 @@ def run_deepdefacer(image, subject_label, bids_dir):
 
 def run_t2w_deface(image, t1w_deface_mask, outfile):
 
+    from bidsonym.utils import deface_t2w
+
     deface_wf = pe.Workflow('deface_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
                         name='inputnode')
@@ -160,7 +159,7 @@ def run_t2w_deface(image, t1w_deface_mask, outfile):
     deface_wf.connect([(inputnode, flirtnode, [('in_file', 'reference')]),
                        (inputnode, deface_t2w, [('in_file', 'outfile')]),
                        (flirtnode, deface_t2w, [('out_file', 'warped_mask')]),
-                     ])
+                      ])
     inputnode.inputs.in_file = image
     flirtnode.inputs.in_file = t1w_deface_mask
     deface_t2w.inputs.image = image
