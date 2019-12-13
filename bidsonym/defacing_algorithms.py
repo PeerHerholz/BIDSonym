@@ -159,8 +159,7 @@ def run_t2w_deface(image, t1w_deface_mask, outfile):
                          name='deface_t2w')
     deface_wf.connect([(inputnode, flirtnode, [('in_file', 'reference')]),
                        (inputnode, deface_t2w, [('in_file', 'outfile')]),
-                       (flirtnode, deface_t2w, [('out_file', 'warped_mask')]),
-                     ])
+                       (flirtnode, deface_t2w, [('out_file', 'warped_mask')])])
     inputnode.inputs.in_file = image
     flirtnode.inputs.in_file = t1w_deface_mask
     deface_t2w.inputs.image = image
