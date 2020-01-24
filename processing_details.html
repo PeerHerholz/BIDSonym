@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processing details &mdash; BIDSonym 0.post53+gf028fc2 documentation</title>
+  <title>Processing details &mdash; BIDSonym 0.post53+gb195c47 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.post53+gf028fc2
+                0.post53+gb195c47
               </div>
             
           
@@ -170,8 +170,8 @@
 <li><p><strong>running BIDS-validator</strong>:</p></li>
 </ol>
 <blockquote>
-<div><p>Before anything else happens, the <a class="reference external" href="https://github.com/bids-standard/bids-validator">BIDS-validator</a> is run in order to evaluate
-if the provided <cite>bids_dataset</cite> is valid with regard to the <a class="reference external" href="https://bids-specification.readthedocs.io/en/stable/">BIDS specification</a>.
+<div><p>Before anything else happens, the <a class="reference external" href="https://github.com/bids-standard/bids-validator">BIDS-validator</a>
+is run in order to evaluate if the provided <cite>bids_dataset</cite> is valid with regard to the <a class="reference external" href="https://bids-specification.readthedocs.io/en/stable/">BIDS specification</a>.
 If that’s the case, <cite>BIDSonym</cite> will continue with the subsequent steps, if not, it will stop and provide
 the user with a message of why the <cite>bids_dataset</cite> was evaluated as <cite>not valid</cite>.
 Users should then conduct the changes necessary to make it valid, as otherwise <cite>BIDSonym</cite> won’t run.
@@ -221,7 +221,8 @@ will search for these strings and mark respective <code class="docutils literal 
 <div><p>Subsequently, the chosen defacing algorithm will be applied to the <code class="docutils literal notranslate"><span class="pre">structural</span> <span class="pre">images</span></code>, aiming to remove
 features that could potentially allow or aid the identification of participants’ identity (e.g., their face).
 Depending on the algorithm chosen, more or less features are removed and the sufficiency needs to be evaluated
-by the user (supported through the visual QA reports).</p>
+by the user (supported through the visual QA reports). If the <code class="docutils literal notranslate"><span class="pre">-deface_t2w</span></code> flag is set, <code class="docutils literal notranslate"><span class="pre">structural</span> <span class="pre">T2</span> <span class="pre">weighted</span>
+<span class="pre">images</span></code> will de-faced by using the respective <code class="docutils literal notranslate"><span class="pre">de-faced</span> <span class="pre">T1</span> <span class="pre">weighted</span> <span class="pre">image</span></code> of the same subject as a mask.</p>
 </div></blockquote>
 <ol class="arabic simple" start="6">
 <li><p><strong>de-indetification of metadata fields</strong>:</p></li>
@@ -230,9 +231,6 @@ by the user (supported through the visual QA reports).</p>
 <div><p>If indicated by the user by a list of strings, the <code class="docutils literal notranslate"><span class="pre">values</span></code> of certain <code class="docutils literal notranslate"><span class="pre">metadata</span> <span class="pre">fields</span></code> will be replaced by the string <code class="docutils literal notranslate"><span class="pre">deleted_by_bidsonym</span></code>.</p>
 </div></blockquote>
 </div></blockquote>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/bids-standard/bids-validator">BIDS-validator</a></p></li>
-</ul>
 </div>
 
 
