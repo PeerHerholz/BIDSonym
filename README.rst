@@ -103,10 +103,12 @@ optional arguments:
   --del_nodeface {del,no_del}
 			Overwrite and delete original data or copy original
 			data to different folder.
---del_meta META_DATA_FIELD [META_DATA_FIELD ...]
-		  Indicate if and which information from the .json meta-data
-		  files should be deleted. If so, the original :code:`.json` files
-		  will be copied to :code:`sourcedata/` .
+  --del_meta META_DATA_FIELD [META_DATA_FIELD ...]
+		  	Indicate if and which information from the .json meta-data
+		  	files should be deleted. If so, the original :code:`.json` files
+		 	will be copied to :code:`sourcedata/`.
+  --deface_t2w 
+			Deface T2w images by using defaced T1w image as deface-mask.
 
 
 Run it in participant level mode (for one participant):
