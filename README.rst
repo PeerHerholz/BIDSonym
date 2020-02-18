@@ -109,7 +109,7 @@ optional arguments:
   --del_nodeface {del,no_del}
 			Overwrite and delete original data or copy original
 			data to different folder.
-  --deface_t2w
+  --deface_t2w {}
 			Deface T2w images by using defaced T1w image as deface-mask.
   --del_meta META_DATA_FIELD [META_DATA_FIELD ...]
 			Indicate if and which information from the .json meta-data
@@ -118,7 +118,7 @@ optional arguments:
   --brainextraction {BET, no_brainer}
 			What algorithm should be used for pre-defacing brain extraction
 			(outputs will be used in quality control).
-  --bet_frac BET_FRAC
+  --bet_frac [BET_FRAC]
 			In case BET is used for pre-defacing brain extraction, rpovide a Frac value.
 
 
