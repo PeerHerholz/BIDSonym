@@ -115,11 +115,11 @@ optional arguments:
 			Indicate if and which information from the .json meta-data
 			files should be deleted. If so, the original :code:`.json` files
 			will be copied to :code:`sourcedata/`.
-  --brainextraction
+  --brainextraction {BET, no_brainer}
 			What algorithm should be used for pre-defacing brain extraction
 			(outputs will be used in quality control).
-  --bet_frac
-			In case BET is used for pre-defacing brain extraction, povide a Frac value.
+  --bet_frac BET_FRAC
+			In case BET is used for pre-defacing brain extraction, rpovide a Frac value.
 
 
 Run it in participant level mode (for one participant):
