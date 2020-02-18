@@ -73,9 +73,15 @@ usage:	run.py [-h]
 
 [--del_nodeface {del,no_del}]
 
+[--deface_t2w]
+
 [--check_meta]
 
 [--del_meta META_DATA_FIELD [META_DATA_FIELD ...]]
+
+[--brainextraction {bet,nobrainer}]
+
+[--bet_frac BET_FRAC]
 
 bids_dir {participant,group}
 
@@ -103,12 +109,17 @@ optional arguments:
   --del_nodeface {del,no_del}
 			Overwrite and delete original data or copy original
 			data to different folder.
+  --deface_t2w
+      Deface T2w images by using defaced T1w image as deface-mask.
   --del_meta META_DATA_FIELD [META_DATA_FIELD ...]
 		  	Indicate if and which information from the .json meta-data
 		  	files should be deleted. If so, the original :code:`.json` files
 		 	will be copied to :code:`sourcedata/`.
-
-
+  --brainextraction
+        What algorithm should be used for pre-defacing brain extraction
+        (outputs will be used in quality control).
+  --bet_frac
+        In case BET is used for pre-defacing brain extraction, povide a Frac value.
 
 
 Run it in participant level mode (for one participant):
@@ -148,7 +159,8 @@ To get its Singularity version, you need to `install singularity <https://singul
 
 Documentation
 =============
-A documentation is currently in the works and will be available soon. Sorry for any inconvenience this might cause.
+BIDSOnym's documentation can be found `here <https://peerherholz.github.io/BIDSonym/>`_.
+
 
 How to report errors
 ====================
