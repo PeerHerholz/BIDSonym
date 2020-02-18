@@ -110,16 +110,16 @@ optional arguments:
 			Overwrite and delete original data or copy original
 			data to different folder.
   --deface_t2w
-      Deface T2w images by using defaced T1w image as deface-mask.
+			Deface T2w images by using defaced T1w image as deface-mask.
   --del_meta META_DATA_FIELD [META_DATA_FIELD ...]
-		  	Indicate if and which information from the .json meta-data
-		  	files should be deleted. If so, the original :code:`.json` files
-		 	will be copied to :code:`sourcedata/`.
+			Indicate if and which information from the .json meta-data
+			files should be deleted. If so, the original :code:`.json` files
+			will be copied to :code:`sourcedata/`.
   --brainextraction
-        What algorithm should be used for pre-defacing brain extraction
-        (outputs will be used in quality control).
+			What algorithm should be used for pre-defacing brain extraction
+			(outputs will be used in quality control).
   --bet_frac
-        In case BET is used for pre-defacing brain extraction, povide a Frac value.
+			In case BET is used for pre-defacing brain extraction, povide a Frac value.
 
 
 Run it in participant level mode (for one participant):
