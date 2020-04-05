@@ -8,8 +8,8 @@ When running ``BIDSonym``, the following processing steps are executed:
 
   1. **running BIDS-validator**:
 
-    Before anything else happens, the `BIDS-validator`_ is run in order to evaluate
-    if the provided `bids_dataset` is valid with regard to the `BIDS specification <https://bids-specification.readthedocs.io/en/stable/>`_.
+    Before anything else happens, the `BIDS-validator <https://github.com/bids-standard/bids-validator>`_  
+    is run in order to evaluate if the provided `bids_dataset` is valid with regard to the `BIDS specification <https://bids-specification.readthedocs.io/en/stable/>`_.
     If that's the case, `BIDSonym` will continue with the subsequent steps, if not, it will stop and provide
     the user with a message of why the `bids_dataset` was evaluated as `not valid`.
     Users should then conduct the changes necessary to make it valid, as otherwise `BIDSonym` won't run.
@@ -58,12 +58,9 @@ When running ``BIDSonym``, the following processing steps are executed:
     Subsequently, the chosen defacing algorithm will be applied to the ``structural images``, aiming to remove
     features that could potentially allow or aid the identification of participants' identity (e.g., their face).
     Depending on the algorithm chosen, more or less features are removed and the sufficiency needs to be evaluated
-    by the user (supported through the visual QA reports).
-
+    by the user (supported through the visual QA reports). If the ``-deface_t2w`` flag is set, ``structural T2 weighted
+    images`` will de-faced by using the respective ``de-faced T1 weighted image`` of the same subject as a mask.
+    
   6. **de-indetification of metadata fields**:
 
     If indicated by the user by a list of strings, the ``values`` of certain ``metadata fields`` will be replaced by the string ``deleted_by_bidsonym``.
-
-
-
-- BIDS-validator_

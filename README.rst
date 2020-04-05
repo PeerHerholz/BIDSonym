@@ -73,9 +73,15 @@ usage:	run.py [-h]
 
 [--del_nodeface {del,no_del}]
 
+[--deface_t2w]
+
 [--check_meta]
 
 [--del_meta META_DATA_FIELD [META_DATA_FIELD ...]]
+
+[--brainextraction {bet,nobrainer}]
+
+[--bet_frac BET_FRAC]
 
 bids_dir {participant,group}
 
@@ -103,10 +109,17 @@ optional arguments:
   --del_nodeface {del,no_del}
 			Overwrite and delete original data or copy original
 			data to different folder.
---del_meta META_DATA_FIELD [META_DATA_FIELD ...]
-		  Indicate if and which information from the .json meta-data
-		  files should be deleted. If so, the original :code:`.json` files
-		  will be copied to :code:`sourcedata/` .
+  --deface_t2w {}
+			Deface T2w images by using defaced T1w image as deface-mask.
+  --del_meta META_DATA_FIELD [META_DATA_FIELD ...]
+			Indicate if and which information from the .json meta-data
+			files should be deleted. If so, the original :code:`.json` files
+			will be copied to :code:`sourcedata/`.
+  --brainextraction {BET, no_brainer}
+			What algorithm should be used for pre-defacing brain extraction
+			(outputs will be used in quality control).
+  --bet_frac [BET_FRAC]
+			In case BET is used for pre-defacing brain extraction, rpovide a Frac value.
 
 
 Run it in participant level mode (for one participant):
@@ -146,7 +159,8 @@ To get its Singularity version, you need to `install singularity <https://singul
 
 Documentation
 =============
-A documentation is currently in the works and will be available soon. Sorry for any inconvenience this might cause.
+BIDSOnym's documentation can be found `here <https://peerherholz.github.io/BIDSonym/>`_.
+
 
 How to report errors
 ====================
@@ -165,7 +179,7 @@ For more details, please see :ref:`citation`.
 
 Support
 =======
-This work was supported in part by funding provided by `Brain Canada <https://braincanada.ca/>`_, in partnership with `Health Canada <https://www.canada.ca/en/health-canada.html>`_, for the `Canadian Open Neuroscience Platform initiative <https://conp.ca/>`_.
+This work is supported in part by funding provided by `Brain Canada <https://braincanada.ca/>`_, in partnership with `Health Canada <https://www.canada.ca/en/health-canada.html>`_, for the `Canadian Open Neuroscience Platform initiative <https://conp.ca/>`_.
 
 .. image:: https://conp.ca/wp-content/uploads/elementor/thumbs/logo-2-o5e91uhlc138896v1b03o2dg8nwvxyv3pssdrkjv5a.png
     :alt: logo_conp
