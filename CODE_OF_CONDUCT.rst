@@ -61,6 +61,6 @@ The BIDSonym Code of Conduct was developed by [Peer Herholz][peer-github], based
 [cc0-link]: https://creativecommons.org/publicdomain/zero/1.0
 [peer-github]: https://github.com/peerherholz
 [bnip-repo]: https://github.com/WhitakerLab/BrainNetworksInPython
-[BIDSonym-repo]: https://github.com/C0C0AN/audiometry_mri
+[BIDSonym-repo]: https://github.com/PeerHerholz/BIDSonym
 [mozilla-science-home]: https://science.mozilla.org/
 [mozilla-science-coc]: https://github.com/mozillascience/code_of_conduct
