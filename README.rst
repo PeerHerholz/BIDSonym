@@ -28,6 +28,10 @@ BIDSonym
 .. image:: https://img.shields.io/docker/pulls/peerherholz/bidsonym
     :alt: Dockerpulls
     :target: https://cloud.docker.com/u/peerherholz/repository/docker/peerherholz/bidsonym
+    
+.. image:: https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg](https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg
+    :alt: SingularityHub
+    :target: https://singularity-hub.org/collections/4645
 
 .. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
     :alt: License
