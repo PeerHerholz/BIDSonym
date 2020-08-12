@@ -30,8 +30,8 @@ def get_parser():
     parser.add_argument('--deid', help='Approach to use for de-identifictation.',
                         choices=['pydeface', 'mri_deface', 'quickshear', 'mridefacer',
                                  'deepdefacer'])
-    parser.add_argument('--deface_t2w',  action="store_true", default=False, help='Deface T2w images by using'
-                                                                              'defaced T1w image as deface-mask.')
+    parser.add_argument('--deface_t2w',  action="store_true", default=False,
+                        help='Deface T2w images by using defaced T1w image as deface-mask.')
     parser.add_argument('--del_nodeface',
                         help='Overwrite and delete original data or copy original data to sourcedata/.',
                         choices=['del', 'no_del'])
