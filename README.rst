@@ -29,7 +29,7 @@ BIDSonym
     :alt: Dockerpulls
     :target: https://cloud.docker.com/u/peerherholz/repository/docker/peerherholz/bidsonym
     
-.. image:: singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg
+.. image:: https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg
     :alt: SingularityHub
     :target: https://singularity-hub.org/collections/4645
 
@@ -40,7 +40,6 @@ BIDSonym
 .. image:: https://upload.wikimedia.org/wikipedia/commons/7/74/Zotero_logo.svg
     :alt: Zotero
     :target: https://www.zotero.org/groups/2362367/bidsonym
-
 
 .. image:: https://img.shields.io/badge/Supported%20by-%20CONP%2FPCNO-red
     :alt: support_conp
