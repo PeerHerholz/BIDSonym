@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Usage &mdash; BIDSonym 0.post61+g403b7a1 documentation</title>
+  <title>Usage &mdash; BIDSonym 0.post61+ge9d02e7 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.post61+g403b7a1
+                0.post61+ge9d02e7
               </div>
             
           
@@ -213,7 +213,7 @@ non-defaced images can be re-used, without the necessity to run the conversion a
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">bidsonym</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">participant_label</span> <span class="n">PARTICIPANT_LABEL</span> <span class="p">[</span><span class="n">PARTICIPANT_LABEL</span> <span class="o">...</span><span class="p">]]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">deid</span> <span class="p">{</span><span class="n">pydeface</span><span class="p">,</span><span class="n">mri_deface</span><span class="p">,</span><span class="n">quickshear</span><span class="p">,</span><span class="n">mridefacer</span><span class="p">,</span><span class="n">deepdefacer</span><span class="p">}]</span>
-                <span class="p">[</span><span class="o">--</span><span class="n">deface_t2w</span> <span class="n">DEFACE_T2W</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">del_nodeface</span> <span class="p">{</span><span class="k">del</span><span class="p">,</span><span class="n">no_del</span><span class="p">}]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">deface_t2w</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">del_nodeface</span> <span class="p">{</span><span class="k">del</span><span class="p">,</span><span class="n">no_del</span><span class="p">}]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">check_meta</span> <span class="n">CHECK_META</span> <span class="p">[</span><span class="n">CHECK_META</span> <span class="o">...</span><span class="p">]]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">del_meta</span> <span class="n">DEL_META</span> <span class="p">[</span><span class="n">DEL_META</span> <span class="o">...</span><span class="p">]]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">brainextraction</span> <span class="p">{</span><span class="n">bet</span><span class="p">,</span><span class="n">nobrainer</span><span class="p">}]</span> <span class="p">[</span><span class="o">--</span><span class="n">bet_frac</span> <span class="n">BET_FRAC</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span>
@@ -243,7 +243,7 @@ non-defaced images can be re-used, without the necessity to run the conversion a
 <p>Approach to use for de-identifictation.</p>
 </dd>
 <dt><kbd>--deface_t2w</kbd></dt>
-<dd><p>Deface T2w images by using defaced T1w image as deface-mask.</p>
+<dd><p>Deface T2w images by usingdefaced T1w image as deface-mask.</p>
 </dd>
 <dt><kbd>--del_nodeface</kbd></dt>
 <dd><p>Possible choices: del, no_del</p>
@@ -253,14 +253,14 @@ non-defaced images can be re-used, without the necessity to run the conversion a
 <dd><p>Indicate which information from the image and                         .json meta-data files should be check for potentially problematic information.                         Indicate strings that should be searched for.                         The results will be saved to sourcedata/</p>
 </dd>
 <dt><kbd>--del_meta</kbd></dt>
-<dd><p>Indicate if and which information from the .json meta-data files should be deleted.                         If so, the original .josn files will be copied to sourcedata/</p>
+<dd><p>Indicate if and which information from the .json meta-data files should be deleted.                         If so, the original .json files will be copied to sourcedata/</p>
 </dd>
 <dt><kbd>--brainextraction</kbd></dt>
 <dd><p>Possible choices: bet, nobrainer</p>
 <p>What algorithm should be used for pre-defacing brain extraction                         (outputs will be used in quality control).</p>
 </dd>
 <dt><kbd>--bet_frac</kbd></dt>
-<dd><p>In case BET is used for pre-defacing brain extraction, povide a Frac value.</p>
+<dd><p>In case BET is used for pre-defacing brain extraction, provide a Frac value.</p>
 </dd>
 <dt><kbd>-v, --version</kbd></dt>
 <dd><p>show program’s version number and exit</p>
