@@ -99,7 +99,7 @@ def run_deeid():
             if args.brainextraction == 'bet':
                 if args.bet_frac is None:
                     raise Exception("If you want to use BET for pre-defacing brain extraction,"
-                    "please provide a Frac value. For example: --bet_frac 0.5")
+                                    "please provide a Frac value. For example: --bet_frac 0.5")
                 else:
                     run_brain_extraction_bet(T1_file, args.bet_frac[0], subject_label, args.bids_dir)
             elif args.brainextraction == 'nobrainer':
