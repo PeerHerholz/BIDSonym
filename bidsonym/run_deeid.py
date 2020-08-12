@@ -73,7 +73,6 @@ def run_deeid():
         raise Exception("For post defacing quality it is required to run a form of brainextraction"
                         "on the non-deindentified data. Thus please either indicate bet or nobrainer.")
 
-
     print("Making sure the input data is BIDS compliant "
           "(warnings can be ignored in most cases).")
     validate_input_dir(exec_env, args.bids_dir, args.participant_label)
