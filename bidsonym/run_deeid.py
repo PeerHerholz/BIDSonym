@@ -69,6 +69,11 @@ def run_deeid():
         if cgroup.exists() and 'docker' in cgroup.read_text():
             exec_env = 'docker'
 
+    if args.brainextraction is None:
+        raise Exception("For post defacing quality it is required to run a form of brainextraction"
+                        "on the non-deindentified data. Thus please either indicate bet or nobrainer.")
+
+
     print("Making sure the input data is BIDS compliant "
           "(warnings can be ignored in most cases).")
     validate_input_dir(exec_env, args.bids_dir, args.participant_label)
@@ -94,8 +99,8 @@ def run_deeid():
             check_outpath(args.bids_dir, subject_label)
             if args.brainextraction == 'bet':
                 if args.bet_frac is None:
-                    raise Exception('If you want to use BET for pre-defacing brain extraction, \
-                    please provide a Frac value. For example: --bet_frac 0.5')
+                    raise Exception("If you want to use BET for pre-defacing brain extraction,"
+                    "please provide a Frac value. For example: --bet_frac 0.5")
                 else:
                     run_brain_extraction_bet(T1_file, args.bet_frac[0], subject_label, args.bids_dir)
             elif args.brainextraction == 'nobrainer':
