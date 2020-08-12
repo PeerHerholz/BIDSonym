@@ -28,6 +28,10 @@ BIDSonym
 .. image:: https://img.shields.io/docker/pulls/peerherholz/bidsonym
     :alt: Dockerpulls
     :target: https://cloud.docker.com/u/peerherholz/repository/docker/peerherholz/bidsonym
+    
+.. image:: https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg
+    :alt: SingularityHub
+    :target: https://singularity-hub.org/collections/4645
 
 .. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
     :alt: License
@@ -36,7 +40,6 @@ BIDSonym
 .. image:: https://upload.wikimedia.org/wikipedia/commons/7/74/Zotero_logo.svg
     :alt: Zotero
     :target: https://www.zotero.org/groups/2362367/bidsonym
-
 
 .. image:: https://img.shields.io/badge/Supported%20by-%20CONP%2FPCNO-red
     :alt: support_conp
@@ -109,8 +112,7 @@ optional arguments:
   --del_nodeface {del,no_del}
 			Overwrite and delete original data or copy original
 			data to different folder.
-  --deface_t2w {}
-			Deface T2w images by using defaced T1w image as deface-mask.
+  --deface_t2w {}	Deface T2w images by using defaced T1w image as deface-mask.
   --del_meta META_DATA_FIELD [META_DATA_FIELD ...]
 			Indicate if and which information from the .json meta-data
 			files should be deleted. If so, the original :code:`.json` files
@@ -119,7 +121,7 @@ optional arguments:
 			What algorithm should be used for pre-defacing brain extraction
 			(outputs will be used in quality control).
   --bet_frac [BET_FRAC]
-			In case BET is used for pre-defacing brain extraction, rpovide a Frac value.
+			In case BET is used for pre-defacing brain extraction, provide a Frac value.
 
 
 Run it in participant level mode (for one participant):
@@ -132,6 +134,7 @@ Run it in participant level mode (for one participant):
 		    /bids_dataset \
 		    participant --deid pydeface --del_meta 'InstitutionAddress' \
 		    --participant_label 01
+		    --brainextraction bet --bet_frac 0.5
 
 
 Run it in group level mode (for all participants):
@@ -141,7 +144,8 @@ Run it in group level mode (for all participants):
 	docker run -i --rm \
 		   -v /Users/peer/ds005:/bids_dataset \
 		   peerherholz/bidsonym \
-		   /bids_dataset  group --deid pydeface --del_meta 'InstitutionAddress'
+		   /bids_dataset  group --deid pydeface --del_meta 'InstitutionAddress' \
+		   --brainextraction bet --bet_frac 0.5
 
 .. usage-marker-end
 
