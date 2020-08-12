@@ -293,3 +293,7 @@ def deface_t2w(image, warped_mask, outfile):
     masked_brain = Nifti1Image(outdata, infile_img.get_affine(),
                                infile_img.get_header())
     masked_brain.to_filename(outfile)
+
+
+
+

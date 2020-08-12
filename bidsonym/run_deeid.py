@@ -8,6 +8,7 @@ from bidsonym.utils import (check_outpath, copy_no_deid, check_meta_data, del_me
                             run_brain_extraction_nb, run_brain_extraction_bet, validate_input_dir)
 from bids import BIDSLayout
 
+
 def get_parser():
 
     __version__ = open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
@@ -96,7 +97,6 @@ def run_deeid():
         raise Exception("The participant(s) you indicated are present in the BIDS dataset, please check again."
                         "This refers to:")
         print(list_part_prob)
-
 
     list_check_meta = args.check_meta
 
