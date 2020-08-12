@@ -30,7 +30,8 @@ def get_parser():
     parser.add_argument('--deid', help='Approach to use for de-identifictation.',
                         choices=['pydeface', 'mri_deface', 'quickshear', 'mridefacer',
                                  'deepdefacer'])
-    parser.add_argument('--deface_t2w', help='Deface T2w images by using defaced T1w image as deface-mask.')
+    parser.add_argument('--deface_t2w',  action="store_true", default=False, help='Deface T2w images by using'
+                                                                              'defaced T1w image as deface-mask.')
     parser.add_argument('--del_nodeface',
                         help='Overwrite and delete original data or copy original data to sourcedata/.',
                         choices=['del', 'no_del'])
@@ -42,14 +43,14 @@ def get_parser():
                         nargs="+")
     parser.add_argument('--del_meta',
                         help='Indicate if and which information from the .json meta-data files should be deleted. \
-                        If so, the original .josn files will be copied to sourcedata/',
+                        If so, the original .json files will be copied to sourcedata/',
                         nargs="+")
     parser.add_argument('--brainextraction',
                         help='What algorithm should be used for pre-defacing brain extraction \
                         (outputs will be used in quality control).',
                         choices=['bet', 'nobrainer'])
     parser.add_argument('--bet_frac',
-                        help='In case BET is used for pre-defacing brain extraction, povide a Frac value.',
+                        help='In case BET is used for pre-defacing brain extraction, provide a Frac value.',
                         nargs=1)
     parser.add_argument('-v', '--version', action='version',
                         version='BIDS-App example version {}'.format(__version__))
