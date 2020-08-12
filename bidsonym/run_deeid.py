@@ -6,7 +6,7 @@ from bidsonym.defacing_algorithms import (run_pydeface, run_mri_deface, run_mrid
                                           run_quickshear, run_deepdefacer, run_t2w_deface)
 from bidsonym.utils import (check_outpath, copy_no_deid, check_meta_data, del_meta_data,
                             run_brain_extraction_nb, run_brain_extraction_bet, validate_input_dir)
-
+from bids import BIDSLayout
 
 def get_parser():
 
@@ -86,6 +86,17 @@ def run_deeid():
     else:
         subject_dirs = glob(os.path.join(args.bids_dir, "sub-*"))
         subjects_to_analyze = [subject_dir.split("-")[-1] for subject_dir in subject_dirs]
+
+    layout = BIDSLayout(args.bids_dir)
+    list_part_prob = []
+    for part in subjects_to_analyze:
+        if part not in layout.get_subjects():
+            list_part_prob.append(part)
+    if len(list_part_prob) >= 1:
+        raise Exception("The participant(s) you indicated are present in the BIDS dataset, please check again."
+                        "This refers to:")
+        print(list_part_prob)
+
 
     list_check_meta = args.check_meta
 

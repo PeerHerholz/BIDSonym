@@ -5,3 +5,4 @@ nibabel
 nipype
 nilearn
 duecredit
+pybids
