@@ -177,11 +177,9 @@ def run_deeid():
                     if args.del_meta:
                         del_meta_data(args.bids_dir, subject_label, list_field_del)
             if args.deface_t2w:
-                for T2_file in glob(os.path.join(args.bids_dir, "sub-%s" % subject_label,
-                                                 "anat", "*_T2w.nii*")) + \
-                                                 glob(os.path.join(args.bids_dir, "sub-%s" % subject_label,
-                                                                   "ses-*", "anat", "*_T2w.nii*")):
-                    run_t2w_deface(T2_file, T1_file, T2_file)
+                for T2_file in glob(os.path.join(T1_file[:T1_file.rfind('/')+1], '*T2w.nii*')):
+                    source_t2w = copy_no_deid(subject_label, args.bids_dir, T2_file)
+                    run_t2w_deface(source_t2w, T1_file, T2_file)
 
 
 if __name__ == "__main__":

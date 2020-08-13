@@ -22,15 +22,15 @@ def check_outpath(bids_dir, subject_label):
         os.makedirs(out_path)
 
 
-def copy_no_deid(subject_label, bids_dir, T1_file):
+def copy_no_deid(subject_label, bids_dir, image_file):
 
     path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
-    outfile = T1_file[T1_file.rfind('/') + 1:]  # T1_file.rfind('.nii')] + '_no_deid.nii.gz'
+    outfile = image_file[image_file.rfind('/') + 1:]  # T1_file.rfind('.nii')] + '_no_deid.nii.gz'
     if os.path.isdir(path) is True:
-        move(T1_file, os.path.join(path, outfile))
+        move(image_file, os.path.join(path, outfile))
     else:
         os.makedirs(path)
-        move(T1_file, os.path.join(path, outfile))
+        move(image_file, os.path.join(path, outfile))
 
     path_task_meta = os.path.join(bids_dir, "sourcedata/bidsonym/")
     path_sub_meta = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
@@ -45,7 +45,9 @@ def copy_no_deid(subject_label, bids_dir, T1_file):
                                      1:]
         move(sub_meta_data_file, os.path.join(path_sub_meta, sub_out))
 
-    return outfile
+    moved_img_path = os.path.join(path, outfile)
+
+    return moved_img_path
 
 
 def check_meta_data(bids_dir, subject_label, prob_fields=None):
@@ -279,16 +281,18 @@ def validate_input_dir(exec_env, bids_dir, participant_label):
 def deface_t2w(image, warped_mask, outfile):
 
     from nibabel import load, Nifti1Image
+    from nilearn.image import math_img
 
     # functionality copied from pydeface
     infile_img = load(image)
     warped_mask_img = load(warped_mask)
+    warped_mask_img = math_img('img > 0', img=warped_mask_img)
     try:
-        outdata = infile_img.get_data().squeeze() * warped_mask_img.get_data()
+        outdata = infile_img.get_fdata().squeeze() * warped_mask_img.get_fdata()
     except ValueError:
-        tmpdata = np.stack([warped_mask_img.get_data()] *
-                           infile_img.get_data().shape[-1], axis=-1)
-        outdata = infile_img.get_data() * tmpdata
+        tmpdata = np.stack([warped_mask_img.get_fdata()] *
+                           infile_img.get_fdata().shape[-1], axis=-1)
+        outdata = infile_img.fget_data() * tmpdata
 
     masked_brain = Nifti1Image(outdata, infile_img.get_affine(),
                                infile_img.get_header())
