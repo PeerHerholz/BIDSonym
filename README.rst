@@ -28,6 +28,10 @@ BIDSonym
 .. image:: https://img.shields.io/docker/pulls/peerherholz/bidsonym
     :alt: Dockerpulls
     :target: https://cloud.docker.com/u/peerherholz/repository/docker/peerherholz/bidsonym
+    
+.. image:: https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg
+    :alt: SingularityHub
+    :target: https://singularity-hub.org/collections/4645
 
 .. image:: https://img.shields.io/badge/License-BSD%203--Clause-blue.svg
     :alt: License
@@ -36,7 +40,6 @@ BIDSonym
 .. image:: https://upload.wikimedia.org/wikipedia/commons/7/74/Zotero_logo.svg
     :alt: Zotero
     :target: https://www.zotero.org/groups/2362367/bidsonym
-
 
 .. image:: https://img.shields.io/badge/Supported%20by-%20CONP%2FPCNO-red
     :alt: support_conp
@@ -73,9 +76,15 @@ usage:	run.py [-h]
 
 [--del_nodeface {del,no_del}]
 
+[--deface_t2w]
+
 [--check_meta]
 
 [--del_meta META_DATA_FIELD [META_DATA_FIELD ...]]
+
+[--brainextraction {bet,nobrainer}]
+
+[--bet_frac BET_FRAC]
 
 bids_dir {participant,group}
 
@@ -103,12 +112,16 @@ optional arguments:
   --del_nodeface {del,no_del}
 			Overwrite and delete original data or copy original
 			data to different folder.
+  --deface_t2w {}	Deface T2w images by using defaced T1w image as deface-mask.
   --del_meta META_DATA_FIELD [META_DATA_FIELD ...]
-		  	Indicate if and which information from the .json meta-data
-		  	files should be deleted. If so, the original :code:`.json` files
-		 	will be copied to :code:`sourcedata/`.
-
-
+			Indicate if and which information from the .json meta-data
+			files should be deleted. If so, the original :code:`.json` files
+			will be copied to :code:`sourcedata/`.
+  --brainextraction {BET, no_brainer}
+			What algorithm should be used for pre-defacing brain extraction
+			(outputs will be used in quality control).
+  --bet_frac [BET_FRAC]
+			In case BET is used for pre-defacing brain extraction, provide a Frac value.
 
 
 Run it in participant level mode (for one participant):
@@ -121,6 +134,7 @@ Run it in participant level mode (for one participant):
 		    /bids_dataset \
 		    participant --deid pydeface --del_meta 'InstitutionAddress' \
 		    --participant_label 01
+		    --brainextraction bet --bet_frac 0.5
 
 
 Run it in group level mode (for all participants):
@@ -130,7 +144,8 @@ Run it in group level mode (for all participants):
 	docker run -i --rm \
 		   -v /Users/peer/ds005:/bids_dataset \
 		   peerherholz/bidsonym \
-		   /bids_dataset  group --deid pydeface --del_meta 'InstitutionAddress'
+		   /bids_dataset  group --deid pydeface --del_meta 'InstitutionAddress' \
+		   --brainextraction bet --bet_frac 0.5
 
 .. usage-marker-end
 
@@ -148,7 +163,8 @@ To get its Singularity version, you need to `install singularity <https://singul
 
 Documentation
 =============
-A documentation is currently in the works and will be available soon. Sorry for any inconvenience this might cause.
+BIDSOnym's documentation can be found `here <https://peerherholz.github.io/BIDSonym/>`_.
+
 
 How to report errors
 ====================
@@ -167,7 +183,7 @@ For more details, please see :ref:`citation`.
 
 Support
 =======
-This work was supported in part by funding provided by `Brain Canada <https://braincanada.ca/>`_, in partnership with `Health Canada <https://www.canada.ca/en/health-canada.html>`_, for the `Canadian Open Neuroscience Platform initiative <https://conp.ca/>`_.
+This work is supported in part by funding provided by `Brain Canada <https://braincanada.ca/>`_, in partnership with `Health Canada <https://www.canada.ca/en/health-canada.html>`_, for the `Canadian Open Neuroscience Platform initiative <https://conp.ca/>`_.
 
 .. image:: https://conp.ca/wp-content/uploads/elementor/thumbs/logo-2-o5e91uhlc138896v1b03o2dg8nwvxyv3pssdrkjv5a.png
     :alt: logo_conp

@@ -6,6 +6,7 @@ from bidsonym.defacing_algorithms import (run_pydeface, run_mri_deface, run_mrid
                                           run_quickshear, run_deepdefacer, run_t2w_deface)
 from bidsonym.utils import (check_outpath, copy_no_deid, check_meta_data, del_meta_data,
                             run_brain_extraction_nb, run_brain_extraction_bet, validate_input_dir)
+from bids import BIDSLayout
 
 
 def get_parser():
@@ -30,7 +31,8 @@ def get_parser():
     parser.add_argument('--deid', help='Approach to use for de-identifictation.',
                         choices=['pydeface', 'mri_deface', 'quickshear', 'mridefacer',
                                  'deepdefacer'])
-    parser.add_argument('--deface_t2w', help='Deface T2w images by using defaced T1w image as deface-mask.')
+    parser.add_argument('--deface_t2w',  action="store_true", default=False,
+                        help='Deface T2w images by using defaced T1w image as deface-mask.')
     parser.add_argument('--del_nodeface',
                         help='Overwrite and delete original data or copy original data to sourcedata/.',
                         choices=['del', 'no_del'])
@@ -42,14 +44,14 @@ def get_parser():
                         nargs="+")
     parser.add_argument('--del_meta',
                         help='Indicate if and which information from the .json meta-data files should be deleted. \
-                        If so, the original .josn files will be copied to sourcedata/',
+                        If so, the original .json files will be copied to sourcedata/',
                         nargs="+")
     parser.add_argument('--brainextraction',
                         help='What algorithm should be used for pre-defacing brain extraction \
                         (outputs will be used in quality control).',
                         choices=['bet', 'nobrainer'])
     parser.add_argument('--bet_frac',
-                        help='In case BET is used for pre-defacing brain extraction, povide a Frac value.',
+                        help='In case BET is used for pre-defacing brain extraction, provide a Frac value.',
                         nargs=1)
     parser.add_argument('-v', '--version', action='version',
                         version='BIDS-App example version {}'.format(__version__))
@@ -69,6 +71,10 @@ def run_deeid():
         if cgroup.exists() and 'docker' in cgroup.read_text():
             exec_env = 'docker'
 
+    if args.brainextraction is None:
+        raise Exception("For post defacing quality it is required to run a form of brainextraction"
+                        "on the non-deindentified data. Thus please either indicate bet or nobrainer.")
+
     print("Making sure the input data is BIDS compliant "
           "(warnings can be ignored in most cases).")
     validate_input_dir(exec_env, args.bids_dir, args.participant_label)
@@ -82,6 +88,16 @@ def run_deeid():
         subject_dirs = glob(os.path.join(args.bids_dir, "sub-*"))
         subjects_to_analyze = [subject_dir.split("-")[-1] for subject_dir in subject_dirs]
 
+    layout = BIDSLayout(args.bids_dir)
+    list_part_prob = []
+    for part in subjects_to_analyze:
+        if part not in layout.get_subjects():
+            list_part_prob.append(part)
+    if len(list_part_prob) >= 1:
+        raise Exception("The participant(s) you indicated are present in the BIDS dataset, please check again."
+                        "This refers to:")
+        print(list_part_prob)
+
     list_check_meta = args.check_meta
 
     list_field_del = args.del_meta
@@ -94,8 +110,8 @@ def run_deeid():
             check_outpath(args.bids_dir, subject_label)
             if args.brainextraction == 'bet':
                 if args.bet_frac is None:
-                    raise Exception('If you want to use BET for pre-defacing brain extraction, \
-                    please provide a Frac value. For example: --bet_frac 0.5')
+                    raise Exception("If you want to use BET for pre-defacing brain extraction,"
+                                    "please provide a Frac value. For example: --bet_frac 0.5")
                 else:
                     run_brain_extraction_bet(T1_file, args.bet_frac[0], subject_label, args.bids_dir)
             elif args.brainextraction == 'nobrainer':
