@@ -118,62 +118,62 @@ def run_deeid():
                 run_brain_extraction_nb(T1_file, subject_label, args.bids_dir)
             if args.deid == "pydeface":
                 if args.del_nodeface == "del":
-                    run_pydeface(T1_file, T1_file)
                     check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                    run_pydeface(T1_file, T1_file)
                     if args.del_meta:
                         del_meta_data(args.bids_dir, subject_label, list_field_del)
                 else:
-                    copy_no_deid(subject_label, args.bids_dir, T1_file)
-                    run_pydeface(T1_file, T1_file)
                     check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                    source_t1w = copy_no_deid(subject_label, args.bids_dir, T1_file)
+                    run_pydeface(source_t1w, T1_file)
                     if args.del_meta:
                         del_meta_data(args.bids_dir, subject_label, list_field_del)
             if args.deid == "mri_deface":
                 if args.del_nodeface == "del":
-                    run_mri_deface(T1_file, T1_file)
                     check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                    run_mri_deface(T1_file, T1_file)
                 if args.del_meta:
                     del_meta_data(args.bids_dir, subject_label, list_field_del)
                 else:
+                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
                     copy_no_deid(subject_label, args.bids_dir, T1_file)
                     run_mri_deface(T1_file, T1_file)
-                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
                     if args.del_meta:
                         del_meta_data(args.bids_dir, subject_label, list_field_del)
             if args.deid == "quickshear":
                 if args.del_nodeface == "del":
-                    run_quickshear(T1_file, T1_file)
                     check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                    run_quickshear(T1_file, T1_file)
                 if args.del_meta:
                     del_meta_data(args.bids_dir, subject_label, list_field_del)
                 else:
+                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
                     copy_no_deid(subject_label, args.bids_dir, T1_file)
                     run_quickshear(T1_file, T1_file)
-                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
                     if args.del_meta:
                         del_meta_data(args.bids_dir, subject_label, list_field_del)
             if args.deid == "mridefacer":
                 if args.del_nodeface == "del":
-                    run_mridefacer(T1_file, subject_label, args.bids_dir)
                     check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                    run_mridefacer(T1_file, subject_label, args.bids_dir)
                 if args.del_meta:
                     del_meta_data(args.bids_dir, subject_label, list_field_del)
                 else:
+                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
                     copy_no_deid(subject_label, args.bids_dir, T1_file)
                     run_mridefacer(T1_file, subject_label, args.bids_dir)
-                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
                     if args.del_meta:
                         del_meta_data(args.bids_dir, subject_label, list_field_del)
             if args.deid == "deepdefacer":
                 if args.del_nodeface == "del":
-                    run_deepdefacer(T1_file, subject_label, args.bids_dir)
                     check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                    run_deepdefacer(T1_file, subject_label, args.bids_dir)
                 if args.del_meta:
                     del_meta_data(args.bids_dir, subject_label, list_field_del)
                 else:
+                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
                     copy_no_deid(subject_label, args.bids_dir, T1_file)
                     run_deepdefacer(T1_file, subject_label, args.bids_dir)
-                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
                     if args.del_meta:
                         del_meta_data(args.bids_dir, subject_label, list_field_del)
             if args.deface_t2w:

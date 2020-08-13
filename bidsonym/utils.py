@@ -6,7 +6,7 @@ import numpy as np
 from glob import glob
 import pandas as pd
 import nibabel as nib
-from shutil import copy
+from shutil import move
 
 import nipype.pipeline.engine as pe
 from nipype import Function
@@ -25,12 +25,12 @@ def check_outpath(bids_dir, subject_label):
 def copy_no_deid(subject_label, bids_dir, T1_file):
 
     path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
-    outfile = T1_file[T1_file.rfind('/') + 1:T1_file.rfind('.nii')] + '_no_deid.nii.gz'
+    outfile = T1_file[T1_file.rfind('/') + 1:]  # T1_file.rfind('.nii')] + '_no_deid.nii.gz'
     if os.path.isdir(path) is True:
-        copy(T1_file, os.path.join(path, outfile))
+        move(T1_file, os.path.join(path, outfile))
     else:
         os.makedirs(path)
-        copy(T1_file, os.path.join(path, outfile))
+        move(T1_file, os.path.join(path, outfile))
 
     path_task_meta = os.path.join(bids_dir, "sourcedata/bidsonym/")
     path_sub_meta = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
@@ -38,14 +38,14 @@ def copy_no_deid(subject_label, bids_dir, T1_file):
     list_sub_meta_files = glob(os.path.join(bids_dir, 'sub-' + subject_label, '**/*.json'), recursive=True)
     for task_meta_data_file in list_task_meta_files:
         task_out = task_meta_data_file[task_meta_data_file.rfind('/') +
-                                       1:task_meta_data_file.rfind('.json')] \
-                                       + '_no_deid.json'
-        copy(task_meta_data_file, os.path.join(path_task_meta, task_out))
+                                       1:]
+        move(task_meta_data_file, os.path.join(path_task_meta, task_out))
     for sub_meta_data_file in list_sub_meta_files:
         sub_out = sub_meta_data_file[sub_meta_data_file.rfind('/') +
-                                     1:sub_meta_data_file.rfind('.json')] +\
-                                     '_no_deid.json'
-        copy(sub_meta_data_file, os.path.join(path_sub_meta, sub_out))
+                                     1:]
+        move(sub_meta_data_file, os.path.join(path_sub_meta, sub_out))
+
+    return outfile
 
 
 def check_meta_data(bids_dir, subject_label, prob_fields=None):
