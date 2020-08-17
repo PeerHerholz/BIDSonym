@@ -47,7 +47,7 @@ BIDSonym
 
 Description
 ===========
-A `BIDS <https://bids-specification.readthedocs.io/en/stable/>`_ `app <https://bids-apps.neuroimaging.io/>`_ for the de-identification of neuroimaging data. ``BIDSonym`` gathers all T1w images from a BIDS dataset and applies one of several popular de-identification algorithms. It currently supports:
+A `BIDS <https://bids-specification.readthedocs.io/en/stable/>`_ `App <https://bids-apps.neuroimaging.io/>`_ for the de-identification of neuroimaging data. ``BIDSonym`` gathers all T1w images from a BIDS dataset and applies one of several popular de-identification algorithms. It currently supports:
 
 `MRI deface <https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface>`_, `Pydeface <https://github.com/poldracklab/pydeface>`_, `Quickshear <https://github.com/nipy/quickshear>`_ and `mridefacer <https://github.com/mih/mridefacer>`_.
 
@@ -109,9 +109,6 @@ optional arguments:
 			can be specified with a space separated list.
   --deid {pydeface,mri_deface,quickshear}
 			Approach to use for de-identifictation.
-  --del_nodeface {del,no_del}
-			Overwrite and delete original data or copy original
-			data to different folder.
   --deface_t2w {}	Deface T2w images by using defaced T1w image as deface-mask.
   --del_meta META_DATA_FIELD [META_DATA_FIELD ...]
 			Indicate if and which information from the .json meta-data
@@ -159,11 +156,11 @@ To get the BIDSonym Docker image, you need to `install docker <https://docs.dock
 
 To get its Singularity version, you need to `install singularity <https://singularity.lbl.gov/all-releases>`_ and within the terminal of your choice type:
 
-:code:`singularity pull docker://peerherholz/bidsonym`
+:code:`singularity pull PeerHerholz/BIDSonym`
 
 Documentation
 =============
-BIDSOnym's documentation can be found `here <https://peerherholz.github.io/BIDSonym/>`_.
+BIDSonym's documentation can be found `here <https://peerherholz.github.io/BIDSonym/>`_.
 
 
 How to report errors

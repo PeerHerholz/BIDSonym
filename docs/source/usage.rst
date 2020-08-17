@@ -25,8 +25,8 @@ in that it doesn't create a folder under the ``derivatives/`` directory within
 which its outputs are written. As ``BIDSonym`` is intended to be run after
 conversion (from e.g. ``DICOM``) but before any other processing step (e.g.,
 quality control, preprocessing, etc.), the original files (non-defaced images
-and complete JSON) will be copied to ``sourcedata/bidsonym`` and the files in
-the ``bids_root`` directory be changed.
+and complete JSON) will be moved to ``sourcedata/bidsonym`` and copied back to
+the ``bids_root`` directory after de-indentification.
 Based on this approach de-identified data will enter the processing stream, but
 in case the defacing was not successful (too much or too little cut out) the
 non-defaced images can be re-used, without the necessity to run the conversion again.
