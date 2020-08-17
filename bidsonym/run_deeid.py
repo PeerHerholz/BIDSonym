@@ -5,7 +5,8 @@ from glob import glob
 from bidsonym.defacing_algorithms import (run_pydeface, run_mri_deface, run_mridefacer,
                                           run_quickshear, run_deepdefacer, run_t2w_deface)
 from bidsonym.utils import (check_outpath, copy_no_deid, check_meta_data, del_meta_data,
-                            run_brain_extraction_nb, run_brain_extraction_bet, validate_input_dir)
+                            run_brain_extraction_nb, run_brain_extraction_bet, validate_input_dir,
+                            rename_non_deid)
 from bids import BIDSLayout
 
 
@@ -180,6 +181,7 @@ def run_deeid():
                 for T2_file in glob(os.path.join(T1_file[:T1_file.rfind('/')+1], '*T2w.nii*')):
                     source_t2w = copy_no_deid(subject_label, args.bids_dir, T2_file)
                     run_t2w_deface(source_t2w, T1_file, T2_file)
+        rename_non_deid(args.bids_dir, subject_label)
 
 
 if __name__ == "__main__":

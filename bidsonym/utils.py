@@ -32,19 +32,6 @@ def copy_no_deid(subject_label, bids_dir, image_file):
         os.makedirs(path)
         move(image_file, os.path.join(path, outfile))
 
-    path_task_meta = os.path.join(bids_dir, "sourcedata/bidsonym/")
-    path_sub_meta = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
-    list_task_meta_files = glob(os.path.join(bids_dir, '*json'))
-    list_sub_meta_files = glob(os.path.join(bids_dir, 'sub-' + subject_label, '**/*.json'), recursive=True)
-    for task_meta_data_file in list_task_meta_files:
-        task_out = task_meta_data_file[task_meta_data_file.rfind('/') +
-                                       1:]
-        move(task_meta_data_file, os.path.join(path_task_meta, task_out))
-    for sub_meta_data_file in list_sub_meta_files:
-        sub_out = sub_meta_data_file[sub_meta_data_file.rfind('/') +
-                                     1:]
-        move(sub_meta_data_file, os.path.join(path_sub_meta, sub_out))
-
     moved_img_path = os.path.join(path, outfile)
 
     return moved_img_path
@@ -115,9 +102,26 @@ def check_meta_data(bids_dir, subject_label, prob_fields=None):
 
 def del_meta_data(bids_dir, subject_label, fields_del):
 
+    path_task_meta = os.path.join(bids_dir, "sourcedata/bidsonym/")
+    path_sub_meta = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
     list_task_meta_files = glob(os.path.join(bids_dir, '*json'))
     list_sub_meta_files = glob(os.path.join(bids_dir, 'sub-' + subject_label, '**/*.json'), recursive=True)
+    for task_meta_data_file in list_task_meta_files:
+        task_out = task_meta_data_file[task_meta_data_file.rfind('/') +
+                                       1:]
+        move(task_meta_data_file, os.path.join(path_task_meta, task_out))
+    for sub_meta_data_file in list_sub_meta_files:
+        sub_out = sub_meta_data_file[sub_meta_data_file.rfind('/') +
+                                     1:]
+        move(sub_meta_data_file, os.path.join(path_sub_meta, sub_out))
+
     list_meta_files = list_task_meta_files + list_sub_meta_files
+
+    list_task_meta_files_deid = glob(os.path.join(bids_dir, "sourcedata/bidsonym/", '*json'))
+    list_sub_meta_files_deid = glob(os.path.join(bids_dir, "sourcedata/bidsonym/",
+                                                 'sub-' + subject_label, '**/*.json'),
+                                    recursive=True)
+    list_meta_files_deid = list_task_meta_files_deid + list_sub_meta_files_deid
 
     fields_del = fields_del
 
@@ -127,13 +131,28 @@ def del_meta_data(bids_dir, subject_label, fields_del):
     print('the following fields will be deleted:')
     print(*fields_del, sep='\n')
 
-    for meta_file in list_meta_files:
-        with open(meta_file, 'r') as json_file:
+    for meta_file_deid, meta_file in zip(list_meta_files_deid, list_meta_files):
+        with open(meta_file_deid, 'r') as json_file:
             meta_data = json.load(json_file)
             for field in fields_del:
                 meta_data[field] = 'deleted_by_bidsonym'
         with open(meta_file, 'w') as json_output_file:
             json.dump(meta_data, json_output_file, indent=4)
+
+
+def rename_non_deid(bids_dir, subject_label):
+    list_meta_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-' + subject_label, '*json'))
+    list_images_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-' + subject_label, '*nii.gz'))
+
+    for meta_data_file in list_meta_files:
+        meta_deid = meta_data_file[meta_data_file.rfind('/') +
+                                   1:meta_data_file.rfind('.json')] + '_desc-nondeid.json'
+        os.rename(meta_data_file, os.path.join(bids_dir, 'sourcedata/bidsonym/sub-' + subject_label, meta_deid))
+
+    for image_file in list_images_files:
+        image_deid = image_file[image_file.rfind('/') +
+                                1:image_file.rfind('.nii.gz')] + '_desc-nondeid.nii.gz'
+        os.rename(image_file, os.path.join(bids_dir, 'sourcedata/bidsonym/sub-' + subject_label, image_deid))
 
 
 def brain_extraction_nb(image, subject_label, bids_dir):
