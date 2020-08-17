@@ -194,7 +194,7 @@ Previous image versions on OSF
 
 As mentioned above, Dockerhub introduced the deletion of images older than 6 months.
 Thus all previous versions of the ``BIDSonym`` ``Docker`` image can be found on `OSF <https://osf.io/x4dku/>`_.
-After downloading your desired version, images be made available and ready to run via:
+After downloading and unzipping your desired version, images be made available and ready to run via:
 
     $ docker import bidsonym_version_vX.Y.Z.tar
 
