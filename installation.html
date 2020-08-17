@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; BIDSonym 0.0.2+8.g9ac208e documentation</title>
+  <title>Installation &mdash; BIDSonym 0.0.2+9.g9f3e890 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.0.2+8.g9ac208e
+                0.0.2+9.g9f3e890
               </div>
             
           
@@ -93,6 +93,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#docker">Docker</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">Singularity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#directly-pulling-from-singularity-hub">Directly pulling from Singularity Hub</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#preparing-a-singularity-image-singularity-version-2-5">Preparing a Singularity image (Singularity version &gt;= 2.5)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">Preparing a Singularity image (Singularity version &lt; 2.5)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#running-a-singularity-image">Running a Singularity Image</a></li>
@@ -100,6 +101,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#bare-metal-version-python-3-6">Bare metal version (Python 3.6+)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#external-dependencies">External Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#previous-image-versions-on-osf">Previous image versions on OSF</a></li>
 </ul>
 </li>
 </ul>
@@ -189,8 +191,14 @@ Once you are ready to run <code class="docutils literal notranslate"><span class
 <p>In order to run <code class="docutils literal notranslate"><span class="pre">`BIDSonym`</span></code> in a Docker container, Docker must be <a class="reference external" href="https://docs.docker.com/engine/installation/">installed</a>.
 Once Docker is installed, you can get <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> through running the following
 command in the terminal of your choice:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker pull peerherholz/bidsonym
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker pull peerherholz/bidsonym:version
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As of November 2020, <a class="reference external" href="https://www.docker.com/pricing/retentionfaq">images older than 6 months will be deleted from Dockerhub</a>. As this is very problematic for everything
+reproducibility and version control, every version of the BIDSonym images are additionally
+uploaded on <a class="reference external" href="https://osf.io/x4dku/">OSF</a> and can be installed as outlined further below.</p>
 </div>
 <p>After the command finished (it may take a while depending on your internet connection),
 you can run <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> like this:</p>
@@ -210,6 +218,14 @@ about and familiarize yourself with <code class="docutils literal notranslate"><
 <h2>Singularity<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>For security reasons, many HPCs (e.g., TACC) do not allow Docker containers, but do
 allow <a class="reference external" href="https://github.com/singularityware/singularity">Singularity</a> containers.</p>
+<div class="section" id="directly-pulling-from-singularity-hub">
+<h3>Directly pulling from Singularity Hub<a class="headerlink" href="#directly-pulling-from-singularity-hub" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> Singularity image can directly be pulled from
+Singularity Hub via:</p>
+<blockquote>
+<div><p>$ singularity pull PeerHerholz/BIDSonym</p>
+</div></blockquote>
+</div>
 <div class="section" id="preparing-a-singularity-image-singularity-version-2-5">
 <h3>Preparing a Singularity image (Singularity version &gt;= 2.5)<a class="headerlink" href="#preparing-a-singularity-image-singularity-version-2-5" title="Permalink to this headline">¶</a></h3>
 <p>If the version of Singularity on your HPC is modern enough you can create Singularity
@@ -335,6 +351,16 @@ the <code class="docutils literal notranslate"><span class="pre">BIDSonym</span>
 <li><p><a class="reference external" href="https://github.com/mih/mridefacer">mridefacer</a></p></li>
 <li><p><a class="reference external" href="https://github.com/bids-standard/bids-validator">bids-validator</a> (version 1.2.3)</p></li>
 </ul>
+</div>
+<div class="section" id="previous-image-versions-on-osf">
+<h3>Previous image versions on OSF<a class="headerlink" href="#previous-image-versions-on-osf" title="Permalink to this headline">¶</a></h3>
+<p>As mentioned above, Dockerhub introduced the deletion of images older than 6 months.
+Thus all previous versions of the <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> <code class="docutils literal notranslate"><span class="pre">Docker</span></code> image can be found on <a class="reference external" href="https://osf.io/x4dku/">OSF</a>.
+After downloading your desired version, images be made available and ready to run via:</p>
+<blockquote>
+<div><p>$ docker import bidsonym_version_vX.Y.Z.tar</p>
+</div></blockquote>
+<p>where <code class="docutils literal notranslate"><span class="pre">XYZ</span></code> is the version you downloaded.</p>
 </div>
 </div>
 </div>

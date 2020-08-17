@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Usage &mdash; BIDSonym 0.0.2+8.g9ac208e documentation</title>
+  <title>Usage &mdash; BIDSonym 0.0.2+9.g9f3e890 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.0.2+8.g9ac208e
+                0.0.2+9.g9f3e890
               </div>
             
           
@@ -200,8 +200,8 @@ in that it doesn’t create a folder under the <code class="docutils literal not
 which its outputs are written. As <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> is intended to be run after
 conversion (from e.g. <code class="docutils literal notranslate"><span class="pre">DICOM</span></code>) but before any other processing step (e.g.,
 quality control, preprocessing, etc.), the original files (non-defaced images
-and complete JSON) will be copied to <code class="docutils literal notranslate"><span class="pre">sourcedata/bidsonym</span></code> and the files in
-the <code class="docutils literal notranslate"><span class="pre">bids_root</span></code> directory be changed.
+and complete JSON) will be moved to <code class="docutils literal notranslate"><span class="pre">sourcedata/bidsonym</span></code> and copied back to
+the <code class="docutils literal notranslate"><span class="pre">bids_root</span></code> directory after de-indentification.
 Based on this approach de-identified data will enter the processing stream, but
 in case the defacing was not successful (too much or too little cut out) the
 non-defaced images can be re-used, without the necessity to run the conversion again.</p>

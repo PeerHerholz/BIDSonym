@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>BIDSonym &mdash; BIDSonym 0.0.2+8.g9ac208e documentation</title>
+  <title>BIDSonym &mdash; BIDSonym 0.0.2+9.g9f3e890 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.2+8.g9ac208e
+                0.0.2+9.g9f3e890
               </div>
             
           
@@ -178,7 +178,7 @@
 <a class="reference external image-reference" href="https://conp.ca/"><img alt="support_conp" src="https://img.shields.io/badge/Supported%20by-%20CONP%2FPCNO-red" /></a>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>A <a class="reference external" href="https://bids-specification.readthedocs.io/en/stable/">BIDS</a> <a class="reference external" href="https://bids-apps.neuroimaging.io/">app</a> for the de-identification of neuroimaging data. <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> gathers all T1w images from a BIDS dataset and applies one of several popular de-identification algorithms. It currently supports:</p>
+<p>A <a class="reference external" href="https://bids-specification.readthedocs.io/en/stable/">BIDS</a> <a class="reference external" href="https://bids-apps.neuroimaging.io/">App</a> for the de-identification of neuroimaging data. <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> gathers all T1w images from a BIDS dataset and applies one of several popular de-identification algorithms. It currently supports:</p>
 <p><a class="reference external" href="https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface">MRI deface</a>, <a class="reference external" href="https://github.com/poldracklab/pydeface">Pydeface</a>, <a class="reference external" href="https://github.com/nipy/quickshear">Quickshear</a> and <a class="reference external" href="https://github.com/mih/mridefacer">mridefacer</a>.</p>
 <img alt="alternate text" src="https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/img/bidsonym_example.png" />
 <p>Additionally, the user can choose to evaluate the sidecar JSON files regarding potentially sensitive information,
@@ -192,6 +192,7 @@ like for example participant names and define a list of fields which information
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#docker">Docker</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#id2">Singularity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#directly-pulling-from-singularity-hub">Directly pulling from Singularity Hub</a></li>
 <li class="toctree-l3"><a class="reference internal" href="installation.html#preparing-a-singularity-image-singularity-version-2-5">Preparing a Singularity image (Singularity version &gt;= 2.5)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="installation.html#id4">Preparing a Singularity image (Singularity version &lt; 2.5)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="installation.html#running-a-singularity-image">Running a Singularity Image</a></li>
@@ -199,6 +200,7 @@ like for example participant names and define a list of fields which information
 </li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#bare-metal-version-python-3-6">Bare metal version (Python 3.6+)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="installation.html#external-dependencies">External Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#previous-image-versions-on-osf">Previous image versions on OSF</a></li>
 </ul>
 </li>
 </ul>
@@ -249,11 +251,8 @@ like for example participant names and define a list of fields which information
 </li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing <em>BIDSonym</em></a></li>
 <li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="release-history.html#initial-release-yyyy-mm-dd">Initial Release (YYYY-MM-DD)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="release-history.html#v0-0-2-2020-08-12">v0.0.2 (2020-08-12)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="release-history.html#v0-0-1-2020-08-12">v0.0.1 (2020-08-12)</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="release-history.html#v0-0-2-2020-08-12">v0.0.2 (2020-08-12)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-history.html#v0-0-1-2020-08-12">v0.0.1 (2020-08-12)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">What’s new</a><ul>

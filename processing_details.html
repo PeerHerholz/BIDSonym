@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processing details &mdash; BIDSonym 0.0.2+8.g9ac208e documentation</title>
+  <title>Processing details &mdash; BIDSonym 0.0.2+9.g9f3e890 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.0.2+8.g9ac208e
+                0.0.2+9.g9f3e890
               </div>
             
           
@@ -195,14 +195,14 @@ represents a brain mask that was extracted before the image was defaced.</p>
 <img alt="alternate text" src="https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/docs/source/_static/brainext_defacing.png" />
 </div></blockquote>
 <ol class="arabic simple" start="3">
-<li><p><strong>copying of non-de-identified data</strong>:</p></li>
+<li><p><strong>moving of non-de-identified data</strong>:</p></li>
 </ol>
 <blockquote>
-<div><p>The non-de-identified data, that is <code class="docutils literal notranslate"><span class="pre">structural</span> <span class="pre">images</span></code> and <code class="docutils literal notranslate"><span class="pre">sidecar</span> <span class="pre">JSON</span> <span class="pre">files</span></code>, will be copied from the
-<code class="docutils literal notranslate"><span class="pre">bids_dataset</span></code> directory to <code class="docutils literal notranslate"><span class="pre">bids_dataset/sourcedata/bidsonym</span></code> and their filenames complemented
-with a <code class="docutils literal notranslate"><span class="pre">no_deid</span></code> tag. In case the de-identification was not successful (too much or too little
-information deleted), the non-de-identified version can easily be copied back from to the <code class="docutils literal notranslate"><span class="pre">bids_dataset</span></code>
-directory without the necessity to run the corresponding DICOM to Nifti in BIDS conversion again.</p>
+<div><p>The non-de-identified data, that is <code class="docutils literal notranslate"><span class="pre">structural</span> <span class="pre">images</span></code> and <code class="docutils literal notranslate"><span class="pre">sidecar</span> <span class="pre">JSON</span> <span class="pre">files</span></code>, will be moved from the
+<code class="docutils literal notranslate"><span class="pre">bids_dataset</span></code> directory to <code class="docutils literal notranslate"><span class="pre">bids_dataset/sourcedata/bidsonym</span></code>. In case the de-identification was not
+successful (too much or too little information deleted), the non-de-identified version can easily be copied
+back from to the <code class="docutils literal notranslate"><span class="pre">bids_dataset</span></code> directory without the necessity to run the corresponding DICOM to Nifti in
+BIDS conversion again.</p>
 </div></blockquote>
 <ol class="arabic simple" start="4">
 <li><p><strong>evalution of metadata</strong>:</p></li>
@@ -224,13 +224,24 @@ will search for these strings and mark respective <code class="docutils literal 
 features that could potentially allow or aid the identification of participants’ identity (e.g., their face).
 Depending on the algorithm chosen, more or less features are removed and the sufficiency needs to be evaluated
 by the user (supported through the visual QA reports). If the <code class="docutils literal notranslate"><span class="pre">-deface_t2w</span></code> flag is set, <code class="docutils literal notranslate"><span class="pre">structural</span> <span class="pre">T2</span> <span class="pre">weighted</span>
-<span class="pre">images</span></code> will de-faced by using the respective <code class="docutils literal notranslate"><span class="pre">de-faced</span> <span class="pre">T1</span> <span class="pre">weighted</span> <span class="pre">image</span></code> of the same subject as a mask.</p>
+<span class="pre">images</span></code> will de-faced by using the respective <code class="docutils literal notranslate"><span class="pre">de-faced</span> <span class="pre">T1</span> <span class="pre">weighted</span> <span class="pre">image</span></code> of the same subject as a mask.
+All de-faced images will be written to the <code class="docutils literal notranslate"><span class="pre">bids_dataset</span></code> directory.</p>
 </div></blockquote>
 <ol class="arabic simple" start="6">
 <li><p><strong>de-indetification of metadata fields</strong>:</p></li>
 </ol>
 <blockquote>
-<div><p>If indicated by the user by a list of strings, the <code class="docutils literal notranslate"><span class="pre">values</span></code> of certain <code class="docutils literal notranslate"><span class="pre">metadata</span> <span class="pre">fields</span></code> will be replaced by the string <code class="docutils literal notranslate"><span class="pre">deleted_by_bidsonym</span></code>.</p>
+<div><p>If indicated by the user via a list of strings, the <code class="docutils literal notranslate"><span class="pre">values</span></code> of certain <code class="docutils literal notranslate"><span class="pre">metadata</span> <span class="pre">fields</span></code> will be replaced by
+the string <code class="docutils literal notranslate"><span class="pre">deleted_by_bidsonym</span></code>. As the image files, metadata files will be moved to
+<code class="docutils literal notranslate"><span class="pre">bids_dataset/sourcedata/bidsonym/</span></code> and de-identified files will be written to <code class="docutils literal notranslate"><span class="pre">bids_dataset</span></code>.</p>
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p><strong>renaming of original files</strong>:</p></li>
+</ol>
+<blockquote>
+<div><p>All files, including imaging and metadata, that are stored under  <code class="docutils literal notranslate"><span class="pre">bids_dataset/sourcedata/bidsonym/</span></code> will be
+renamed to indicate their respective status. Thus the descriptor <cite>_desc-nondeid</cite> is added to the respective
+file names.</p>
 </div></blockquote>
 </div></blockquote>
 </div>
