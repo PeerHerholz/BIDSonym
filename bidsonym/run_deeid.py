@@ -77,16 +77,16 @@ def run_deeid():
           "(warnings can be ignored in most cases).")
     validate_input_dir(exec_env, args.bids_dir, args.participant_label)
 
+    layout = BIDSLayout(args.bids_dir)
+
     if args.analysis_level == "participant":
         if args.participant_label:
             subjects_to_analyze = args.participant_label
         else:
             print("No participant label indicated. Please do so.")
     else:
-        subject_dirs = glob(os.path.join(args.bids_dir, "sub-*"))
-        subjects_to_analyze = [subject_dir.split("-")[-1] for subject_dir in subject_dirs]
+        subjects_to_analyze = layout.get(return_type='id', target='subject')
 
-    layout = BIDSLayout(args.bids_dir)
     list_part_prob = []
     for part in subjects_to_analyze:
         if part not in layout.get_subjects():
@@ -101,10 +101,7 @@ def run_deeid():
     list_field_del = args.del_meta
 
     for subject_label in subjects_to_analyze:
-        for T1_file in glob(os.path.join(args.bids_dir, "sub-%s" % subject_label,
-                                         "anat", "*_T1w.nii*")) + \
-                                         glob(os.path.join(args.bids_dir, "sub-%s" % subject_label,
-                                                           "ses-*", "anat", "*_T1w.nii*")):
+        for T1_file in layout.get(subject=subject_label, extension='nii.gz', suffix='T1w', return_type='filename'):
             check_outpath(args.bids_dir, subject_label)
             if args.brainextraction == 'bet':
                 if args.bet_frac is None:
