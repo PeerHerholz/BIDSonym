@@ -190,12 +190,12 @@ def run_brain_extraction_nb(image, subject_label, bids_dir):
     brainextraction_wf.run()
 
 
-def run_brain_extraction_bet(image, frac, subject_label, bids_dir):
+def run_brain_extraction_bet(image, frac, subject_label, bids_dir, session):
 
     import os
 
     outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
-                           "sub-%s_space-native_brainmask.nii.gz" % subject_label)
+                           "sub-%s_ses-%s_space-native_brainmask.nii.gz" %(subject_label, session))
 
     brainextraction_wf = pe.Workflow('brainextraction_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
