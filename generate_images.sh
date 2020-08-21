@@ -4,10 +4,6 @@
 
  set -e
 
- # Generate Dockerfile.
- #--freesurfer version=6.0.0 min=true \
-#--entrypoint "/neurodocker/startup.sh python /home/bidsonym/bidsonym/run_deeid.py"
-
 generate_docker() {
   docker run --rm kaczmarj/neurodocker:0.5.0 generate docker \
              --base neurodebian:stretch-non-free \
