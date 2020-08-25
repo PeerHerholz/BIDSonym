@@ -1,7 +1,6 @@
 import argparse
 import os
 from pathlib import Path
-from glob import glob
 from bidsonym.defacing_algorithms import (run_pydeface, run_mri_deface, run_mridefacer,
                                           run_quickshear, run_deepdefacer, run_t2w_deface)
 from bidsonym.utils import (check_outpath, copy_no_deid, check_meta_data, del_meta_data,
@@ -98,66 +97,75 @@ def run_deeid():
 
     sessions_to_analyze = layout.get(return_type='id', target='session')
 
+    if not sessions_to_analyze:
+        print('Processing data from one session.')
+    else:
+        print('Processing data from %s sessions:' % str(len(sessions_to_analyze)))
+        print(sessions_to_analyze)
+
     list_check_meta = args.check_meta
 
     list_field_del = args.del_meta
 
     for subject_label in subjects_to_analyze:
-        for session in sessions_to_analyze:raise Exception("If you want to use BET for pre-defacing brain extraction,"
-                                        "please provide a Frac value. For example: --bet_frac 0.5")
-            for T1_file in layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
-                                      return_type='filename', session=session):
-                check_outpath(args.bids_dir, subject_label)
-                if args.brainextraction == 'bet':
-                    if args.bet_frac is None:
-                        raise Exception("If you want to use BET for pre-defacing brain extraction,"
-                                        "please provide a Frac value. For example: --bet_frac 0.5")
+        if not sessions_to_analyze:
+            list_t1w = layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
+                                  return_type='filename')
+        else:
+            list_t1w = layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
+                                  return_type='filename', session=sessions_to_analyze)
+        for (T1_file, session) in zip(list_t1w, sessions_to_analyze):
+            check_outpath(args.bids_dir, subject_label)
+            if args.brainextraction == 'bet':
+                if args.bet_frac is None:
+                    raise Exception("If you want to use BET for pre-defacing brain extraction,"
+                                    "please provide a Frac value. For example: --bet_frac 0.5")
+                else:
+                    run_brain_extraction_bet(T1_file, args.bet_frac[0], subject_label, args.bids_dir, session)
+            elif args.brainextraction == 'nobrainer':
+                run_brain_extraction_nb(T1_file, subject_label, args.bids_dir)
+            if args.deid == "pydeface":
+                check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                source_t1w = copy_no_deid(subject_label, args.bids_dir, T1_file)
+                run_pydeface(source_t1w, T1_file)
+                if args.del_meta:
+                    del_meta_data(args.bids_dir, subject_label, list_field_del)
+            if args.deid == "mri_deface":
+                check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                source_t1w = copy_no_deid(subject_label, args.bids_dir, T1_file)
+                run_mri_deface(source_t1w, T1_file)
+                if args.del_meta:
+                    del_meta_data(args.bids_dir, subject_label, list_field_del)
+            if args.deid == "quickshear":
+                check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                source_t1w = copy_no_deid(subject_label, args.bids_dir, T1_file)
+                run_quickshear(source_t1w, T1_file)
+                if args.del_meta:
+                    del_meta_data(args.bids_dir, subject_label, list_field_del)
+            if args.deid == "mridefacer":
+                check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                source_t1w = copy_no_deid(subject_label, args.bids_dir, T1_file)
+                run_mridefacer(source_t1w, subject_label, args.bids_dir)
+                if args.del_meta:
+                    del_meta_data(args.bids_dir, subject_label, list_field_del)
+            if args.deid == "deepdefacer":
+                check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                source_t1w = copy_no_deid(subject_label, args.bids_dir, T1_file)
+                run_deepdefacer(source_t1w, subject_label, args.bids_dir)
+                if args.del_meta:
+                    del_meta_data(args.bids_dir, subject_label, list_field_del)
+            if args.deface_t2w:
+                for T2_file in layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
+                                          return_type='filename', session=session):
+                    if layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
+                                  return_type='filename', session=session) == []:
+                        raise Exception("You indicated that a T2w image should be defaced as well."
+                                        "However, no T2w image exists for subject %s and session %s."
+                                        "Please check again." % (subject_label, session))
                     else:
-                        run_brain_extraction_bet(T1_file, args.bet_frac[0], subject_label, args.bids_dir, session)
-                elif args.brainextraction == 'nobrainer':
-                    run_brain_extraction_nb(T1_file, subject_label, args.bids_dir)
-                if args.deid == "pydeface":
-                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
-                    source_t1w = copy_no_deid(subject_label, args.bids_dir, T1_file)
-                    run_pydeface(source_t1w, T1_file)
-                    if args.del_meta:
-                        del_meta_data(args.bids_dir, subject_label, list_field_del)
-                if args.deid == "mri_deface":
-                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
-                    source_t1w = copy_no_deid(subject_label, args.bids_dir, T1_file)
-                    run_mri_deface(source_t1w, T1_file)
-                    if args.del_meta:
-                        del_meta_data(args.bids_dir, subject_label, list_field_del)
-                if args.deid == "quickshear":
-                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
-                    source_t1w = copy_no_deid(subject_label, args.bids_dir, T1_file)
-                    run_quickshear(source_t1w, T1_file)
-                    if args.del_meta:
-                        del_meta_data(args.bids_dir, subject_label, list_field_del)
-                if args.deid == "mridefacer":
-                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
-                    source_t1w = copy_no_deid(subject_label, args.bids_dir, T1_file)
-                    run_mridefacer(source_t1w, subject_label, args.bids_dir)
-                    if args.del_meta:
-                        del_meta_data(args.bids_dir, subject_label, list_field_del)
-                if args.deid == "deepdefacer":
-                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
-                    source_t1w = copy_no_deid(subject_label, args.bids_dir, T1_file)
-                    run_deepdefacer(source_t1w, subject_label, args.bids_dir)
-                    if args.del_meta:
-                        del_meta_data(args.bids_dir, subject_label, list_field_del)
-                if args.deface_t2w:
-                    for T2_file in layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
-                                      return_type='filename', session=session):
-                        if layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
-                                      return_type='filename', session=session) == []:
-                            raise Exception("You indicated that a T2w image should be defaced as well."
-                                            "However, no T2w image exists for subject %s and session %s."
-                                            "Please check again." %(subject_label, session))
-                        else:
-                            source_t2w = copy_no_deid(subject_label, args.bids_dir, T2_file)
-                            run_t2w_deface(source_t2w, T1_file, T2_file)
-            rename_non_deid(args.bids_dir, subject_label)
+                        source_t2w = copy_no_deid(subject_label, args.bids_dir, T2_file)
+                        run_t2w_deface(source_t2w, T1_file, T2_file)
+        rename_non_deid(args.bids_dir, subject_label)
 
 
 if __name__ == "__main__":

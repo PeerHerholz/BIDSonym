@@ -1,13 +1,11 @@
 import os
 import sys
 import json
-
 import numpy as np
 from glob import glob
 import pandas as pd
 import nibabel as nib
 from shutil import move
-
 import nipype.pipeline.engine as pe
 from nipype import Function
 from nipype.interfaces import utility as niu
@@ -106,6 +104,9 @@ def del_meta_data(bids_dir, subject_label, fields_del):
     path_sub_meta = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
     list_task_meta_files = glob(os.path.join(bids_dir, '*json'))
     list_sub_meta_files = glob(os.path.join(bids_dir, 'sub-' + subject_label, '**/*.json'), recursive=True)
+
+    list_meta_files = list_task_meta_files + list_sub_meta_files
+
     for task_meta_data_file in list_task_meta_files:
         task_out = task_meta_data_file[task_meta_data_file.rfind('/') +
                                        1:]
@@ -114,8 +115,6 @@ def del_meta_data(bids_dir, subject_label, fields_del):
         sub_out = sub_meta_data_file[sub_meta_data_file.rfind('/') +
                                      1:]
         move(sub_meta_data_file, os.path.join(path_sub_meta, sub_out))
-
-    list_meta_files = list_task_meta_files + list_sub_meta_files
 
     list_task_meta_files_deid = glob(os.path.join(bids_dir, "sourcedata/bidsonym/", '*json'))
     list_sub_meta_files_deid = glob(os.path.join(bids_dir, "sourcedata/bidsonym/",
@@ -195,7 +194,7 @@ def run_brain_extraction_bet(image, frac, subject_label, bids_dir, session):
     import os
 
     outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
-                           "sub-%s_ses-%s_space-native_brainmask.nii.gz" %(subject_label, session))
+                           "sub-%s_ses-%s_space-native_brainmask.nii.gz" % (subject_label, session))
 
     brainextraction_wf = pe.Workflow('brainextraction_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
