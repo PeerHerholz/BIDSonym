@@ -134,7 +134,10 @@ def del_meta_data(bids_dir, subject_label, fields_del):
         with open(meta_file_deid, 'r') as json_file:
             meta_data = json.load(json_file)
             for field in fields_del:
-                meta_data[field] = 'deleted_by_bidsonym'
+                if field in meta_data:
+                    meta_data[field] = 'deleted_by_bidsonym'
+                else:
+                    continue
         with open(meta_file, 'w') as json_output_file:
             json.dump(meta_data, json_output_file, indent=4)
 
