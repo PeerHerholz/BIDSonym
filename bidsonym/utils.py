@@ -130,6 +130,9 @@ def del_meta_data(bids_dir, subject_label, fields_del):
     print('the following fields will be deleted:')
     print(*fields_del, sep='\n')
 
+    list_meta_files.sort()
+    list_meta_files_deid.sort()
+
     for meta_file_deid, meta_file in zip(list_meta_files_deid, list_meta_files):
         with open(meta_file_deid, 'r') as json_file:
             meta_data = json.load(json_file)
