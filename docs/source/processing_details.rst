@@ -45,11 +45,11 @@ When running ``BIDSonym``, the following processing steps are executed:
 
   4. **evalution of metadata**:
 
-    The metadata found in both, the ``header of the images`` and ``sidecar JSON files`` will gathered
+    The metadata found in both, the ``header of the images`` and ``sidecar JSON files`` will be gathered
     and saved in a tabular data file (.tsv) of the form ``metadata field : value`` to the
     ``bids_dataset/sourcedata/bidsonym/`` directory. Additionally, a third column ``problematic`` will
     indicate if the ``value`` of a certain ``metadata field`` is potentially problematic or sensitive.
-    By default all values will considered not problematic (``no``). Only if the user specifies a list
+    By default all values will be considered not problematic (``no``). Only if the user specifies a list
     of strings which might be included in problematic or sensitive information (e.g., 'name') ``BIDSonym``
     will search for these strings and mark respective ``values`` of ``metadata fields`` as problematic (``yes``)
 
@@ -59,7 +59,7 @@ When running ``BIDSonym``, the following processing steps are executed:
     features that could potentially allow or aid the identification of participants' identity (e.g., their face).
     Depending on the algorithm chosen, more or less features are removed and the sufficiency needs to be evaluated
     by the user (supported through the visual QA reports). If the ``-deface_t2w`` flag is set, ``structural T2 weighted
-    images`` will de-faced by using the respective ``de-faced T1 weighted image`` of the same subject as a mask.
+    images`` will be de-faced by using the respective ``de-faced T1 weighted image`` of the same subject as a mask.
     All de-faced images will be written to the ``bids_dataset`` directory.
     
   6. **de-indetification of metadata fields**:
