@@ -82,14 +82,15 @@ def check_meta_data(bids_dir, subject_label, prob_fields=None):
                 info.append(inf)
             json_df = pd.DataFrame({'meta_data_field': keys, 'information': info, 'problematic': 'no'})
 
-        list_general_prob_fields = ['AcquisitionTime', 'InstitutionAddress', 'InstitutionName', 'InstitutionalDepartmentName', 
-                                    'ProcedureStepDescription', 'ProtocolName', 'PulseSequenceDetails', 'SeriesDescription', 'global']
+        list_general_prob_fields = ['AcquisitionTime', 'InstitutionAddress', 'InstitutionName',
+                                    'InstitutionalDepartmentName', 'ProcedureStepDescription', 'ProtocolName',
+                                    'PulseSequenceDetails', 'SeriesDescription', 'global']
 
         if prob_fields:
             prob_fields = prob_fields + list_general_prob_fields
         else:
             prob_fields = list_general_prob_fields
-        
+
         for index, row in json_df.iterrows():
             if any(i in row['meta_data_field'] for i in prob_fields):
                 row['problematic'] = 'maybe'
@@ -204,18 +205,16 @@ def run_brain_extraction_bet(image, frac, subject_label, bids_dir, session=None,
 
     import os
 
-    bidsonym_path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
-
-    if session is not None and t2w==False:
+    if session is not None and t2w is False:
         outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
-                           "sub-%s_ses-%s_space-native_brainmask.nii.gz" % (subject_label, session))
-    elif session is not None and t2w==True:
+                               "sub-%s_ses-%s_space-native_brainmask.nii.gz" % (subject_label, session))
+    elif session is not None and t2w is True:
         outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
                                "sub-%s_ses-%s_space-native_brainmask_T2w.nii.gz" % (subject_label, session))
-    elif session is None and t2w==False:
+    elif session is None and t2w is False:
         outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
                                "sub-%s_space-native_brainmask.nii.gz" % subject_label)
-    elif session is None and t2w == True:
+    elif session is None and t2w is True:
         outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
                                "sub-%s_space-native_brainmask_T2w.nii.gz" % subject_label)
 
@@ -339,24 +338,30 @@ def deface_t2w(image, warped_mask, outfile):
                                infile_img.get_header())
     masked_brain.to_filename(outfile)
 
+
 def clean_up_files(bids_dir, subject_label, session=None):
 
     if session is not None:
-        out_path_images = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s/ses-%s/images" %(subject_label, session))
-        out_path_info = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s/ses-%s/meta_data_info" %(subject_label, session))
-        list_imaging_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' %subject_label, 'sub-' + subject_label + '_ses-' + session + '*.nii.gz'))
-        list_info_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' %subject_label, 'sub-' + subject_label + '_ses-' + session + '*.csv'))
-        list_meta_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' %subject_label, 'sub-' + subject_label + '_ses-' + session + '*.json'))
-    else:    
+        out_path_images = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s/ses-%s/images"
+                                       % (subject_label, session))
+        out_path_info = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s/ses-%s/meta_data_info"
+                                     % (subject_label, session))
+        list_imaging_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
+                                               'sub-' + subject_label + '_ses-' + session + '*.nii.gz'))
+        list_info_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
+                                            'sub-' + subject_label + '_ses-' + session + '*.csv'))
+        list_meta_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
+                                            'sub-' + subject_label + '_ses-' + session + '*.json'))
+    else:
         out_path_images = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s/images" % subject_label)
         out_path_info = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s/meta_data_info" % subject_label)
-        list_imaging_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' %subject_label, '*.nii.gz'))
-        list_info_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' %subject_label, '*.csv'))
-        list_meta_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' %subject_label, '*.json'))
+        list_imaging_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label, '*.nii.gz'))
+        list_info_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label, '*.csv'))
+        list_meta_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label, '*.json'))
 
     if os.path.isdir(out_path_images) is False:
         os.makedirs(out_path_images)
-    
+
     if os.path.isdir(out_path_info) is False:
         os.makedirs(out_path_info)
 
@@ -367,7 +372,3 @@ def clean_up_files(bids_dir, subject_label, session=None):
     for info_file in list_info_files+list_meta_files:
         file_out = info_file[info_file.rfind('/') + 1:]
         move(info_file, os.path.join(out_path_info, file_out))
-    
-    
-
-    

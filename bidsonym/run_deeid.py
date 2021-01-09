@@ -80,7 +80,7 @@ def run_deeid():
         print("Input data will not be checked for BIDS compliance.")
     else:
         print("Making sure the input data is BIDS compliant "
-               "(warnings can be ignored in most cases).")
+              "(warnings can be ignored in most cases).")
         validate_input_dir(exec_env, args.bids_dir, args.participant_label)
 
     layout = BIDSLayout(args.bids_dir)
@@ -158,20 +158,20 @@ def run_deeid():
                 if list_t2w == []:
                     raise Exception("You indicated that a T2w image should be defaced as well."
                                     "However, no T2w image exists for subject %s."
-                                    "Please check again." % (subject_label))
+                                    "Please check again." % subject_label)
 
                 for T2_file in list_t2w:
                     if not sessions_to_analyze:
                         if args.brainextraction == 'bet':
-                                run_brain_extraction_bet(T2_file, args.bet_frac[0], subject_label, args.bids_dir,
-                                                        t2w=True)
+                            run_brain_extraction_bet(T2_file, args.bet_frac[0], subject_label, args.bids_dir,
+                                                     t2w=True)
                         elif args.brainextraction == 'nobrainer':
                             run_brain_extraction_nb(T2_file, subject_label, args.bids_dir)
                     else:
-                        ses_id = T2_file[T2_file.rfind('_ses-')+5:T2_file.find('_',T2_file.rfind('_ses-')+5)]
+                        ses_id = T2_file[T2_file.rfind('_ses-')+5:T2_file.find('_', T2_file.rfind('_ses-')+5)]
                         if args.brainextraction == 'bet':
-                                run_brain_extraction_bet(T2_file, args.bet_frac[0], subject_label, args.bids_dir, 
-                                                        session=ses_id, t2w=True)
+                            run_brain_extraction_bet(T2_file, args.bet_frac[0], subject_label, args.bids_dir,
+                                                     session=ses_id, t2w=True)
                         elif args.brainextraction == 'nobrainer':
                             run_brain_extraction_nb(T2_file, subject_label, args.bids_dir)
 
