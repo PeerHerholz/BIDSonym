@@ -55,6 +55,8 @@ Example 1
     participant \
     --participant_label 01 \
     --deid pydeface \
+    --brain_extraction bet \ 
+    --bet_frac 0.5 \
     --del_meta 'InstitutionAddress' \
 
 Here's what's in this call:
@@ -69,7 +71,13 @@ Here's what's in this call:
 - The 4th positional argument specifies which defacing algorithm should be run.
   You can choose between ``mri_deface``, ``pydeface``, ``quickshear`` and ``mridefacer``.
   In this example we choose ``pydeface``.
-- The 5th argument indicates which metadata fields of the sidecar JSON file(s) should be deleted.
+- The 5th positional argument specifies the algorithm that should be used for brain extraction
+  (which will be used for quality control purposes). You have the options ``bet`` or ``nobrainer``.
+  Here we chose ``bet``.
+- The 6th position argument specifies the fractional intensity threshold used for ``bet``. 
+  The value can range between ``0`` and ``1``, here we chose the default of 0.5. Please note,
+  that this argument is only necessary when ``bet`` was chosen as brain extraction tool.
+- The 7th argument indicates which metadata fields of the sidecar JSON file(s) should be deleted.
   This can be any of those included in the `BIDS specification <https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/01-magnetic-resonance-imaging-data.html>`_,
   if it exists in the JSON sidecar files of your ``BIDS dataset``.
 
@@ -82,6 +90,7 @@ Example 2
     /home/peer/bids/ \
     group \
     --deid mridefacer \
+    --brain_extraction nobrainer \
 
 Here's what's in this call:
 
@@ -94,6 +103,9 @@ Here's what's in this call:
 - The 3rd positional argument specifies which defacing algorithm should be run.
   You can choose between ``mri_deface``, ``pydeface``, ``quickshear`` and ``mridefacer``.
   This time we choose ``mridefacer``.
+- The 4th positional argument specifies the algorithm that should be used for brain extraction
+  (which will be used for quality control purposes). You have the options ``bet`` or ``nobrainer``.
+  Here we chose ``nobrainer``. 
 - Contrary to Example 1, we don't delete any metadata field(s) of the sidecar JSON files.
 
 Support and communication

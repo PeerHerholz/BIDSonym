@@ -57,7 +57,7 @@ A `BIDS <https://bids-specification.readthedocs.io/en/stable/>`_ `App <https://b
 Additionally, the user can choose to evaluate the sidecar JSON files regarding potentially sensitive information,
 like for example participant names and define a list of fields which information should be deleted.
 
-**Using BIDSonym ensures that you can make collected neuroimaging data available for others without violating subjects' privacy or anonymity (depending on the regulations of the country you're in).**
+**Using BIDSonym can help you can make collected neuroimaging data available for others without violating subjects' privacy or anonymity (depending on the regulations of the country you're in).**
 
 .. intro-marker
 
@@ -110,8 +110,13 @@ optional arguments:
   --deid {pydeface,mri_deface,quickshear}
 			Approach to use for de-identifictation.
   --deface_t2w {}	Deface T2w images by using defaced T1w image as deface-mask.
+  --check_meta META_DATA_FIELD [META_DATA_FIELD ...]  
+            Indicate which information from the image and
+            :code:`.json` meta-data files should be check for potentially problematic information. 
+            Indicate strings that should be searched for.
+            The results will be saved to :code:`sourcedata/`.
   --del_meta META_DATA_FIELD [META_DATA_FIELD ...]
-			Indicate if and which information from the .json meta-data
+			Indicate (via strings) if and which information from the :code:`.json` meta-data
 			files should be deleted. If so, the original :code:`.json` files
 			will be copied to :code:`sourcedata/`.
   --brainextraction {BET, no_brainer}
@@ -119,6 +124,9 @@ optional arguments:
 			(outputs will be used in quality control).
   --bet_frac [BET_FRAC]
 			In case BET is used for pre-defacing brain extraction, provide a Frac value.
+  --skip_bids_validation
+            Assume the input dataset is BIDS compliant and skip the validation (default: False).
+  -v  BIDS-App version.
 
 
 Run it in participant level mode (for one participant):

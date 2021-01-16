@@ -5,11 +5,11 @@ Credits
 Maintainer
 ----------
 
-* Peer Herholz <herholz.peer@gmail.com>
+* Peer Herholz <herholz dot peer at gmail.com>
 * Rita Ludwig
 
 Contributors
 ------------
 
-* Kirstie Whitaker <kw401@cam.ac.uk>
+* Kirstie Whitaker 
 * Jean-Baptiste Poline
