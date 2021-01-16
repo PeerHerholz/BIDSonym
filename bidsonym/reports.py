@@ -1,105 +1,138 @@
-import os
-import time
+def plot_defaced(bids_dir, subject_label, session=None, t2w=None):
 
-from glob import glob
-import matplotlib.pyplot as plt
-from matplotlib import figure
+    from bids import BIDSLayout
+    from glob import glob
+    from os.path import join as opj
+    from matplotlib.pyplot import figure
+    import matplotlib.pyplot as plt
+    from nilearn.plotting import find_cut_slices, plot_stat_map
 
+    layout = BIDSLayout(bids_dir)
 
-from nipype.interfaces.base import (
-    TraitedSpec, BaseInterfaceInputSpec,
-    File, Directory, InputMultiObject, Str, isdefined,
-    SimpleInterface)
-from nilearn.plotting import plot_anat, find_cut_slices
-import nibabel as nb
+    bidsonym_path = opj(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label)
 
+    if session is not None:
+        defaced_t1w = layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
+                                 return_type='filename', session=session)
+    else:
+        defaced_t1w = layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
+                                 return_type='filename')
 
-SUBJECT_TEMPLATE = """\
-\t<ul class="elem-desc">
-\t\t<li>Subject ID: {subject_id}</li>
-\t\t<li>Structural images: {n_t1s:d} T1-weighted {t2w}</li>
-"""
+    for t1w in defaced_t1w:
+        brainmask_t1w = glob(opj(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
+                                 t1w[t1w.rfind('/')+1:t1w.rfind('.nii')] +
+                                 '_brainmask_desc-nondeid.nii.gz'))[0]
+        fig = figure(figsize=(15, 5))
+        plt.subplots_adjust(left=0, bottom=0, right=1, top=1, wspace=-0.2, hspace=0)
+        for i, e in enumerate(['x', 'y', 'z']):
+            ax = fig.add_subplot(3, 1, i + 1)
+            cuts = find_cut_slices(t1w, direction=e, n_cuts=12)
+            plot_stat_map(brainmask_t1w, bg_img=t1w, display_mode=e,
+                          cut_coords=cuts, annotate=False, dim=-1, axes=ax, colorbar=False)
+        plt.savefig(opj(bidsonym_path,
+                        t1w[t1w.rfind('/')+1:t1w.rfind('.nii')] + '_desc-brainmaskdeid.png'))
 
-ABOUT_TEMPLATE = """\t<ul>
-\t\t<li>BIDSonym version: {version}</li>
-\t\t<li>BIDSonym command: <code>{command}</code></li>
-\t\t<li>Date preprocessed: {date}</li>
-\t</ul>
-</div>
-"""
+    if t2w is not None:
+        if session is not None:
+            defaced_t2w = layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
+                                     return_type='filename', session=session)
+        else:
+            defaced_t2w = layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
+                                     return_type='filename')
 
+        for t2w in defaced_t2w:
+            brainmask_t2w = glob(opj(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
+                                     t2w[t2w.rfind('/') + 1:t2w.rfind('.nii')] +
+                                     '_brainmask_desc-nondeid.nii.gz'))[0]
+            for i, e in enumerate(['x', 'y', 'z']):
+                ax = fig.add_subplot(3, 1, i + 1)
+                cuts = find_cut_slices(t2w, direction=e, n_cuts=12)
+                plot_stat_map(brainmask_t2w, bg_img=t2w, display_mode=e,
+                              cut_coords=cuts, annotate=False, dim=-1, axes=ax, colorbar=False)
+            plt.savefig(opj(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
+                            t2w[t2w.rfind('/')+1:t2w.rfind('.nii')] + '_desc-brainmaskdeid.png'))
 
-class SummaryOutputSpec(TraitedSpec):
-    out_report = File(exists=True, desc='HTML segment containing summary')
-
-
-class SummaryInterface(SimpleInterface):
-    output_spec = SummaryOutputSpec
-
-    def _run_interface(self, runtime):
-        segment = self._generate_segment()
-        fname = os.path.join(runtime.cwd, 'report.html')
-        with open(fname, 'w') as fobj:
-            fobj.write(segment)
-        self._results['out_report'] = fname
-        return runtime
-
-    def _generate_segment(self):
-        raise NotImplementedError
-
-
-class SubjectSummaryInputSpec(BaseInterfaceInputSpec):
-    t1w = InputMultiObject(File(exists=True), desc='T1w structural images')
-    t2w = InputMultiObject(File(exists=True), desc='T2w structural images')
-    subjects_dir = Directory(desc='FreeSurfer subjects directory')
-    subject_id = Str(desc='Subject ID')
-
-
-class SubjectSummary(SummaryInterface):
-    input_spec = SubjectSummaryInputSpec
-
-    def _run_interface(self, runtime):
-        if isdefined(self.inputs.subject_id):
-            self._results['subject_id'] = self.inputs.subject_id
-        return super(SubjectSummary, self)._run_interface(runtime)
-
-    def _generate_segment(self):
-
-        return SUBJECT_TEMPLATE.format(
-            subject_id=self.inputs.subject_id,
-            n_t1s=len(self.inputs.t1w))
+    return (t1w, t2w)
 
 
-class AboutSummaryInputSpec(BaseInterfaceInputSpec):
-    version = Str(desc='BIDSonym version')
-    command = Str(desc='BIDSonym command')
-    # Date not included - update timestamp only if version or command changes
+def gif_defaced(bids_dir, subject_label, session=None, t2w=None):
+
+    from bids import BIDSLayout
+    from glob import glob
+    from os.path import join as opj
+    from shutil import move
+    import gif_your_nifti.core as gif2nif
+
+    layout = BIDSLayout(bids_dir)
+
+    bidsonym_path = opj(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label)
+
+    if session is not None:
+        defaced_t1w = layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
+                                 return_type='filename', session=session)
+        if t2w is not None:
+            defaced_t2w = layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
+                                     return_type='filename', session=session)
+    else:
+        defaced_t1w = layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
+                                 return_type='filename')
+        if t2w is not None:
+            defaced_t2w = layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
+                                     return_type='filename', session=session)
+
+    for t1_image in defaced_t1w:
+        gif2nif.write_gif_normal(t1_image)
+
+    if t2w is not None:
+        for t2_image in defaced_t2w:
+            gif2nif.write_gif_normal(t2_image)
+
+    if session is not None:
+        list_gifs = glob(opj(bids_dir, 'sub-%s/ses-%s/anat' % (subject_label, session),
+                             'sub-%s*.gif' % subject_label))
+    else:
+        list_gifs = glob(opj(bids_dir, 'sub-%s/anat' % subject_label,
+                             'sub-%s*.gif' % subject_label))
+
+    for gif_nii in list_gifs:
+        move(gif_nii, opj(bids_dir, bidsonym_path))
 
 
-class AboutSummary(SummaryInterface):
-    input_spec = AboutSummaryInputSpec
+def create_graphics(bids_dir, subject_label, session=None, t2w=None):
 
-    def _generate_segment(self):
-        return ABOUT_TEMPLATE.format(version=self.inputs.version,
-                                     command=self.inputs.command,
-                                     date=time.strftime("%Y-%m-%d %H:%M:%S %z"))
+    import nipype.pipeline.engine as pe
+    from nipype import Function
+    from nipype.interfaces import utility as niu
 
+    report_wf = pe.Workflow('report_wf')
 
-def plot_static_defaced(bids_dir, subject_id):
+    inputnode = pe.Node(niu.IdentityInterface(fields=['bids_dir', 'subject_label', 'session', 't2w']),
+                        name='inputnode')
+    plt_defaced = pe.Node(Function(input_names=['bids_dir', 'subject_label', 'session', 't2w'],
+                                   function=plot_defaced),
+                          name='plt_defaced')
+    gf_defaced = pe.Node(Function(input_names=['bids_dir', 'subject_label', 'session', 't2w'],
+                                  function=gif_defaced),
+                         name='gf_defaced')
 
-    defaced_img = nb.load(glob(os.path.join(bids_dir, 'sub-%s' % subject_id, 'anat/*T1w.nii.gz'))[0])
+    report_wf.connect([(inputnode, plt_defaced, [('bids_dir', 'bids_dir'),
+                                                 ('subject_label', 'subject_label')]),
+                       (inputnode, gf_defaced, [('bids_dir', 'bids_dir'),
+                                                ('subject_label', 'subject_label')]),
+                       ])
 
-    f, (ax1, ax2, ax3) = plt.subplots(3)
-    plot_anat(defaced_img, draw_cross=False, annotate=False, display_mode='x', cut_coords=8, ax=ax1)
-    plot_anat(defaced_img, draw_cross=False, annotate=False, display_mode='y', cut_coords=8, ax=ax2)
-    plot_anat(defaced_img, draw_cross=False, annotate=False, display_mode='z', cut_coords=8)
-    plt.show()
+    if session:
+        inputnode.inputs.session = session
+        report_wf.connect([(inputnode, plt_defaced, [('session', 'session')]),
+                           (inputnode, gf_defaced, [('session', 'session')]),
+                           ])
 
-    fig = figure(figsize=(12, 7))
-    plt.subplots_adjust(left=0, bottom=0, right=1, top=1, wspace=-0.2, hspace=0)
-    for i, e in enumerate(['x', 'y', 'z']):
-        ax = fig.add_subplot(3, 1, i + 1)
-        cuts = find_cut_slices(defaced_img, direction=e, n_cuts=12)[2:-2]
-        plot_anat(defaced_img, display_mode=e,
-                  cut_coords=cuts, annotate=False, axes=ax, dim=-1)
-    plt.show()
+    if t2w:
+        inputnode.inputs.t2w = t2w
+        report_wf.connect([(inputnode, plt_defaced, [('t2w', 't2w')]),
+                           (inputnode, gf_defaced, [('t2w', 't2w')]),
+                           ])
+
+    inputnode.inputs.bids_dir = bids_dir
+    inputnode.inputs.subject_label = subject_label
+    report_wf.run()

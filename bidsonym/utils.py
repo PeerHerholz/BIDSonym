@@ -152,8 +152,10 @@ def del_meta_data(bids_dir, subject_label, fields_del):
 
 
 def rename_non_deid(bids_dir, subject_label):
-    list_meta_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-' + subject_label, '*json'))
-    list_images_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-' + subject_label, '*nii.gz'))
+    list_meta_files = [fn for fn in glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-'
+                       + subject_label, '*json')) if not os.path.basename(fn).endswith('desc-nondeid.json')]
+    list_images_files = [fn for fn in glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-'
+                         + subject_label, '*nii.gz')) if not os.path.basename(fn).endswith('desc-nondeid.nii.gz')]
 
     for meta_data_file in list_meta_files:
         meta_deid = meta_data_file[meta_data_file.rfind('/') +
@@ -172,7 +174,7 @@ def brain_extraction_nb(image, subject_label, bids_dir):
     from subprocess import check_call
 
     outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
-                           "sub-%s_space-native_brainmask.nii.gz" % subject_label)
+                           image[image.rfind('/')+1:image.rfind('.nii')] + '_brainmask_desc-nondeid.nii.gz')
 
     cmd = ['nobrainer',
            'predict',
@@ -182,7 +184,6 @@ def brain_extraction_nb(image, subject_label, bids_dir):
            outfile,
            ]
     check_call(cmd)
-    return
 
 
 def run_brain_extraction_nb(image, subject_label, bids_dir):
@@ -201,27 +202,17 @@ def run_brain_extraction_nb(image, subject_label, bids_dir):
     brainextraction_wf.run()
 
 
-def run_brain_extraction_bet(image, frac, subject_label, bids_dir, session=None, t2w=False):
+def run_brain_extraction_bet(image, frac, subject_label, bids_dir):
 
     import os
 
-    if session is not None and t2w is False:
-        outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
-                               "sub-%s_ses-%s_space-native_brainmask.nii.gz" % (subject_label, session))
-    elif session is not None and t2w is True:
-        outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
-                               "sub-%s_ses-%s_space-native_brainmask_T2w.nii.gz" % (subject_label, session))
-    elif session is None and t2w is False:
-        outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
-                               "sub-%s_space-native_brainmask.nii.gz" % subject_label)
-    elif session is None and t2w is True:
-        outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
-                               "sub-%s_space-native_brainmask_T2w.nii.gz" % subject_label)
+    outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
+                           image[image.rfind('/')+1:image.rfind('.nii')] + '_brainmask_desc-nondeid.nii.gz')
 
     brainextraction_wf = pe.Workflow('brainextraction_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
                         name='inputnode')
-    bet = pe.Node(BET(mask=True), name='bet')
+    bet = pe.Node(BET(mask=False), name='bet')
     brainextraction_wf.connect([
         (inputnode, bet, [('in_file', 'in_file')]),
         ])
@@ -348,6 +339,10 @@ def clean_up_files(bids_dir, subject_label, session=None):
                                      % (subject_label, session))
         list_imaging_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
                                                'sub-' + subject_label + '_ses-' + session + '*.nii.gz'))
+        list_graphics = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
+                                          'sub-' + subject_label + '_ses-' + session + '*.png'))
+        list_gifs = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
+                                      'sub-' + subject_label + '_ses-' + session + '*.gif'))
         list_info_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
                                             'sub-' + subject_label + '_ses-' + session + '*.csv'))
         list_meta_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
@@ -356,6 +351,8 @@ def clean_up_files(bids_dir, subject_label, session=None):
         out_path_images = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s/images" % subject_label)
         out_path_info = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s/meta_data_info" % subject_label)
         list_imaging_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label, '*.nii.gz'))
+        list_graphics = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label, '*.png'))
+        list_gifs = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label, '*.gif'))
         list_info_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label, '*.csv'))
         list_meta_files = glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label, '*.json'))
 
@@ -365,7 +362,9 @@ def clean_up_files(bids_dir, subject_label, session=None):
     if os.path.isdir(out_path_info) is False:
         os.makedirs(out_path_info)
 
-    for image_file in list_imaging_files:
+    images = list_imaging_files + list_graphics + list_gifs
+
+    for image_file in images:
         file_out = image_file[image_file.rfind('/') + 1:]
         move(image_file, os.path.join(out_path_images, file_out))
 
