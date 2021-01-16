@@ -65,7 +65,7 @@ If the version of Singularity on your HPC is modern enough you can create Singul
 image directly on the HCP.
 This is as simple as: ::
 
-    $ singularity build /my_images/fmriprep-<version>.simg docker://peerherholz/bidsonym:<version>
+    $ singularity build /my_images/bidsonym-<version>.simg docker://peerherholz/bidsonym:<version>
 
 Where ``<version>`` should be replaced with the desired version of ``BIDSonym`` that you want to download.
 

@@ -4,6 +4,10 @@
 Processing details
 ------------------
 
+    .. image:: https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/docs/source/_static/bidsonym_functionality.png
+       :alt: alternate text
+
+
 When running ``BIDSonym``, the following processing steps are executed:
 
   1. **running BIDS-validator**:

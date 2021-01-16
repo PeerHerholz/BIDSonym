@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Usage &mdash; BIDSonym 0.0.2+20.ge98f1a7 documentation</title>
+  <title>Usage &mdash; BIDSonym 0.0.2+21.g739a06a documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.0.2+20.ge98f1a7
+                0.0.2+21.g739a06a
               </div>
             
           
@@ -281,6 +281,8 @@ you to familiarize yourself with <code class="docutils literal notranslate"><spa
 participant <span class="se">\</span>
 --participant_label <span class="m">01</span> <span class="se">\</span>
 --deid pydeface <span class="se">\</span>
+--brain_extraction bet <span class="se">\</span>
+--bet_frac <span class="m">0</span>.5 <span class="se">\</span>
 --del_meta <span class="s1">&#39;InstitutionAddress&#39;</span> <span class="se">\</span>
 </pre></div>
 </div>
@@ -296,7 +298,13 @@ participant should be de-identified. In this case, we choose <code class="docuti
 <li><p>The 4th positional argument specifies which defacing algorithm should be run.
 You can choose between <code class="docutils literal notranslate"><span class="pre">mri_deface</span></code>, <code class="docutils literal notranslate"><span class="pre">pydeface</span></code>, <code class="docutils literal notranslate"><span class="pre">quickshear</span></code> and <code class="docutils literal notranslate"><span class="pre">mridefacer</span></code>.
 In this example we choose <code class="docutils literal notranslate"><span class="pre">pydeface</span></code>.</p></li>
-<li><p>The 5th argument indicates which metadata fields of the sidecar JSON file(s) should be deleted.
+<li><p>The 5th positional argument specifies the algorithm that should be used for brain extraction
+(which will be used for quality control purposes). You have the options <code class="docutils literal notranslate"><span class="pre">bet</span></code> or <code class="docutils literal notranslate"><span class="pre">nobrainer</span></code>.
+Here we chose <code class="docutils literal notranslate"><span class="pre">bet</span></code>.</p></li>
+<li><p>The 6th position argument specifies the fractional intensity threshold used for <code class="docutils literal notranslate"><span class="pre">bet</span></code>.
+The value can range between <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code>, here we chose the default of 0.5. Please note,
+that this argument is only necessary when <code class="docutils literal notranslate"><span class="pre">bet</span></code> was chosen as brain extraction tool.</p></li>
+<li><p>The 7th argument indicates which metadata fields of the sidecar JSON file(s) should be deleted.
 This can be any of those included in the <a class="reference external" href="https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/01-magnetic-resonance-imaging-data.html">BIDS specification</a>,
 if it exists in the JSON sidecar files of your <code class="docutils literal notranslate"><span class="pre">BIDS</span> <span class="pre">dataset</span></code>.</p></li>
 </ul>
@@ -307,6 +315,7 @@ if it exists in the JSON sidecar files of your <code class="docutils literal not
 /home/peer/bids/ <span class="se">\</span>
 group <span class="se">\</span>
 --deid mridefacer <span class="se">\</span>
+--brain_extraction nobrainer <span class="se">\</span>
 </pre></div>
 </div>
 <p>Here’s what’s in this call:</p>
@@ -320,6 +329,9 @@ we don’t need to specific a <code class="docutils literal notranslate"><span c
 <li><p>The 3rd positional argument specifies which defacing algorithm should be run.
 You can choose between <code class="docutils literal notranslate"><span class="pre">mri_deface</span></code>, <code class="docutils literal notranslate"><span class="pre">pydeface</span></code>, <code class="docutils literal notranslate"><span class="pre">quickshear</span></code> and <code class="docutils literal notranslate"><span class="pre">mridefacer</span></code>.
 This time we choose <code class="docutils literal notranslate"><span class="pre">mridefacer</span></code>.</p></li>
+<li><p>The 4th positional argument specifies the algorithm that should be used for brain extraction
+(which will be used for quality control purposes). You have the options <code class="docutils literal notranslate"><span class="pre">bet</span></code> or <code class="docutils literal notranslate"><span class="pre">nobrainer</span></code>.
+Here we chose <code class="docutils literal notranslate"><span class="pre">nobrainer</span></code>.</p></li>
 <li><p>Contrary to Example 1, we don’t delete any metadata field(s) of the sidecar JSON files.</p></li>
 </ul>
 </div>

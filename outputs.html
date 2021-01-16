@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Outputs of BIDSonym &mdash; BIDSonym 0.0.2+20.ge98f1a7 documentation</title>
+  <title>Outputs of BIDSonym &mdash; BIDSonym 0.0.2+21.g739a06a documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.0.2+20.ge98f1a7
+                0.0.2+21.g739a06a
               </div>
             
           
@@ -96,7 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="processing_details.html">Processing details</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Outputs of BIDSonym</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#visual-reports">Visual Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#visual-qa">Visual QA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#imaging-data">Imaging data</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#copied-non-defaced-images">copied non-defaced images</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#defaced-images">defaced images</a></li>
@@ -187,26 +187,23 @@
 <p>BIDSonym generates three broad classes of outcomes:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li><p><strong>Visual QA (quality assessment) reports</strong>:
-one <abbr title="hypertext markup language">HTML</abbr> per subject,
-that allows the user a thorough visual assessment of the quality
-of de-identification and ensures the transparency of <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> operation.</p></li>
+<li><p><strong>Visual QA (quality assessment)</strong>:
+one graphic showing the overlay between the outcome of brain extraction and defaced images per image
+and one gif per defaced image per subject, that allows the user a visual assessment of the quality
+of de-identification and ensures the transparency of <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>’s operation.</p></li>
 <li><p><strong>imaging data</strong> including defaced images in the <cite>BIDS root</cite> directory and
 non-defaced images in the <cite>sourcedata/bidsonym</cite> directory.</p></li>
 <li><p><strong>sidecar JSON and metadata .tsv files</strong> including de-identified files in the <cite>BIDS root</cite>
 directory and not de-identified files in the <cite>sourcedata/bidsonym</cite> directory.</p></li>
 </ol>
 </div></blockquote>
-<div class="section" id="visual-reports">
-<h2>Visual Reports<a class="headerlink" href="#visual-reports" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> outputs summary reports, written to <code class="docutils literal notranslate"><span class="pre">sourcedata/bidsonym/sub-&lt;subject_label&gt;/sub-&lt;subject_label&gt;.html</span></code>.
-These reports provide a quick way to make visual inspection of the de-identification easy.
-<a class="reference external" href="_static/sample_report.html">View a sample report.</a> (This sample report includes data from one of the maintainers
-(Peer Herholz) who provided the data and agreed to sharing it.)
-It includes information on the version <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> that was run and how it was run.
-Furthermore, multiple graphics each displaying the whole <code class="docutils literal notranslate"><span class="pre">defaced</span> <span class="pre">image</span></code> in 10 slices along different
-directions (x,y,z) are included. To evaluate if the <code class="docutils literal notranslate"><span class="pre">defacing</span></code> was too stringent, a <code class="docutils literal notranslate"><span class="pre">brainmask</span></code> created before
-the <code class="docutils literal notranslate"><span class="pre">defacing</span></code> is overlaid. The reports additionally include a gif within which the <code class="docutils literal notranslate"><span class="pre">defaced</span> <span class="pre">image</span></code> is scrolled
+<div class="section" id="visual-qa">
+<h2>Visual QA<a class="headerlink" href="#visual-qa" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> related graphical outputs, written to <code class="docutils literal notranslate"><span class="pre">sourcedata/bidsonym/sub-&lt;subject_label&gt;/(ses-&lt;session_label&gt;)</span></code>.
+These graphics provide a quick way to make a visual inspection of the de-identification easy.
+Within static graphics, each displays the whole <code class="docutils literal notranslate"><span class="pre">defaced</span> <span class="pre">image</span></code> in 10 slices along different
+directions (x,y,z). To evaluate if the <code class="docutils literal notranslate"><span class="pre">defacing</span></code> was too stringent, a <code class="docutils literal notranslate"><span class="pre">brainmask</span></code> created before
+the <code class="docutils literal notranslate"><span class="pre">defacing</span></code> is overlaid. The graphics additionally include a gif within which the <code class="docutils literal notranslate"><span class="pre">defaced</span> <span class="pre">image</span></code> is scrolled
 through each direction.</p>
 </div>
 <div class="section" id="imaging-data">
@@ -244,12 +241,13 @@ of the country you’re in and/or acquired the data in).</p>
 <h3>metadata .tsv files<a class="headerlink" href="#metadata-tsv-files" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> will access both the information stored in the <code class="docutils literal notranslate"><span class="pre">header</span></code> of the images and <code class="docutils literal notranslate"><span class="pre">sidecar</span> <span class="pre">JSON</span> <span class="pre">files</span></code>, writing them
 to <code class="docutils literal notranslate"><span class="pre">.tsv</span></code> files with two columns: 1. the type of information and 2. if it might be problematic in terms of data sharing. By default,
-all information is considered to not be problematic, but the user can provide a list of strings for which will be searched
-in the extracted information via the <code class="docutils literal notranslate"><span class="pre">--check_meta_data</span></code> argument. If a certain string, e.g., <code class="docutils literal notranslate"><span class="pre">name</span></code> or <code class="docutils literal notranslate"><span class="pre">location</span></code> is found,
-the respective field is marked as <code class="docutils literal notranslate"><span class="pre">yes</span></code> in the <code class="docutils literal notranslate"><span class="pre">problematic</span></code> column.
-Thus users can investigate and evaluate if potentially sensitive information is present in the data and, if not done already, indicate
-metadata fields which information should be deleted through the <code class="docutils literal notranslate"><span class="pre">--del_meta</span></code> argument. However, only metadata from the
-<code class="docutils literal notranslate"><span class="pre">sidecar</span> <span class="pre">JSON</span> <span class="pre">files</span></code> but not the <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">headers</span></code> will be deleted.</p>
+the <code class="docutils literal notranslate"><span class="pre">descrip</span></code> field is considered to be problematic in the <code class="docutils literal notranslate"><span class="pre">header</span></code> and the following in the <code class="docutils literal notranslate"><span class="pre">sidecar</span> <span class="pre">JSON</span> <span class="pre">files</span></code>: <code class="docutils literal notranslate"><span class="pre">AcquisitionTime</span></code>,
+<code class="docutils literal notranslate"><span class="pre">InstitutionAddress</span></code>, <code class="docutils literal notranslate"><span class="pre">InstitutionName</span></code>, <code class="docutils literal notranslate"><span class="pre">InstitutionalDepartmentName</span></code>, <code class="docutils literal notranslate"><span class="pre">ProcedureStepDescription</span></code>, <code class="docutils literal notranslate"><span class="pre">ProtocolName</span></code>,
+<code class="docutils literal notranslate"><span class="pre">PulseSequenceDetails</span></code>, <code class="docutils literal notranslate"><span class="pre">SeriesDescription</span></code> and <code class="docutils literal notranslate"><span class="pre">global</span></code>. However, the user can provide a list of strings for which will be
+searched in the extracted information via the <code class="docutils literal notranslate"><span class="pre">--check_meta_data</span></code> argument. For the defaults and if a certain string, e.g., <code class="docutils literal notranslate"><span class="pre">name</span></code> or <code class="docutils literal notranslate"><span class="pre">location</span></code> is found, the
+respective field is marked as <code class="docutils literal notranslate"><span class="pre">maybe</span></code> in the <code class="docutils literal notranslate"><span class="pre">problematic</span></code> column. Thus users can investigate and evaluate if potentially
+sensitive information is present in the data and, if not done already, indicate metadata fields which information should be
+deleted through the <code class="docutils literal notranslate"><span class="pre">--del_meta</span></code> argument. However, only metadata from the <code class="docutils literal notranslate"><span class="pre">sidecar</span> <span class="pre">JSON</span> <span class="pre">files</span></code> but not the <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">headers</span></code> will be deleted.</p>
 </div>
 <div class="section" id="copied-non-de-identified-sidecar-json-files">
 <h3>copied non-de-identified sidecar JSON files<a class="headerlink" href="#copied-non-de-identified-sidecar-json-files" title="Permalink to this headline">¶</a></h3>
