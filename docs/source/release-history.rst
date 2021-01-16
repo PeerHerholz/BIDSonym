@@ -2,6 +2,14 @@
 Release History
 ===============
 
+v0.0.3 (2021-01-16)
+===================
+
+This release mainly consists of various bug fixes and minor new features. 
+Bug fixes mainly addressed problems related to how sessions and corresponding were handled. 
+New features in particular refer to reorganizing the outcomes into data (and if present session) 
+specific directories and stable graphics generation.  
+
 v0.0.2 (2020-08-12)
 ===================
 
