@@ -62,7 +62,7 @@ When running ``BIDSonym``, the following processing steps are executed:
     Subsequently, the chosen defacing algorithm will be applied to the ``structural images``, aiming to remove
     features that could potentially allow or aid the identification of participants' identity (e.g., their face).
     Depending on the algorithm chosen, more or less features are removed and the sufficiency needs to be evaluated
-    by the user (supported through the visual QA reports). If the ``-deface_t2w`` flag is set, ``structural T2 weighted
+    by the user (supported through the visual QA). If the ``-deface_t2w`` flag is set, ``structural T2 weighted
     images`` will de-faced by using the respective ``de-faced T1 weighted image`` of the same subject as a mask.
     All de-faced images will be written to the ``bids_dataset`` directory.
     
