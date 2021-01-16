@@ -109,7 +109,8 @@ optional arguments:
 			can be specified with a space separated list.
   --deid {pydeface,mri_deface,quickshear}
 			Approach to use for de-identifictation.
-  --deface_t2w {}	Deface T2w images by using defaced T1w image as deface-mask.
+  --deface_t2w \
+            Deface T2w images by using defaced T1w image as deface-mask.
   --check_meta META_DATA_FIELD [META_DATA_FIELD ...]  
             Indicate which information from the image and
             :code:`.json` meta-data files should be check for potentially problematic information. 
@@ -124,9 +125,10 @@ optional arguments:
 			(outputs will be used in quality control).
   --bet_frac [BET_FRAC]
 			In case BET is used for pre-defacing brain extraction, provide a Frac value.
-  --skip_bids_validation
+  --skip_bids_validation \
             Assume the input dataset is BIDS compliant and skip the validation (default: False).
-  -v  BIDS-App version.
+  -v \
+    BIDS-App version.
 
 
 Run it in participant level mode (for one participant):
@@ -184,7 +186,7 @@ Acknowledgements
 Please acknowledge this work by mentioning explicitly the name of this software
 (*BIDSonym*) and the version, along with a link to the `GitHub repository
 <https://github.com/peerherholz/bidsonym>`_ or the Zenodo reference.
-For more details, please see :ref:`citation`.
+For more details, please see `citation <https://peerherholz.github.io/BIDSonym/citing.html>`_.
 
 Support
 =======
@@ -193,3 +195,5 @@ This work is supported in part by funding provided by `Brain Canada <https://bra
 .. image:: https://conp.ca/wp-content/uploads/elementor/thumbs/logo-2-o5e91uhlc138896v1b03o2dg8nwvxyv3pssdrkjv5a.png
     :alt: logo_conp
     :target: https://conp.ca/
+
+Furthermore, the project is supported by [Repronim](https://www.repronim.org/) under NIH-NIBIB P41 EB019936. 
