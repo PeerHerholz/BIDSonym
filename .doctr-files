@@ -10,6 +10,7 @@
 ./_sources/release-history.rst.txt
 ./_sources/usage.rst.txt
 ./_static/basic.css
+./_static/bidsonym_functionality.png
 ./_static/bidsvalidator_example.png
 ./_static/brainext_defacing.png
 ./_static/clipboard.min.js
