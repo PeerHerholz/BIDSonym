@@ -20,7 +20,14 @@ command in the terminal of your choice:
 
 .. code-block:: bash
 
-    docker pull peerherholz/bidsonym
+    docker pull peerherholz/bidsonym:version
+
+.. note::
+
+   As of November 2020, `images older than 6 months will be deleted from Dockerhub
+   <https://www.docker.com/pricing/retentionfaq>`_. As this is very problematic for everything
+   reproducibility and version control, every version of the BIDSonym images are additionally
+   uploaded on `OSF <https://osf.io/x4dku/>`_ and can be installed as outlined further below.
 
 After the command finished (it may take a while depending on your internet connection),
 you can run ``BIDSonym`` like this:
@@ -45,13 +52,20 @@ Singularity
 For security reasons, many HPCs (e.g., TACC) do not allow Docker containers, but do
 allow `Singularity <https://github.com/singularityware/singularity>`_ containers.
 
+Directly pulling from Singularity Hub
+----------------------------------------------------------
+The ``BIDSonym`` Singularity image can directly be pulled from
+Singularity Hub via:
+
+    $ singularity pull PeerHerholz/BIDSonym
+
 Preparing a Singularity image (Singularity version >= 2.5)
 ----------------------------------------------------------
 If the version of Singularity on your HPC is modern enough you can create Singularity
 image directly on the HCP.
 This is as simple as: ::
 
-    $ singularity build /my_images/fmriprep-<version>.simg docker://peerherholz/bidsonym:<version>
+    $ singularity build /my_images/bidsonym-<version>.simg docker://peerherholz/bidsonym:<version>
 
 Where ``<version>`` should be replaced with the desired version of ``BIDSonym`` that you want to download.
 
@@ -174,3 +188,14 @@ the ``BIDSonym`` package:
 - `Quickshear <https://github.com/nipy/quickshear>`_
 - `mridefacer <https://github.com/mih/mridefacer>`_
 - `bids-validator <https://github.com/bids-standard/bids-validator>`_ (version 1.2.3)
+
+Previous image versions on OSF
+------------------------------
+
+As mentioned above, Dockerhub introduced the deletion of images older than 6 months.
+Thus all previous versions of the ``BIDSonym`` ``Docker`` image can be found on `OSF <https://osf.io/x4dku/>`_.
+After downloading and unzipping your desired version, images be made available and ready to run via:
+
+    $ docker import bidsonym_version_vX.Y.Z.tar
+
+where ``XYZ`` is the version you downloaded.

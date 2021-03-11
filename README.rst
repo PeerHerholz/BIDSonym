@@ -47,7 +47,7 @@ BIDSonym
 
 Description
 ===========
-A `BIDS <https://bids-specification.readthedocs.io/en/stable/>`_ `app <https://bids-apps.neuroimaging.io/>`_ for the de-identification of neuroimaging data. ``BIDSonym`` gathers all T1w images from a BIDS dataset and applies one of several popular de-identification algorithms. It currently supports:
+A `BIDS <https://bids-specification.readthedocs.io/en/stable/>`_ `App <https://bids-apps.neuroimaging.io/>`_ for the de-identification of neuroimaging data. ``BIDSonym`` gathers all T1w images from a BIDS dataset and applies one of several popular de-identification algorithms. It currently supports:
 
 `MRI deface <https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface>`_, `Pydeface <https://github.com/poldracklab/pydeface>`_, `Quickshear <https://github.com/nipy/quickshear>`_ and `mridefacer <https://github.com/mih/mridefacer>`_.
 
@@ -57,7 +57,7 @@ A `BIDS <https://bids-specification.readthedocs.io/en/stable/>`_ `app <https://b
 Additionally, the user can choose to evaluate the sidecar JSON files regarding potentially sensitive information,
 like for example participant names and define a list of fields which information should be deleted.
 
-**Using BIDSonym ensures that you can make collected neuroimaging data available for others without violating subjects' privacy or anonymity (depending on the regulations of the country you're in).**
+**Using BIDSonym can help you can make collected neuroimaging data available for others without violating subjects' privacy or anonymity (depending on the regulations of the country you're in).**
 
 .. intro-marker
 
@@ -109,12 +109,15 @@ optional arguments:
 			can be specified with a space separated list.
   --deid {pydeface,mri_deface,quickshear}
 			Approach to use for de-identifictation.
-  --del_nodeface {del,no_del}
-			Overwrite and delete original data or copy original
-			data to different folder.
-  --deface_t2w {}	Deface T2w images by using defaced T1w image as deface-mask.
+  --deface_t2w \
+            Deface T2w images by using defaced T1w image as deface-mask.
+  --check_meta META_DATA_FIELD [META_DATA_FIELD ...]  
+            Indicate which information from the image and
+            :code:`.json` meta-data files should be check for potentially problematic information. 
+            Indicate strings that should be searched for.
+            The results will be saved to :code:`sourcedata/`.
   --del_meta META_DATA_FIELD [META_DATA_FIELD ...]
-			Indicate if and which information from the .json meta-data
+			Indicate (via strings) if and which information from the :code:`.json` meta-data
 			files should be deleted. If so, the original :code:`.json` files
 			will be copied to :code:`sourcedata/`.
   --brainextraction {BET, no_brainer}
@@ -122,6 +125,10 @@ optional arguments:
 			(outputs will be used in quality control).
   --bet_frac [BET_FRAC]
 			In case BET is used for pre-defacing brain extraction, provide a Frac value.
+  --skip_bids_validation \
+            Assume the input dataset is BIDS compliant and skip the validation (default: False).
+  -v \
+    BIDS-App version.
 
 
 Run it in participant level mode (for one participant):
@@ -159,11 +166,11 @@ To get the BIDSonym Docker image, you need to `install docker <https://docs.dock
 
 To get its Singularity version, you need to `install singularity <https://singularity.lbl.gov/all-releases>`_ and within the terminal of your choice type:
 
-:code:`singularity pull docker://peerherholz/bidsonym`
+:code:`singularity pull shub://PeerHerholz/BIDSonym`
 
 Documentation
 =============
-BIDSOnym's documentation can be found `here <https://peerherholz.github.io/BIDSonym/>`_.
+BIDSonym's documentation can be found `here <https://peerherholz.github.io/BIDSonym/>`_.
 
 
 How to report errors
@@ -179,7 +186,7 @@ Acknowledgements
 Please acknowledge this work by mentioning explicitly the name of this software
 (*BIDSonym*) and the version, along with a link to the `GitHub repository
 <https://github.com/peerherholz/bidsonym>`_ or the Zenodo reference.
-For more details, please see :ref:`citation`.
+For more details, please see `citation <https://peerherholz.github.io/BIDSonym/citing.html>`_.
 
 Support
 =======
@@ -188,3 +195,5 @@ This work is supported in part by funding provided by `Brain Canada <https://bra
 .. image:: https://conp.ca/wp-content/uploads/elementor/thumbs/logo-2-o5e91uhlc138896v1b03o2dg8nwvxyv3pssdrkjv5a.png
     :alt: logo_conp
     :target: https://conp.ca/
+
+Furthermore, the project is supported by [Repronim](https://www.repronim.org/) under NIH-NIBIB P41 EB019936. 

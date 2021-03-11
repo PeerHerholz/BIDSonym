@@ -4,25 +4,13 @@
 
  set -e
 
- # Generate Dockerfile.
- #--freesurfer version=6.0.0 min=true \
-#--entrypoint "/neurodocker/startup.sh python /home/bidsonym/bidsonym/run_deeid.py"
-
 generate_docker() {
   docker run --rm kaczmarj/neurodocker:0.5.0 generate docker \
              --base neurodebian:stretch-non-free \
              --pkg-manager apt \
-             --install fsl-complete git num-utils gcc g++ curl build-essential\
+             --install fsl-core git num-utils gcc g++ curl build-essential nano\
              --run-bash "curl -sL https://deb.nodesource.com/setup_10.x | bash - && apt-get install -y nodejs && apt-get install -y npm"\
              --add-to-entrypoint "source /etc/fsl/fsl.sh" \
-             --env FSLDIR=/usr/share/fsl/5.0 \
-                   FSLOUTPUTTYPE=NIFTI_GZ \
-                   FSLMULTIFILEQUIT=TRUE \
-                   POSSUMDIR=/usr/share/fsl/5.0 \
-                   LD_LIBRARY_PATH=/usr/lib/fsl/5.0:$LD_LIBRARY_PATH \
-                   FSLTCLSH=/usr/bin/tclsh \
-                   FSLWISH=/usr/bin/wish \
-                   PATH=/usr/lib/fsl/5.0:$PATH \
              --miniconda \
                 conda_install="python=3.6 numpy nipype nibabel pandas" \
                 pip_install='deepdefacer tensorflow scikit-image' \
@@ -34,7 +22,6 @@ generate_docker() {
              --run-bash "mkdir -p /opt/nobrainer/models && cd /opt/nobrainer/models && curl -LJO  https://github.com/neuronets/nobrainer-models/releases/download/0.1/brain-extraction-unet-128iso-model.h5 && cd ~ " \
              --run-bash "git clone https://github.com/mih/mridefacer" \
              --env MRIDEFACER_DATA_DIR=/mridefacer/data \
-             --run-bash "rm -r /usr/share/fsl/data/atlases && rm -r /usr/share/fsl/data/first && rm -r /usr/share/fsl/data/possum" \
              --run-bash "npm install -g bids-validator@1.5.4" \
              --run-bash "mkdir /home/mri-deface-detector && cd /home/mri-deface-detector && npm install sharp --unsafe-perm && npm install -g mri-deface-detector --unsafe-perm && cd ~" \
              --run-bash "git clone https://github.com/miykael/gif_your_nifti && cd gif_your_nifti && source activate bidsonym && python setup.py install" \
@@ -77,7 +64,12 @@ generate_singularity() {
              --run-bash "npm install -g bids-validator@1.5.4" \
              --run-bash "mkdir /home/mri-deface-detector && cd /home/mri-deface-detector && npm install sharp --unsafe-perm && npm install -g mri-deface-detector --unsafe-perm && cd ~" \
              --run-bash "git clone https://github.com/miykael/gif_your_nifti && cd gif_your_nifti && source activate bidsonym && python setup.py install" \
-             --copy . /home/bm \
+             --copy bidsonym/ /home/bm \
+             --copy setup.py /home/bm \
+             --copy setup.cfg /home/bm \
+             --copy versioneer.py /home/bm \
+             --copy MANIFEST.in /home/bm \
+             --copy LICENSE /home/bm \
              --run-bash "chmod a+x /home/bm/bidsonym/fs_data/mri_deface" \
              --run-bash "source activate bidsonym && cd /home/bm && pip install -e ." \
              --copy example_data /home/bidsonym/example_data \

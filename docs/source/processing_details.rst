@@ -4,6 +4,10 @@
 Processing details
 ------------------
 
+    .. image:: https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/docs/source/_static/bidsonym_functionality.png
+       :alt: alternate text
+
+
 When running ``BIDSonym``, the following processing steps are executed:
 
   1. **running BIDS-validator**:
@@ -35,13 +39,13 @@ When running ``BIDSonym``, the following processing steps are executed:
     .. image:: https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/docs/source/_static/brainext_defacing.png
        :alt: alternate text
 
-  3. **copying of non-de-identified data**:
+  3. **moving of non-de-identified data**:
 
-    The non-de-identified data, that is ``structural images`` and ``sidecar JSON files``, will be copied from the
-    ``bids_dataset`` directory to ``bids_dataset/sourcedata/bidsonym`` and their filenames complemented
-    with a ``no_deid`` tag. In case the de-identification was not successful (too much or too little
-    information deleted), the non-de-identified version can easily be copied back from to the ``bids_dataset``
-    directory without the necessity to run the corresponding DICOM to Nifti in BIDS conversion again.
+    The non-de-identified data, that is ``structural images`` and ``sidecar JSON files``, will be moved from the
+    ``bids_dataset`` directory to ``bids_dataset/sourcedata/bidsonym``. In case the de-identification was not
+    successful (too much or too little information deleted), the non-de-identified version can easily be copied
+    back from to the ``bids_dataset`` directory without the necessity to run the corresponding DICOM to Nifti in
+    BIDS conversion again.
 
   4. **evalution of metadata**:
 
@@ -58,9 +62,18 @@ When running ``BIDSonym``, the following processing steps are executed:
     Subsequently, the chosen defacing algorithm will be applied to the ``structural images``, aiming to remove
     features that could potentially allow or aid the identification of participants' identity (e.g., their face).
     Depending on the algorithm chosen, more or less features are removed and the sufficiency needs to be evaluated
-    by the user (supported through the visual QA reports). If the ``-deface_t2w`` flag is set, ``structural T2 weighted
+    by the user (supported through the visual QA). If the ``-deface_t2w`` flag is set, ``structural T2 weighted
     images`` will de-faced by using the respective ``de-faced T1 weighted image`` of the same subject as a mask.
+    All de-faced images will be written to the ``bids_dataset`` directory.
     
   6. **de-indetification of metadata fields**:
 
-    If indicated by the user by a list of strings, the ``values`` of certain ``metadata fields`` will be replaced by the string ``deleted_by_bidsonym``.
+    If indicated by the user via a list of strings, the ``values`` of certain ``metadata fields`` will be replaced by
+    the string ``deleted_by_bidsonym``. As the image files, metadata files will be moved to
+    ``bids_dataset/sourcedata/bidsonym/`` and de-identified files will be written to ``bids_dataset``.
+
+  7. **renaming of original files**:
+
+    All files, including imaging and metadata, that are stored under  ``bids_dataset/sourcedata/bidsonym/`` will be
+    renamed to indicate their respective status. Thus the descriptor `_desc-nondeid` is added to the respective
+    file names.
