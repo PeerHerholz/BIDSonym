@@ -13,6 +13,16 @@ from nipype.interfaces.fsl import BET
 
 
 def check_outpath(bids_dir, subject_label):
+    """
+    Check if output paths exist, if not create them.
+
+    Parameters
+    ----------
+    bids_dir : str
+        Path to BIDS root directory.
+    subject_label : str
+        Label of subject to be checked (without 'sub-').
+    """
 
     out_path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
 
@@ -20,10 +30,27 @@ def check_outpath(bids_dir, subject_label):
         os.makedirs(out_path)
 
 
-def copy_no_deid(subject_label, bids_dir, image_file):
+def copy_no_deid(bids_dir, subject_label, image_file):
+    """
+    Move original non-defaced images to sourcedata.
+
+    Parameters
+    ----------
+    bids_dir : str
+        Path to BIDS root directory.
+    subject_label : str
+        Label of subject to move (without 'sub-').
+    image_file : str
+        Original non-defaced image.
+
+    Returns
+    -------
+    moved_img_path : str
+        Path to moved original non-defaced image.
+    """
 
     path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
-    outfile = image_file[image_file.rfind('/') + 1:]  # T1_file.rfind('.nii')] + '_no_deid.nii.gz'
+    outfile = image_file[image_file.rfind('/') + 1:]
     if os.path.isdir(path) is True:
         move(image_file, os.path.join(path, outfile))
     else:
@@ -36,6 +63,21 @@ def copy_no_deid(subject_label, bids_dir, image_file):
 
 
 def check_meta_data(bids_dir, subject_label, prob_fields=None):
+    """
+    Extract meta-data from image headers and json files and
+    subsequently evaluate values based on default keys or
+    user specified keys. Outputs are csv files containing
+    DataFrames with keys, values and markers concerning values.
+
+    Parameters
+    ----------
+    bids_dir : str
+        Path to BIDS root directory.
+    subject_label : str
+        Label of subject to be checked (without 'sub-').
+    prob_fields : list, optional
+        List of meta-data keys ('str') that should be evaluated.
+    """
 
     list_subject_image_files = glob(os.path.join(bids_dir, 'sub-' + subject_label, '**/*.nii.gz'), recursive=True)
     list_task_meta_files = glob(os.path.join(bids_dir, '*json'))
@@ -105,6 +147,18 @@ def check_meta_data(bids_dir, subject_label, prob_fields=None):
 
 
 def del_meta_data(bids_dir, subject_label, fields_del):
+    """
+    Delete values from specified keys in meta-data json files.
+
+    Parameters
+    ----------
+    bids_dir : str
+        Path to BIDS root directory.
+    subject_label : str
+        Label of subject to operate on (without 'sub-').
+    fields_del : list
+        List of meta-data keys ('str') which value should be removed.
+    """
 
     path_task_meta = os.path.join(bids_dir, "sourcedata/bidsonym/")
     path_sub_meta = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
@@ -152,6 +206,18 @@ def del_meta_data(bids_dir, subject_label, fields_del):
 
 
 def rename_non_deid(bids_dir, subject_label):
+    """
+    Rename orginal non-defaced images and meta-data json files
+    to add respective identifier ('desc-nondeid').
+
+    Parameters
+    ----------
+    bids_dir : str
+        Path to BIDS root directory.
+    subject_label : str
+        Label of subject to be renamed (without 'sub-').
+    """
+
     list_meta_files = [fn for fn in glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-'
                        + subject_label, '*json')) if not os.path.basename(fn).endswith('desc-nondeid.json')]
     list_images_files = [fn for fn in glob(os.path.join(bids_dir, 'sourcedata/bidsonym/sub-'
@@ -169,6 +235,18 @@ def rename_non_deid(bids_dir, subject_label):
 
 
 def brain_extraction_nb(image, subject_label, bids_dir):
+    """
+    Setup nobrainer brainextraction command.
+
+    Parameters
+    ----------
+    image : str
+        Path to image that should be defaced.
+    outfile : str
+        Name of the defaced file.
+    bids_dir : str
+        Path to BIDS root directory.
+    """
 
     import os
     from subprocess import check_call
@@ -187,6 +265,18 @@ def brain_extraction_nb(image, subject_label, bids_dir):
 
 
 def run_brain_extraction_nb(image, subject_label, bids_dir):
+    """
+    Setup and run nobrainer brainextraction workflow.
+
+    Parameters
+    ----------
+    image : str
+        Path to image that should be defaced.
+    outfile : str
+        Name of the defaced file.
+    bids_dir : str
+        Path to BIDS root directory.
+    """
 
     brainextraction_wf = pe.Workflow('brainextraction_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
@@ -203,6 +293,20 @@ def run_brain_extraction_nb(image, subject_label, bids_dir):
 
 
 def run_brain_extraction_bet(image, frac, subject_label, bids_dir):
+    """
+    Setup and FSLs brainextraction (BET) workflow.
+
+    Parameters
+    ----------
+    image : str
+        Path to image that should be defaced.
+    frac : float
+        Fractional intensity threshold (0 - 1).
+    outfile : str
+        Name of the defaced file.
+    bids_dir : str
+        Path to BIDS root directory.
+    """
 
     import os
 
@@ -223,6 +327,19 @@ def run_brain_extraction_bet(image, frac, subject_label, bids_dir):
 
 
 def validate_input_dir(exec_env, bids_dir, participant_label):
+    """
+    Validate BIDS directory and structure via the BIDS-validator.
+    Functionality copied from fmriprep.
+
+    Parameters
+    ----------
+    exec_env : str
+        Environment BIDSonym is run in.
+    bids_dir : str
+        Path to BIDS root directory.
+    participant_label: str
+        Label(s) of subject to be checked (without 'sub-').
+    """
 
     import tempfile
     import subprocess
@@ -310,6 +427,19 @@ def validate_input_dir(exec_env, bids_dir, participant_label):
 
 
 def deface_t2w(image, warped_mask, outfile):
+    """
+    Deface T2w image using the defaced T1w image as
+    deface mask.
+
+    Parameters
+    ----------
+    image : str
+        Path to image.
+    warped_mask : str
+        Path to warped defaced T1w image.
+    outfile: str
+        Name of the defaced file.
+    """
 
     from nibabel import load, Nifti1Image
     from nilearn.image import math_img
@@ -331,6 +461,19 @@ def deface_t2w(image, warped_mask, outfile):
 
 
 def clean_up_files(bids_dir, subject_label, session=None):
+    """
+    Restructure BIDSonym outcomes following BIDS conventions.
+
+    Parameters
+    ----------
+    bids_dir : str
+        Path to BIDS root directory.
+    subject_label : str
+        Label of subject to move (without 'sub-').
+    session : str, optional
+        If multiple sessions exist, create session specific
+        structure.
+    """
 
     if session is not None:
         out_path_images = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s/ses-%s/images"

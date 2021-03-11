@@ -111,7 +111,7 @@ Here's what's in this call:
 Support and communication
 =========================
 
-The documentation of this project is found here: http://bidsonym.readthedocs.org/en/latest/.
+The documentation of this project is found here: https://peerherholz.github.io/BIDSonym.
 
 All bugs, concerns and enhancement requests for this software can be submitted here:
 https://github.com/peerherholz/bidsonym/issues.
@@ -122,11 +122,6 @@ NeuroStars.org is a platform similar to StackOverflow but dedicated to neuroinfo
 
 All previous ``BIDSonym`` questions are available here:
 http://neurostars.org/tags/bidsonym/
-
-To participate in the ``BIDSonym`` development-related discussions please use the
-following mailing list: http://mail.python.org/mailman/listinfo/neuroimaging
-Please add *[bidsonym]* to the subject line when posting on the mailing list.
-
 
 Not running on a local machine? - Data transfer
 ===============================================

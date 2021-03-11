@@ -1,4 +1,19 @@
 def plot_defaced(bids_dir, subject_label, session=None, t2w=None):
+    """
+    Plot brainmask created from original non-defaced image on defaced image
+    to evaluate defacing performance.
+
+    Parameters
+    ----------
+    bids_dir : str
+        Path to BIDS root directory.
+    subject_label : str
+        Label of subject to be plotted (without 'sub-').
+    session : str, optional
+        If multiple sessions exist, create one plot per session.
+    session : bool, optional
+        If T2w image exists, create a plot for defaced T2w.
+    """
 
     from bids import BIDSLayout
     from glob import glob
@@ -56,6 +71,21 @@ def plot_defaced(bids_dir, subject_label, session=None, t2w=None):
 
 
 def gif_defaced(bids_dir, subject_label, session=None, t2w=None):
+    """
+    Create a gif that loops through slices of the defaced image in
+    x,y,z direction.
+
+    Parameters
+    ----------
+    bids_dir : str
+        Path to BIDS root directory.
+    subject_label : str
+        Label of subject to be plotted (without 'sub-').
+    session : str, optional
+        If multiple sessions exist, create one gif per session.
+    session : bool, optional
+        If T2w image exists, create a gif for defaced T2w.
+    """
 
     from bids import BIDSLayout
     from glob import glob
@@ -99,6 +129,22 @@ def gif_defaced(bids_dir, subject_label, session=None, t2w=None):
 
 
 def create_graphics(bids_dir, subject_label, session=None, t2w=None):
+    """
+    Setup and run the graphics workflow which creates the static
+    plot(s) of defaced images with a brainmask overlaid and a
+    gif looping through slices of the defaced images.
+
+    Parameters
+    ----------
+    bids_dir : str
+        Path to BIDS root directory.
+    subject_label : str
+        Label of subject to be plotted (without 'sub-').
+    session : str, optional
+        If multiple sessions exist, include them in worklow.
+    session : bool, optional
+        If T2w image exists,  include them in worklow.
+    """
 
     import nipype.pipeline.engine as pe
     from nipype import Function

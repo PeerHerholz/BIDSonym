@@ -6,6 +6,16 @@ from nipype.interfaces.fsl import BET, FLIRT
 
 
 def pydeface_cmd(image, outfile):
+    """
+    Setup pydeface command.
+
+    Parameters
+    ----------
+    image : str
+        Path to image that should be defaced.
+    outfile : str
+        Name of the defaced file.
+    """
 
     from subprocess import check_call
 
@@ -18,6 +28,16 @@ def pydeface_cmd(image, outfile):
 
 
 def run_pydeface(image, outfile):
+    """
+    Setup and run pydeface workflow.
+
+    Parameters
+    ----------
+    image : str
+        Path to image that should be defaced.
+    outfile : str
+        Name of the defaced file.
+    """
 
     deface_wf = pe.Workflow('deface_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
@@ -33,6 +53,16 @@ def run_pydeface(image, outfile):
 
 
 def mri_deface_cmd(image, outfile):
+    """
+    Setup mri_deface command.
+
+    Parameters
+    ----------
+    image : str
+        Path to image that should be defaced.
+    outfile : str
+        Name of the defaced file.
+    """
 
     from subprocess import check_call
 
@@ -47,6 +77,16 @@ def mri_deface_cmd(image, outfile):
 
 
 def run_mri_deface(image, outfile):
+    """
+    Setup and run mri_deface workflow.
+
+    Parameters
+    ----------
+    image : str
+        Path to image that should be defaced.
+    outfile : str
+        Name of the defaced file.
+    """
 
     deface_wf = pe.Workflow('deface_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
@@ -62,6 +102,16 @@ def run_mri_deface(image, outfile):
 
 
 def run_quickshear(image, outfile):
+    """
+    Setup and run quickshear workflow.
+
+    Parameters
+    ----------
+    image : str
+        Path to image that should be defaced.
+    outfile : str
+        Name of the defaced file.
+    """
 
     deface_wf = pe.Workflow('deface_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
@@ -79,6 +129,18 @@ def run_quickshear(image, outfile):
 
 
 def mridefacer_cmd(image, subject_label, bids_dir):
+    """
+    Setup mridefacer command.
+
+    Parameters
+    ----------
+    image : str
+        Path to image that should be defaced.
+    subject_label : str
+        Label of subject to operate on (without 'sub-').
+    bids_dir : str
+        Path to BIDS root directory.
+    """
 
     from subprocess import check_call
     import os
@@ -98,6 +160,18 @@ def mridefacer_cmd(image, subject_label, bids_dir):
 
 
 def run_mridefacer(image, subject_label, bids_dir):
+    """
+    Setup and mridefacer workflow.
+
+    Parameters
+    ----------
+    image : str
+        Path to image that should be defaced.
+    subject_label : str
+        Label of subject to operate on (without 'sub-').
+    bids_dir : str
+        Path to BIDS root directory.
+    """
 
     deface_wf = pe.Workflow('deface_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
@@ -114,6 +188,18 @@ def run_mridefacer(image, subject_label, bids_dir):
 
 
 def deepdefacer_cmd(image, subject_label, bids_dir):
+    """
+    Setup deepdefacer command.
+
+    Parameters
+    ----------
+    image : str
+        Path to image that should be defaced.
+    subject_label : str
+        Label of subject to operate on (without 'sub-').
+    bids_dir : str
+        Path to BIDS root directory.
+    """
 
     import os
     from subprocess import check_call
@@ -129,6 +215,18 @@ def deepdefacer_cmd(image, subject_label, bids_dir):
 
 
 def run_deepdefacer(image, subject_label, bids_dir):
+    """
+    Setup and run mridefacer workflow.
+
+    Parameters
+    ----------
+    image : str
+        Path to image that should be defaced.
+    subject_label : str
+        Label of subject to operate on (without 'sub-').
+    bids_dir : str
+        Path to BIDS root directory.
+    """
 
     deface_wf = pe.Workflow('deface_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
@@ -145,6 +243,19 @@ def run_deepdefacer(image, subject_label, bids_dir):
 
 
 def run_t2w_deface(image, t1w_deface_mask, outfile):
+    """
+    Setup and run t2w defacing workflow.
+
+    Parameters
+    ----------
+    image : str
+        Path to image that should be defaced.
+    t1w_deface_mask : str
+        Path to the defaced T1w image that will be used
+        as defacing mask.
+    outfile : str
+        Name of the defaced file.
+    """
 
     from bidsonym.utils import deface_t2w
 
