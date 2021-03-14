@@ -7,7 +7,7 @@ tags:
   - data sharing
 authors:
   - name: Peer Herholz
-    orcid: 
+    orcid: 0000-0002-9840-6257
     affiliation: 1
   - name: Rita Marie Ludwig
     orcid: 0000-0002-4296-6167
