@@ -22,7 +22,7 @@ affiliations:
  - name: University of Oregon, Eugene, United States
    index: 2
 date: 11 March 2021
-bibliography: Bidsonym.bib
+bibliography: BIDSonym.bib
 
 ---
 
