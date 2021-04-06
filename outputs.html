@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Outputs of BIDSonym &mdash; BIDSonym 0.0.4+17.ga70eba2 documentation</title>
+  <title>Outputs of BIDSonym &mdash; BIDSonym 0.0.4+19.g3424df8 documentation</title>
   
 
   
@@ -66,7 +67,7 @@
             
             
               <div class="version">
-                0.0.4+17.ga70eba2
+                0.0.4+19.g3424df8
               </div>
             
           
@@ -182,7 +183,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="outputs-of-bidsonym">
+  <section id="outputs-of-bidsonym">
 <h1>Outputs of BIDSonym<a class="headerlink" href="#outputs-of-bidsonym" title="Permalink to this headline">¶</a></h1>
 <p>BIDSonym generates three broad classes of outcomes:</p>
 <blockquote>
@@ -197,7 +198,7 @@ non-defaced images in the <cite>sourcedata/bidsonym</cite> directory.</p></li>
 directory and not de-identified files in the <cite>sourcedata/bidsonym</cite> directory.</p></li>
 </ol>
 </div></blockquote>
-<div class="section" id="visual-qa">
+<section id="visual-qa">
 <h2>Visual QA<a class="headerlink" href="#visual-qa" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> related graphical outputs, written to <code class="docutils literal notranslate"><span class="pre">sourcedata/bidsonym/sub-&lt;subject_label&gt;/(ses-&lt;session_label&gt;)</span></code>.
 These graphics provide a quick way to make a visual inspection of the de-identification easy.
@@ -205,11 +206,11 @@ Within static graphics, each displays the whole <code class="docutils literal no
 directions (x,y,z). To evaluate if the <code class="docutils literal notranslate"><span class="pre">defacing</span></code> was too stringent, a <code class="docutils literal notranslate"><span class="pre">brainmask</span></code> created before
 the <code class="docutils literal notranslate"><span class="pre">defacing</span></code> is overlaid. The graphics additionally include a gif within which the <code class="docutils literal notranslate"><span class="pre">defaced</span> <span class="pre">image</span></code> is scrolled
 through each direction.</p>
-</div>
-<div class="section" id="imaging-data">
+</section>
+<section id="imaging-data">
 <h2>Imaging data<a class="headerlink" href="#imaging-data" title="Permalink to this headline">¶</a></h2>
 <p>Regarding <code class="docutils literal notranslate"><span class="pre">Imaging</span> <span class="pre">data</span></code> two types of outputs will be created when running <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>:</p>
-<div class="section" id="copied-non-defaced-images">
+<section id="copied-non-defaced-images">
 <h3>copied non-defaced images<a class="headerlink" href="#copied-non-defaced-images" title="Permalink to this headline">¶</a></h3>
 <p>The non-defaced images that enter <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> as input will be copied
 to <code class="docutils literal notranslate"><span class="pre">sourcedata/bidsonym/sub-&lt;subject_label&gt;/</span></code> and provide with a <code class="docutils literal notranslate"><span class="pre">no_deid</span></code>
@@ -222,8 +223,8 @@ example too much or too little information cut out), so that users can copy the 
 back to the <code class="docutils literal notranslate"><span class="pre">bids_dataset</span></code> directory and do not need to convert the non-defaced images from <code class="docutils literal notranslate"><span class="pre">DICOM</span></code>
 again.</p>
 <p><cite>and</cite></p>
-</div>
-<div class="section" id="defaced-images">
+</section>
+<section id="defaced-images">
 <h3>defaced images<a class="headerlink" href="#defaced-images" title="Permalink to this headline">¶</a></h3>
 <p>The images of either a specified participant or the whole group (depending on the <code class="docutils literal notranslate"><span class="pre">analysis_level</span> <span class="pre">parameter</span></code>, please see <a class="reference external" href="./usage.rst">Usage</a>)
 in the <code class="docutils literal notranslate"><span class="pre">bids_dataset</span></code> will be defaced via the specified defacing algorithm (please see <a class="reference external" href="./usage.rst">Usage</a>).
@@ -232,12 +233,12 @@ Neither the data structure nor the filenames will be changed. For example:
 the input image, so that the <code class="docutils literal notranslate"><span class="pre">bids_dataset</span></code> directory contains only de-identified data which then
 can be entered into a processing pipeline and/or publicly shared (once again, depending on the regulations
 of the country you’re in and/or acquired the data in).</p>
-</div>
-</div>
-<div class="section" id="sidecar-json-and-metadata-tsv-files">
+</section>
+</section>
+<section id="sidecar-json-and-metadata-tsv-files">
 <h2>Sidecar JSON and metadata .tsv files<a class="headerlink" href="#sidecar-json-and-metadata-tsv-files" title="Permalink to this headline">¶</a></h2>
 <p>Regarding <code class="docutils literal notranslate"><span class="pre">Sidecar</span> <span class="pre">JSON</span> <span class="pre">and</span> <span class="pre">metadata</span> <span class="pre">.tsv</span> <span class="pre">files</span></code> three types of outputs will be created when running <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>:</p>
-<div class="section" id="metadata-tsv-files">
+<section id="metadata-tsv-files">
 <h3>metadata .tsv files<a class="headerlink" href="#metadata-tsv-files" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> will access both the information stored in the <code class="docutils literal notranslate"><span class="pre">header</span></code> of the images and <code class="docutils literal notranslate"><span class="pre">sidecar</span> <span class="pre">JSON</span> <span class="pre">files</span></code>, writing them
 to <code class="docutils literal notranslate"><span class="pre">.tsv</span></code> files with two columns: 1. the type of information and 2. if it might be problematic in terms of data sharing. By default,
@@ -248,8 +249,8 @@ searched in the extracted information via the <code class="docutils literal notr
 respective field is marked as <code class="docutils literal notranslate"><span class="pre">maybe</span></code> in the <code class="docutils literal notranslate"><span class="pre">problematic</span></code> column. Thus users can investigate and evaluate if potentially
 sensitive information is present in the data and, if not done already, indicate metadata fields which information should be
 deleted through the <code class="docutils literal notranslate"><span class="pre">--del_meta</span></code> argument. However, only metadata from the <code class="docutils literal notranslate"><span class="pre">sidecar</span> <span class="pre">JSON</span> <span class="pre">files</span></code> but not the <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">headers</span></code> will be deleted.</p>
-</div>
-<div class="section" id="copied-non-de-identified-sidecar-json-files">
+</section>
+<section id="copied-non-de-identified-sidecar-json-files">
 <h3>copied non-de-identified sidecar JSON files<a class="headerlink" href="#copied-non-de-identified-sidecar-json-files" title="Permalink to this headline">¶</a></h3>
 <p>Comparable to the <code class="docutils literal notranslate"><span class="pre">non-defaced</span> <span class="pre">images</span></code>, the <code class="docutils literal notranslate"><span class="pre">non-de-identified</span>
 <span class="pre">sidecar</span> <span class="pre">JSON</span> <span class="pre">files</span></code> will be copied to <code class="docutils literal notranslate"><span class="pre">sourcedata/bidsonym/sub-&lt;subject_label&gt;/</span></code>
@@ -263,8 +264,8 @@ the <code class="docutils literal notranslate"><span class="pre">non-de-identifi
 back to the <code class="docutils literal notranslate"><span class="pre">bids_dataset</span></code> directory and do not need to do run the conversion again.
 Please not that while de-facing only targets <code class="docutils literal notranslate"><span class="pre">structural</span> <span class="pre">data</span></code>, the <code class="docutils literal notranslate"><span class="pre">sidecar</span> <span class="pre">JSON</span> <span class="pre">files</span></code>
 of all modalities will be included.</p>
-</div>
-<div class="section" id="de-identified-sidecar-json-files">
+</section>
+<section id="de-identified-sidecar-json-files">
 <h3>de-identified sidecar JSON files<a class="headerlink" href="#de-identified-sidecar-json-files" title="Permalink to this headline">¶</a></h3>
 <p>If set by the user through the <code class="docutils literal notranslate"><span class="pre">--del_meta</span></code> argument, <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> will deleted
 the value of indicated <code class="docutils literal notranslate"><span class="pre">metadata</span> <span class="pre">fields</span></code> in the <code class="docutils literal notranslate"><span class="pre">sidecar</span> <span class="pre">JSON</span> <span class="pre">files</span></code> within the
@@ -273,9 +274,9 @@ For example, if the <code class="docutils literal notranslate"><span class="pre"
 the respective value of the <code class="docutils literal notranslate"><span class="pre">sidecar</span> <span class="pre">JSON</span> <span class="pre">files</span></code> will change from e.g.,
 <code class="docutils literal notranslate"><span class="pre">InstitutionAddress</span> <span class="pre">:</span> <span class="pre">'A</span> <span class="pre">restaurant</span> <span class="pre">at</span> <span class="pre">the</span> <span class="pre">end</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">Universe.'</span></code>  to
 <code class="docutils literal notranslate"><span class="pre">InstitutionAddress</span> <span class="pre">:</span> <span class="pre">'deleted_by_bidsonym'</span></code>.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

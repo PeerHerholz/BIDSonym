@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Usage &mdash; BIDSonym 0.0.4+17.ga70eba2 documentation</title>
+  <title>Usage &mdash; BIDSonym 0.0.4+19.g3424df8 documentation</title>
   
 
   
@@ -66,7 +67,7 @@
             
             
               <div class="version">
-                0.0.4+17.ga70eba2
+                0.0.4+19.g3424df8
               </div>
             
           
@@ -183,9 +184,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="usage">
+  <section id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="execution-and-the-bids-format">
+<section id="execution-and-the-bids-format">
 <h2>Execution and the BIDS format<a class="headerlink" href="#execution-and-the-bids-format" title="Permalink to this headline">¶</a></h2>
 <p>The general input of <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> is a path to the dataset that should
 be de-identified. The input dataset is required to be in valid <abbr title="Brain Imaging Data Structure">BIDS</abbr> format.
@@ -209,8 +210,8 @@ the <code class="docutils literal notranslate"><span class="pre">bids_root</span
 Based on this approach de-identified data will enter the processing stream, but
 in case the defacing was not successful (too much or too little cut out) the
 non-defaced images can be re-used, without the necessity to run the conversion again.</p>
-</div>
-<div class="section" id="command-line-arguments">
+</section>
+<section id="command-line-arguments">
 <h2>Command-Line Arguments<a class="headerlink" href="#command-line-arguments" title="Permalink to this headline">¶</a></h2>
 <p><p>a BIDS app for de-identification of neuroimaging data</p>
 </p>
@@ -224,7 +225,7 @@ non-defaced images can be re-used, without the necessity to run the conversion a
                 <span class="n">bids_dir</span> <span class="p">{</span><span class="n">participant</span><span class="p">,</span><span class="n">group</span><span class="p">}</span>
 </pre></div>
 </div>
-<div class="section" id="Positional Arguments">
+<section id="Positional Arguments">
 <h3>Positional Arguments<a class="headerlink" href="#Positional Arguments" title="Permalink to this headline">¶</a></h3>
 <dl class="option-list">
 <dt><kbd>bids_dir</kbd></dt>
@@ -235,8 +236,8 @@ non-defaced images can be re-used, without the necessity to run the conversion a
 <p>Level of the analysis that will be performed. Multiple participant level analyses can be run independently (in parallel) using the same output_dir.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="Named Arguments">
+</section>
+<section id="Named Arguments">
 <h3>Named Arguments<a class="headerlink" href="#Named Arguments" title="Permalink to this headline">¶</a></h3>
 <dl class="option-list">
 <dt><kbd>--participant_label</kbd></dt>
@@ -269,12 +270,12 @@ non-defaced images can be re-used, without the necessity to run the conversion a
 <dd><p>show program’s version number and exit</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="example-call-s">
+</section>
+<section id="example-call-s">
 <h3>Example Call(s)<a class="headerlink" href="#example-call-s" title="Permalink to this headline">¶</a></h3>
 <p>Below you’ll find two examples calls that hopefully help
 you to familiarize yourself with <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> and its options.</p>
-<div class="section" id="example-1">
+<section id="example-1">
 <h4>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bidsonym <span class="se">\</span>
 /home/peer/bids/ <span class="se">\</span>
@@ -308,8 +309,8 @@ that this argument is only necessary when <code class="docutils literal notransl
 This can be any of those included in the <a class="reference external" href="https://bids-specification.readthedocs.io/en/stable/04-modality-specific-files/01-magnetic-resonance-imaging-data.html">BIDS specification</a>,
 if it exists in the JSON sidecar files of your <code class="docutils literal notranslate"><span class="pre">BIDS</span> <span class="pre">dataset</span></code>.</p></li>
 </ul>
-</div>
-<div class="section" id="example-2">
+</section>
+<section id="example-2">
 <h4>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bidsonym <span class="se">\</span>
 /home/peer/bids/ <span class="se">\</span>
@@ -334,10 +335,10 @@ This time we choose <code class="docutils literal notranslate"><span class="pre"
 Here we chose <code class="docutils literal notranslate"><span class="pre">nobrainer</span></code>.</p></li>
 <li><p>Contrary to Example 1, we don’t delete any metadata field(s) of the sidecar JSON files.</p></li>
 </ul>
-</div>
-</div>
-</div>
-<div class="section" id="support-and-communication">
+</section>
+</section>
+</section>
+<section id="support-and-communication">
 <h2>Support and communication<a class="headerlink" href="#support-and-communication" title="Permalink to this headline">¶</a></h2>
 <p>The documentation of this project is found here: <a class="reference external" href="https://peerherholz.github.io/BIDSonym">https://peerherholz.github.io/BIDSonym</a>.</p>
 <p>All bugs, concerns and enhancement requests for this software can be submitted here:
@@ -347,8 +348,8 @@ please submit a question to <a class="reference external" href="http://neurostar
 NeuroStars.org is a platform similar to StackOverflow but dedicated to neuroinformatics.</p>
 <p>All previous <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> questions are available here:
 <a class="reference external" href="http://neurostars.org/tags/bidsonym/">http://neurostars.org/tags/bidsonym/</a></p>
-</div>
-<div class="section" id="not-running-on-a-local-machine-data-transfer">
+</section>
+<section id="not-running-on-a-local-machine-data-transfer">
 <h2>Not running on a local machine? - Data transfer<a class="headerlink" href="#not-running-on-a-local-machine-data-transfer" title="Permalink to this headline">¶</a></h2>
 <p>If you intend to run <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> on a remote system, you will need to
 make your data available within that system first.</p>
@@ -358,8 +359,8 @@ or <a class="reference external" href="https://filezilla-project.org/">FileZilla
 <p>A very comprehensive approach would be <a class="reference external" href="http://www.datalad.org/">Datalad</a>, which will handle data transfers with the
 appropriate settings and commands.
 Datalad also performs version control over your data.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
