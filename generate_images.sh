@@ -28,7 +28,6 @@ generate_docker() {
              --copy . /home/bm \
              --run-bash "chmod a+x /home/bm/bidsonym/fs_data/mri_deface" \
              --run-bash "source activate bidsonym && cd /home/bm && pip install -e ." \
-             --copy example_data /home/bidsonym/example_data \
              --env IS_DOCKER=1 \
              --workdir '/tmp/' \
              --entrypoint "/neurodocker/startup.sh  bidsonym"
@@ -72,7 +71,6 @@ generate_singularity() {
              --copy LICENSE /home/bm \
              --run-bash "chmod a+x /home/bm/bidsonym/fs_data/mri_deface" \
              --run-bash "source activate bidsonym && cd /home/bm && pip install -e ." \
-             --copy example_data /home/bidsonym/example_data \
              --env IS_DOCKER=1 \
              --workdir '/tmp/' \
              --entrypoint "/neurodocker/startup.sh  bidsonym"
