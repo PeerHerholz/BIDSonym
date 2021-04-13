@@ -173,9 +173,9 @@ def run_deeid():
 
         rename_non_deid(args.bids_dir, subject_label)
 
-        if sessions_to_analyze is None and args.deface_t2w is None:
+        if sessions_to_analyze is None and args.deface_t2w is False:
             create_graphics(args.bids_dir, subject_label, session=None, t2w=None)
-        elif sessions_to_analyze and args.deface_t2w is None:
+        elif sessions_to_analyze and args.deface_t2w is False:
             for session in sessions_to_analyze:
                 create_graphics(args.bids_dir, subject_label, session=session, t2w=None)
         elif sessions_to_analyze is None and args.deface_t2w:
