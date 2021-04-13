@@ -166,7 +166,7 @@ To get the BIDSonym Docker image, you need to `install docker <https://docs.dock
 
 To get its Singularity version, you need to `install singularity <https://singularity.lbl.gov/all-releases>`_ and within the terminal of your choice type:
 
-:code:`singularity pull shub://PeerHerholz/BIDSonym`
+:code:`singularity pull docker://peerherholz/bidsonym`
 
 Documentation
 =============
