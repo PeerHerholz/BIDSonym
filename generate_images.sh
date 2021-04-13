@@ -5,7 +5,7 @@
  set -e
 
 generate_docker() {
-  docker run --rm kaczmarj/neurodocker:0.5.0 generate docker \
+  docker run --rm kaczmarj/neurodocker:0.6.0 generate docker \
              --base neurodebian:stretch-non-free \
              --pkg-manager apt \
              --install fsl-core git num-utils gcc g++ curl build-essential nano\
@@ -34,7 +34,7 @@ generate_docker() {
 }
 
 generate_singularity() {
-  docker run --rm kaczmarj/neurodocker:0.5.0 generate singularity \
+  docker run --rm kaczmarj/neurodocker:0.6.0 generate singularity \
              --base neurodebian:stretch-non-free \
              --pkg-manager apt \
              --install fsl-complete git num-utils gcc g++ curl build-essential\
