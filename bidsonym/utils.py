@@ -113,6 +113,9 @@ def check_meta_data(bids_dir, subject_label, prob_fields=None):
                                       '_desc-headerinfo.csv'),
                          index=False)
 
+    print('the following meta-data files will be checked:')
+    print(*list_meta_files, sep='\n')
+
     for meta_file in list_meta_files:
 
         with open(meta_file, 'r') as json_file:
