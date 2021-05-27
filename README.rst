@@ -196,4 +196,4 @@ This work is supported in part by funding provided by `Brain Canada <https://bra
     :alt: logo_conp
     :target: https://conp.ca/
 
-Furthermore, the project is supported by [Repronim](https://www.repronim.org/) under NIH-NIBIB P41 EB019936. 
+Furthermore, the project is supported by `Repronim <https://www.repronim.org>`_ under NIH-NIBIB P41 EB019936. 
