@@ -57,7 +57,7 @@ A `BIDS <https://bids-specification.readthedocs.io/en/stable/>`_ `App <https://b
 Additionally, the user can choose to evaluate the sidecar JSON files regarding potentially sensitive information,
 like for example participant names and define a list of fields which information should be deleted.
 
-**Using BIDSonym can help you can make collected neuroimaging data available for others without violating subjects' privacy or anonymity (depending on the regulations of the country you're in).**
+**Using BIDSonym can help you make collected neuroimaging data available for others without violating subjects' privacy or anonymity (depending on the regulations of the country you're in).**
 
 .. intro-marker
 
