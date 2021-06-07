@@ -143,8 +143,6 @@ def mridefacer_cmd(image, T1_file):
     """
 
     from subprocess import check_call
-    import os
-    from shutil import move
 
     outdir = T1_file[:T1_file.rfind('/')]
 
