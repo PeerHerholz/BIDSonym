@@ -4,15 +4,18 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Contributing to BIDSonym &mdash; BIDSonym 0.0.4+30.g04dc5ec documentation</title>
+  <title>Contributing to BIDSonym &mdash; BIDSonym 0.0.4+31.ga629ae2 documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
 
   
@@ -30,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -66,7 +70,7 @@
             
             
               <div class="version">
-                0.0.4+30.g04dc5ec
+                0.0.4+31.ga629ae2
               </div>
             
           
@@ -178,7 +182,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="contributing-to-bidsonym">
+  <section id="contributing-to-bidsonym">
 <h1>Contributing to BIDSonym<a class="headerlink" href="#contributing-to-bidsonym" title="Permalink to this headline">¶</a></h1>
 <p>Welcome to BIDSonym! We’re excited you’re here and want to contribute.</p>
 <p>These guidelines are designed to make it as easy as possible to get involved. If you have any questions that aren’t discussed below, please let us know by opening an <a class="reference external" href="https://github.com/PeerHerholz/BIDSonym">issue</a>!</p>
@@ -194,7 +198,7 @@ may be found on <a class="reference external" href="https://www.reproducibleimag
 <li><p>Notes for new code</p></li>
 <li><p>Recognizing contributions</p></li>
 </ul>
-<div class="section" id="issue-labels">
+<section id="issue-labels">
 <h2>Issue labels<a class="headerlink" href="#issue-labels" title="Permalink to this headline">¶</a></h2>
 <img alt="Bugs" src="https://img.shields.io/badge/-bugs-fc2929.svg" /><p><em>These issues point to problems in the project.</em></p>
 <p>If you find new a bug, please provide as much information as possible to recreate the error.
@@ -213,8 +217,8 @@ You may find that someone has already made significant progress toward your goal
 unfinished work.
 An adopted PR should be updated to merge or rebase the current master, and a new PR should be created (see
 below) that references the original PR.</p>
-</div>
-<div class="section" id="making-a-change">
+</section>
+<section id="making-a-change">
 <h2>Making a change<a class="headerlink" href="#making-a-change" title="Permalink to this headline">¶</a></h2>
 <p>We appreciate all contributions to BIDSonym, but those accepted fastest will follow a workflow similar to the following:</p>
 <p><strong>1. Comment on an existing issue or open a new issue referencing your addition.</strong></p>
@@ -252,32 +256,32 @@ This tells the development team that your pull request is a “work-in-progress�
 <p>Review and discussion on new code can begin well before the work is complete, and the more discussion the better!
 The development team may prefer a different path than you’ve outlined, so it’s better to discuss it and get approval at the early stage of your work.</p>
 <p>One your PR is ready a member of the development team will review your changes to confirm that they can be merged into the main codebase.</p>
-</div>
-<div class="section" id="notes-for-new-code">
+</section>
+<section id="notes-for-new-code">
 <h2>Notes for New Code<a class="headerlink" href="#notes-for-new-code" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="catching-exceptions">
+<section id="catching-exceptions">
 <h3>Catching exceptions<a class="headerlink" href="#catching-exceptions" title="Permalink to this headline">¶</a></h3>
 <p>In general, do not catch exceptions without good reason.
 For non-fatal exceptions, log the exception as a warning and add more information about what may have caused the error.</p>
 <p>If you do need to catch an exception, raise a new exception using <code class="docutils literal notranslate"><span class="pre">raise_from(NewException(&quot;message&quot;),</span> <span class="pre">oldException)</span></code> from <code class="docutils literal notranslate"><span class="pre">future</span></code>.
 Do not log this, as it creates redundant/confusing logs.</p>
-</div>
-<div class="section" id="testing">
+</section>
+<section id="testing">
 <h3>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h3>
 <p>New code should be tested, whenever feasible.
 Bug fixes should include an example that exposes the issue.
 Any new features should have tests that show at least a minimal example.
 If you’re not sure what this means for your code, please ask in your pull request.</p>
-</div>
-<div class="section" id="recognizing-contributions">
+</section>
+<section id="recognizing-contributions">
 <h3>Recognizing contributions<a class="headerlink" href="#recognizing-contributions" title="Permalink to this headline">¶</a></h3>
 <p>We welcome and recognize all contributions from documentation to testing to code development.</p>
 <p>The development team member who accepts/merges your pull request will update the CHANGES file to reference your contribution.</p>
 <p><strong>Thank you! You’re awesome.</strong></p>
 <p>Based on contributing guidelines from the <a class="reference external" href="http://stemmrolemodels.com/">STEMMRoleModels</a> project.*</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
