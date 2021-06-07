@@ -57,7 +57,7 @@ A `BIDS <https://bids-specification.readthedocs.io/en/stable/>`_ `App <https://b
 Additionally, the user can choose to evaluate the sidecar JSON files regarding potentially sensitive information,
 like for example participant names and define a list of fields which information should be deleted.
 
-**Using BIDSonym can help you can make collected neuroimaging data available for others without violating subjects' privacy or anonymity (depending on the regulations of the country you're in).**
+**Using BIDSonym can help you make collected neuroimaging data available for others without violating subjects' privacy or anonymity (depending on the regulations of the country you're in).**
 
 .. intro-marker
 
@@ -68,67 +68,69 @@ Usage
 
 This App has the following command line arguments:
 
-usage:	run.py [-h]
+.. code-block::
 
-[--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
+	usage:	run.py [-h]
 
-[--deid {pydeface,mri_deface,quickshear}]
+	[--participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]]
 
-[--del_nodeface {del,no_del}]
+	[--deid {pydeface,mri_deface,quickshear}]
 
-[--deface_t2w]
+	[--del_nodeface {del,no_del}]
 
-[--check_meta]
+	[--deface_t2w]
 
-[--del_meta META_DATA_FIELD [META_DATA_FIELD ...]]
+	[--check_meta]
 
-[--brainextraction {bet,nobrainer}]
+	[--del_meta META_DATA_FIELD [META_DATA_FIELD ...]]
 
-[--bet_frac BET_FRAC]
+	[--brainextraction {bet,nobrainer}]
 
-bids_dir {participant,group}
+	[--bet_frac BET_FRAC]
 
-a BIDS app for de-identification of neuroimaging data
+	bids_dir {participant,group}
 
-positional arguments:
-  bids_dir              The directory with the input dataset formatted
-			according to the BIDS standard.
-  output_dir            The directory where the not de-identified raw files should be stored,
-			in case you decide to keep them.
-  {participant,group}   Level of the analysis that will be performed. Multiple
-			participant level analyses can be run independently
-			(in parallel) using the same output_dir.
+	a BIDS app for de-identification of neuroimaging data
 
-optional arguments:
-  --participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]
-			The label(s) of the participant(s) that should be
-			analyzed. The label corresponds to
-			sub-<participant_label> from the BIDS spec (so it does
-			not include "sub-"). If this parameter is not provided
-			all subjects should be analyzed. Multiple participants
-			can be specified with a space separated list.
-  --deid {pydeface,mri_deface,quickshear}
-			Approach to use for de-identifictation.
-  --deface_t2w \
-            Deface T2w images by using defaced T1w image as deface-mask.
-  --check_meta META_DATA_FIELD [META_DATA_FIELD ...]  
-            Indicate which information from the image and
-            :code:`.json` meta-data files should be check for potentially problematic information. 
-            Indicate strings that should be searched for.
-            The results will be saved to :code:`sourcedata/`.
-  --del_meta META_DATA_FIELD [META_DATA_FIELD ...]
-			Indicate (via strings) if and which information from the :code:`.json` meta-data
-			files should be deleted. If so, the original :code:`.json` files
-			will be copied to :code:`sourcedata/`.
-  --brainextraction {BET, no_brainer}
-			What algorithm should be used for pre-defacing brain extraction
-			(outputs will be used in quality control).
-  --bet_frac [BET_FRAC]
-			In case BET is used for pre-defacing brain extraction, provide a Frac value.
-  --skip_bids_validation \
-            Assume the input dataset is BIDS compliant and skip the validation (default: False).
-  -v \
-    BIDS-App version.
+	positional arguments:
+	  bids_dir              The directory with the input dataset formatted
+				according to the BIDS standard.
+	  output_dir            The directory where the not de-identified raw files should be stored,
+				in case you decide to keep them.
+	  {participant,group}   Level of the analysis that will be performed. Multiple
+				participant level analyses can be run independently
+				(in parallel) using the same output_dir.
+
+	optional arguments:
+	  --participant_label PARTICIPANT_LABEL [PARTICIPANT_LABEL ...]
+				The label(s) of the participant(s) that should be
+				analyzed. The label corresponds to
+				sub-<participant_label> from the BIDS spec (so it does
+				not include "sub-"). If this parameter is not provided
+				all subjects should be analyzed. Multiple participants
+				can be specified with a space separated list.
+	  --deid {pydeface,mri_deface,quickshear}
+				Approach to use for de-identifictation.
+	  --deface_t2w \
+		    Deface T2w images by using defaced T1w image as deface-mask.
+	  --check_meta META_DATA_FIELD [META_DATA_FIELD ...]  
+		    Indicate which information from the image and
+		    :code:`.json` meta-data files should be check for potentially problematic information. 
+		    Indicate strings that should be searched for.
+		    The results will be saved to :code:`sourcedata/`.
+	  --del_meta META_DATA_FIELD [META_DATA_FIELD ...]
+				Indicate (via strings) if and which information from the :code:`.json` meta-data
+				files should be deleted. If so, the original :code:`.json` files
+				will be copied to :code:`sourcedata/`.
+	  --brainextraction {BET, no_brainer}
+				What algorithm should be used for pre-defacing brain extraction
+				(outputs will be used in quality control).
+	  --bet_frac [BET_FRAC]
+				In case BET is used for pre-defacing brain extraction, provide a Frac value.
+	  --skip_bids_validation \
+		    Assume the input dataset is BIDS compliant and skip the validation (default: False).
+	  -v \
+	    BIDS-App version.
 
 
 Run it in participant level mode (for one participant):
@@ -196,4 +198,4 @@ This work is supported in part by funding provided by `Brain Canada <https://bra
     :alt: logo_conp
     :target: https://conp.ca/
 
-Furthermore, the project is supported by [Repronim](https://www.repronim.org/) under NIH-NIBIB P41 EB019936. 
+Furthermore, the project is supported by `Repronim <https://www.repronim.org>`_ under NIH-NIBIB P41 EB019936. 
