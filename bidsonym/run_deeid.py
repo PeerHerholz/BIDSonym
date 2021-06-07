@@ -75,7 +75,7 @@ def run_deeid():
 
     if args.brainextraction is None:
         raise Exception("For post defacing quality it is required to run a form of brainextraction"
-                        "on the non-deindentified data. Thus please either indicate bet"
+                        "on the non-deindentified data. Thus please either indicate bet "
                         "(--brainextration bet) or nobrainer (--brainextraction nobrainer).")
 
     if args.skip_bids_validation:
@@ -146,7 +146,7 @@ def run_deeid():
             elif args.deid == "quickshear":
                 run_quickshear(source_t1w, T1_file)
             elif args.deid == "mridefacer":
-                run_mridefacer(source_t1w, subject_label, args.bids_dir)
+                run_mridefacer(source_t1w, T1_file)
             elif args.deid == "deepdefacer":
                 run_deepdefacer(source_t1w, subject_label, args.bids_dir)
 

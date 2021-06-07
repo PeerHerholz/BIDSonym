@@ -128,7 +128,7 @@ def run_quickshear(image, outfile):
     deface_wf.run()
 
 
-def mridefacer_cmd(image, subject_label, bids_dir):
+def mridefacer_cmd(image, T1_file):
     """
     Setup mridefacer command.
 
@@ -146,20 +146,14 @@ def mridefacer_cmd(image, subject_label, bids_dir):
     import os
     from shutil import move
 
-    cmd = ["/mridefacer/mridefacer", "--apply", image]
+    outdir = T1_file[:T1_file.rfind('/')]
+
+    cmd = ["/mridefacer/mridefacer", "--apply", image, "--outdir", outdir]
     check_call(cmd)
-    path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
-    facemask = os.path.join(bids_dir, "sub-%s" % subject_label,
-                            "anat/sub-%s_T1w_defacemask.nii.gz" % subject_label)
-    if os.path.isdir(path) is True:
-        move(facemask, os.path.join(path))
-    else:
-        os.makedirs(path)
-        move(facemask, os.path.join(path))
     return
 
 
-def run_mridefacer(image, subject_label, bids_dir):
+def run_mridefacer(image, T1_file):
     """
     Setup and mridefacer workflow.
 
@@ -176,14 +170,13 @@ def run_mridefacer(image, subject_label, bids_dir):
     deface_wf = pe.Workflow('deface_wf')
     inputnode = pe.Node(niu.IdentityInterface(['in_file']),
                         name='inputnode')
-    mridefacer = pe.Node(Function(input_names=['image', 'subject_label', 'bids_dir'],
+    mridefacer = pe.Node(Function(input_names=['image', 'T1_file'],
                                   output_names=['outfile'],
                                   function=mridefacer_cmd),
                          name='mridefacer')
     deface_wf.connect([(inputnode, mridefacer, [('in_file', 'image')])])
     inputnode.inputs.in_file = image
-    mridefacer.inputs.subject_label = subject_label
-    mridefacer.inputs.bids_dir = bids_dir
+    mridefacer.inputs.T1_file = T1_file
     deface_wf.run()
 
 

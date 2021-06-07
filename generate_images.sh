@@ -8,7 +8,7 @@ generate_docker() {
   docker run --rm kaczmarj/neurodocker:0.6.0 generate docker \
              --base neurodebian:stretch-non-free \
              --pkg-manager apt \
-             --install fsl-core git num-utils gcc g++ curl build-essential nano\
+             --install fsl-core fsl-mni152-templates git num-utils gcc g++ curl build-essential nano\
              --run-bash "curl -sL https://deb.nodesource.com/setup_10.x | bash - && apt-get install -y nodejs && apt-get install -y npm"\
              --add-to-entrypoint "source /etc/fsl/fsl.sh" \
              --miniconda \
