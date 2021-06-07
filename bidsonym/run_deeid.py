@@ -100,7 +100,7 @@ def run_deeid():
         if part not in layout.get_subjects():
             list_part_prob.append(part)
     if len(list_part_prob) >= 1:
-        raise Exception("The participant(s) you indicated are present in the BIDS dataset, please check again."
+        raise Exception("The participant(s) you indicated are not present in the BIDS dataset, please check again."
                         "This refers to:")
         print(list_part_prob)
 
@@ -135,7 +135,7 @@ def run_deeid():
                 run_brain_extraction_nb(T1_file, subject_label, args.bids_dir)
 
             check_meta_data(args.bids_dir, subject_label, list_check_meta)
-            source_t1w = copy_no_deid(subject_label, args.bids_dir, T1_file)
+            source_t1w = copy_no_deid(args.bids_dir, subject_label, T1_file)
 
             if args.del_meta:
                 del_meta_data(args.bids_dir, subject_label, list_field_del)
@@ -168,17 +168,17 @@ def run_deeid():
                 elif args.brainextraction == 'nobrainer':
                     run_brain_extraction_nb(T2_file, subject_label, args.bids_dir)
 
-                source_t2w = copy_no_deid(subject_label, args.bids_dir, T2_file)
+                source_t2w = copy_no_deid(args.bids_dir, subject_label, T2_file)
                 run_t2w_deface(source_t2w, T1_file, T2_file)
 
         rename_non_deid(args.bids_dir, subject_label)
 
-        if sessions_to_analyze is None and args.deface_t2w is None:
+        if not sessions_to_analyze and args.deface_t2w is False:
             create_graphics(args.bids_dir, subject_label, session=None, t2w=None)
-        elif sessions_to_analyze and args.deface_t2w is None:
+        elif sessions_to_analyze and args.deface_t2w is False:
             for session in sessions_to_analyze:
                 create_graphics(args.bids_dir, subject_label, session=session, t2w=None)
-        elif sessions_to_analyze is None and args.deface_t2w:
+        elif not sessions_to_analyze and args.deface_t2w:
             create_graphics(args.bids_dir, subject_label, session=None, t2w=True)
         elif sessions_to_analyze and args.deface_t2w:
             for session in sessions_to_analyze:
