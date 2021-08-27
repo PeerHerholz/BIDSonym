@@ -1,0 +1,312 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>An usage example &mdash; BIDSonym 0.0.4+43.g91e5e83 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contributing to BIDSonym" href="contributors.html" />
+    <link rel="prev" title="Outputs of BIDSonym" href="outputs.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> BIDSonym
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.4+43.g91e5e83
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_details.html">Processing details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outputs.html">Outputs of BIDSonym</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">An usage example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributing to BIDSonym</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing <em>BIDSonym</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">What’s new</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">BIDSonym</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>An usage example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/example.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="an-usage-example">
+<h1>An usage example<a class="headerlink" href="#an-usage-example" title="Permalink to this headline">¶</a></h1>
+<p>In order to provide interested users the opportunity to test <code class="docutils literal notranslate"><span class="pre">BIDSOnym</span></code> and thus evaluate if they want to utilize
+it within their own datasets, we provide an example step-by-step walkthrough based on an open non-deidentified datasets.</p>
+<p><strong>1. The example dataset</strong></p>
+<p>Finding non-deidentified open datasets is hard and rightfully so, because the privacy of the participants needs to be protected.
+Luckily for <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>, there a few ones out there where participants (mostly they were neuroscientits themselves) provided their own data in a
+non-deidentified manner. For this example, we decided to go with an adapted version of the <a class="reference external" href="http://myconnectome.org/wp/">MyConnectome dataset</a>
+which can be found on <a class="reference external" href="https://openneuro.org/datasets/ds000031/versions/00001">OpenNeuro</a>, licensed under <a class="reference external" href="https://opendatacommons.org/licenses/pddl/summary/">PDDL</a>.</p>
+<p>As it is quite a big dataset and for ease of use, we adapted the original dataset to only include data from one session (<code class="docutils literal notranslate"><span class="pre">ses-006</span></code>) and
+added some fake identifiers to the <code class="docutils literal notranslate"><span class="pre">.json</span> <span class="pre">sidecar</span> <span class="pre">files</span></code> of the <code class="docutils literal notranslate"><span class="pre">T1w</span></code> image to illustrate the pseudonymization of the <code class="docutils literal notranslate"><span class="pre">metadata</span> <span class="pre">information</span></code>.
+You can download this adapted version of the dataset (~1.3 GB) <a class="reference external" href="https://www.dropbox.com/s/ztsytlns8trlw3p/ds000031.zip?dl=1">here</a>.</p>
+<p>After downloading it, please unzip the folder and place it under your preferred path. For this example, we will
+assume it is placed under <code class="docutils literal notranslate"><span class="pre">/Users/peerherholz/Desktop</span></code> which is the path to the desktop of my (Peer) local machine.
+Please remember to change the path to wherever you stored the example dataset!</p>
+<p>Using the GUI file manager or the terminal, you can have a brief look at the dataset and will see that it is a classic
+<code class="docutils literal notranslate"><span class="pre">BIDS</span></code> dataset with the expected <code class="docutils literal notranslate"><span class="pre">paths</span></code> and <code class="docutils literal notranslate"><span class="pre">files</span></code> (which is obviously important given that <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> is a <code class="docutils literal notranslate"><span class="pre">BIDS</span> <span class="pre">App</span></code>).</p>
+<img alt="alternate text" src="https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/docs/source/_static/example_dataset.png" />
+<p><strong>2. Installing BIDSonym</strong></p>
+<p>Of course we need to install <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> before we can run it. Following the <a class="reference external" href="./installation.rst">Installation instructions and guidelines</a>,
+we all utilize the <code class="docutils literal notranslate"><span class="pre">Docker</span> <span class="pre">image</span></code> and thus a containerized version of <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>. Getting everything ready to run is fast and easy via:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker pull peerherholz/bidsonym
+</pre></div>
+</div>
+<p>This <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">command</span></code> will download the <code class="docutils literal notranslate"><span class="pre">latest</span></code> version of <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> from <a class="reference external" href="https://hub.docker.com/r/peerherholz/bidsonym">DockerHub</a> and
+if everything worked as expected, you should see the following message:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Status: Downloaded newer image <span class="k">for</span> peerherholz/bidsonym:latest
+</pre></div>
+</div>
+<p>With that, we ready to test <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> on the example dataset.</p>
+<p><strong>3. Running BIDSonym</strong></p>
+<p>Now that everything is in place, we can run <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> on the example dataset.
+After having a look at the <a class="reference external" href="./usage.rst">Usage information</a> again, we decide to
+utilize <a class="reference external" href="https://github.com/poldracklab/pydeface/">pydeface</a> as the <code class="docutils literal notranslate"><span class="pre">defacing</span> <span class="pre">algorithm</span></code> and use <a class="reference external" href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/BET">bet</a> for brain extraction
+prior to defacing (applying the default fractional intensity threshold of 0.5). Additionally, we want to delete the
+<code class="docutils literal notranslate"><span class="pre">meta-data</span> <span class="pre">information</span></code> provided under <code class="docutils literal notranslate"><span class="pre">InstitutionName</span></code>, <code class="docutils literal notranslate"><span class="pre">InstitutionalDepartmentName</span></code> and <code class="docutils literal notranslate"><span class="pre">InstitutionAddress</span></code> to remove
+information that could be potentially helpful in re-identifying participants. As the example datasets only contains data from
+one participant, we will run <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> in <code class="docutils literal notranslate"><span class="pre">participant</span> <span class="pre">level</span> <span class="pre">mode</span></code> and provide the <code class="docutils literal notranslate"><span class="pre">participant</span> <span class="pre">label</span></code> <code class="docutils literal notranslate"><span class="pre">01</span></code>. Bringing everything
+together, the full command looks as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run -it --rm -v /Users/peerherholz/Desktop/ds000031/:/bids_dataset peerherholz/bidsonym <span class="se">\</span>
+/bids_dataset participant --participant_label <span class="m">01</span> --deid mri_deface --brainextraction bet --bet_frac <span class="m">0</span>.5 <span class="se">\</span>
+--del_meta <span class="s1">&#39;InstitutionName&#39;</span> <span class="s1">&#39;InstitutionalDepartmentName&#39;</span> <span class="s1">&#39;InstitutionAddress&#39;</span>
+</pre></div>
+</div>
+<p>Based on your machine, it should only take a few minutes for this command to run. What will happen during that
+is outlined and explained under <a class="reference external" href="./processing_details.rst">Processing details</a>. When you see your command prompt
+again and no error messages along the way, <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> is done and everything should have work as expected.</p>
+<p><strong>4. Inspecting the outputs</strong></p>
+<p>The expected outputs are described under <a class="reference external" href="./outputs.rst">Outputs</a> and contain three core types: the
+<code class="docutils literal notranslate"><span class="pre">visual</span> <span class="pre">QC</span></code> (i.e. graphics to help evaluate the applied defacing), <code class="docutils literal notranslate"><span class="pre">imaging</span> <span class="pre">data</span></code> (i.e. the <code class="docutils literal notranslate"><span class="pre">defaced</span> <span class="pre">MR</span> <span class="pre">images</span></code>) and
+<code class="docutils literal notranslate"><span class="pre">sidecar</span> <span class="pre">JSON</span> <span class="pre">and</span> <span class="pre">metadata</span> <span class="pre">.tsv</span> <span class="pre">files</span></code> (i.e. the <code class="docutils literal notranslate"><span class="pre">pseudonymized</span> <span class="pre">meta-data</span> <span class="pre">files</span></code> and <code class="docutils literal notranslate"><span class="pre">meta-data</span> <span class="pre">summary</span> <span class="pre">files</span></code>). While
+the <code class="docutils literal notranslate"><span class="pre">pseudonymized</span> <span class="pre">MR</span> <span class="pre">images</span></code> and <code class="docutils literal notranslate"><span class="pre">.json</span> <span class="pre">sidecar</span> <span class="pre">files</span></code> are stored in the <code class="docutils literal notranslate"><span class="pre">BIDS</span> <span class="pre">root</span></code> directory, the original non-deidentified files
+are placed within <code class="docutils literal notranslate"><span class="pre">sourcedata/bidsonym</span></code>, organized by file type. All <code class="docutils literal notranslate"><span class="pre">MR</span> <span class="pre">image</span></code> related things can be found within the <code class="docutils literal notranslate"><span class="pre">images</span></code> directory
+and all <code class="docutils literal notranslate"><span class="pre">meta-data</span></code> related outputs can be found under <code class="docutils literal notranslate"><span class="pre">meta_data_info</span></code>. Using a GUI file manager or the terminal, we can easily check if
+we have all the expected outputs.</p>
+<img alt="alternate text" src="https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/docs/source/_static/example_dataset_output.png" />
+<p><strong>MR Image outputs</strong></p>
+<p>Based on <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>’s workflow and the specified command above, we would expect the <code class="docutils literal notranslate"><span class="pre">T1w</span> <span class="pre">image</span></code> under
+<code class="docutils literal notranslate"><span class="pre">/Users/peerherholz/Desktop/ds000031/sub-01/ses-006</span></code> to be defaced, thus pseudonymized and the <code class="docutils literal notranslate"><span class="pre">T1w</span> <span class="pre">image</span></code> under
+<code class="docutils literal notranslate"><span class="pre">/Users/peerherholz/Desktop/ds000031/sourcedata/bidsonym/sub-01/ses-006/images</span></code> to be the original <code class="docutils literal notranslate"><span class="pre">non-defaced</span> <span class="pre">MR</span> <span class="pre">image</span></code>.
+Using e.g. a <code class="docutils literal notranslate"><span class="pre">MR</span> <span class="pre">image</span> <span class="pre">viewer</span></code> we can make sure that this is the case and if everything worked you should something like the image
+on the left for the original <code class="docutils literal notranslate"><span class="pre">non-defaced</span> <span class="pre">MR</span> <span class="pre">image</span></code> and something like the image on the right for the <code class="docutils literal notranslate"><span class="pre">pseudonymized</span> <span class="pre">MR</span> <span class="pre">image</span></code>.</p>
+<img alt="alternate text" src="https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/docs/source/_static/example_dataset_output_images.png" />
+<p>Within the <code class="docutils literal notranslate"><span class="pre">sourcedata/bidsonym/sub-01/ses-006/images</span></code> directory you should also find a <code class="docutils literal notranslate"><span class="pre">.png</span></code> image showing the <code class="docutils literal notranslate"><span class="pre">brainmask</span></code> extracted
+prior to <code class="docutils literal notranslate"><span class="pre">defacing</span></code> overlaid on the <code class="docutils literal notranslate"><span class="pre">defaced</span> <span class="pre">MR</span> <span class="pre">image</span></code>, which should help you to check if the <code class="docutils literal notranslate"><span class="pre">defacing</span></code> worked or if it went
+wrong (either removing too much (parts of the brain) or too few (leaving the eyes)).</p>
+<img alt="alternate text" src="https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/docs/source/_static/sub-01_ses-006_run-001_T1w_desc-brainmaskdeid.png" />
+<p>Comparably, you should also find a <code class="docutils literal notranslate"><span class="pre">.gif</span></code> that goes through the <code class="docutils literal notranslate"><span class="pre">defaced</span> <span class="pre">MR</span> <span class="pre">image</span></code> slice by slice so you can check things more in-depth.</p>
+<img alt="alternate text" src="https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/docs/source/_static/sub-01_ses-006_run-001_T1w.gif" />
+<p><strong>meta-data outputs</strong></p>
+<p>Regarding the <code class="docutils literal notranslate"><span class="pre">meta-data</span></code> we should find a set of files within <code class="docutils literal notranslate"><span class="pre">sourcedata/bidsonym/sub-01/ses-006/meta_data_information</span></code>. As outlined
+above, we should have two different types of files: <code class="docutils literal notranslate"><span class="pre">meta-data</span> <span class="pre">summary</span> <span class="pre">files</span></code> and the <code class="docutils literal notranslate"><span class="pre">original</span> <span class="pre">meta-data</span> <span class="pre">files</span></code>. The first
+provide a summary of the information present in each <code class="docutils literal notranslate"><span class="pre">MR</span> <span class="pre">image</span></code>’s header (on the left) and corresponding <code class="docutils literal notranslate"><span class="pre">.json</span> <span class="pre">sidecar</span> <span class="pre">file</span></code> (on the right) in tabular format and should
+like this:</p>
+<img alt="alternate text" src="https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/docs/source/_static/example_dataset_output_metadata_summary.png" />
+<p>The latter (as visible above) are the <code class="docutils literal notranslate"><span class="pre">original</span> <span class="pre">non-pseudonymized</span> <span class="pre">.json</span> <span class="pre">sidecar</span> <span class="pre">files</span></code>, with the <code class="docutils literal notranslate"><span class="pre">pseudonymized</span> <span class="pre">.json</span> <span class="pre">sidecar</span> <span class="pre">files</span></code> being
+stored in the <code class="docutils literal notranslate"><span class="pre">BIDS</span> <span class="pre">root</span> <span class="pre">directory</span></code> along the <code class="docutils literal notranslate"><span class="pre">pseudonymized</span> <span class="pre">MR</span> <span class="pre">images</span></code>. Based on our command within which we specified to delete the information
+present in the <cite>keys`</cite> <code class="docutils literal notranslate"><span class="pre">InstitutionName</span></code>, <code class="docutils literal notranslate"><span class="pre">InstitutionalDepartmentName</span></code> and <code class="docutils literal notranslate"><span class="pre">InstitutionAddress</span></code>, we expect the respective information to be
+replaced with the <code class="docutils literal notranslate"><span class="pre">string</span></code> <code class="docutils literal notranslate"><span class="pre">&quot;deleted_by_bidsonym&quot;</span></code> within the <code class="docutils literal notranslate"><span class="pre">pseudonymized</span> <span class="pre">.json</span> <span class="pre">sidecar</span> <span class="pre">files</span></code> (on the right):</p>
+<img alt="alternate text" src="https://raw.githubusercontent.com/PeerHerholz/BIDSonym/master/docs/source/_static/example_dataset_output_metadata_deid.png" />
+<p><strong>5. Further steps</strong></p>
+<p>Assuming everything worked as expected, you could now proceed with subsequent data processing steps, such as quality control and preprocessing. If something went wrong, you
+could check where the problem is coming from. You could also rerun <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> with changed parameters to test different settings after you recreated
+the original non-pseudonymized dataset (either from scratch or using the files under <code class="docutils literal notranslate"><span class="pre">sourcedata/</span></code>.)</p>
+<p><strong>Summary</strong></p>
+<p>We hope that this example provides a helpful walkthrough on how to utilize <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>. If you have any questions, problems or comments, please don’t hesitate to <a class="reference external" href="https://github.com/PeerHerholz/BIDSonym/issues">open an issue</a>.</p>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="contributors.html" class="btn btn-neutral float-right" title="Contributing to BIDSonym" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="outputs.html" class="btn btn-neutral float-left" title="Outputs of BIDSonym" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2018, Peer Herholz.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

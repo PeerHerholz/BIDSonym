@@ -55,7 +55,7 @@ Example 1
     participant \
     --participant_label 01 \
     --deid pydeface \
-    --brain_extraction bet \ 
+    --brainextraction bet \ 
     --bet_frac 0.5 \
     --del_meta 'InstitutionAddress' \
 
@@ -90,7 +90,7 @@ Example 2
     /home/peer/bids/ \
     group \
     --deid mridefacer \
-    --brain_extraction nobrainer \
+    --brainextraction nobrainer \
 
 Here's what's in this call:
 
