@@ -72,6 +72,9 @@ def run_deeid():
         cgroup = Path('/proc/1/cgroup')
         if cgroup.exists() and 'docker' in cgroup.read_text():
             exec_env = 'docker'
+    else:
+        exec_env = 'local'
+
 
     if args.brainextraction is None:
         raise Exception("For post defacing quality it is required to run a form of brainextraction"
