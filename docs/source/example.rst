@@ -2,13 +2,13 @@
 An usage example
 ------------------
 
-In order to provide interested users the opportunity to test ``BIDSOnym`` and thus evaluate if they want to utilize 
+In order to provide interested users the opportunity to test ``BIDSonym`` and thus evaluate if they want to utilize 
 it within their own datasets, we provide an example step-by-step walkthrough based on an open non-deidentified datasets.
 
 **1. The example dataset**
 
 Finding non-deidentified open datasets is hard and rightfully so, because the privacy of the participants needs to be protected.
-Luckily for ``BIDSonym``, there a few ones out there where participants (mostly they were neuroscientits themselves) provided their own data in a 
+Luckily for ``BIDSonym``, there a few ones out there where participants (mostly they were neuroscientists themselves) provided their own data in a 
 non-deidentified manner. For this example, we decided to go with an adapted version of the `MyConnectome dataset <http://myconnectome.org/wp/>`_
 which can be found on `OpenNeuro <https://openneuro.org/datasets/ds000031/versions/00001>`_, licensed under `PDDL <https://opendatacommons.org/licenses/pddl/summary/>`_.
 
