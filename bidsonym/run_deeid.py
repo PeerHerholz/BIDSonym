@@ -75,7 +75,6 @@ def run_deeid():
     else:
         exec_env = 'local'
 
-
     if args.brainextraction is None:
         raise Exception("For post defacing quality it is required to run a form of brainextraction"
                         "on the non-deindentified data. Thus please either indicate bet "
