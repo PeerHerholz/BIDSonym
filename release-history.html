@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Release History &mdash; BIDSonym 0.0.4+46.g7d362ec documentation</title>
+  <title>Release History &mdash; BIDSonym 0.0.4+47.g057fc7c documentation</title>
   
 
   
@@ -70,7 +70,7 @@
             
             
               <div class="version">
-                0.0.4+46.g7d362ec
+                0.0.4+47.g057fc7c
               </div>
             
           
@@ -105,6 +105,7 @@
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citing.html">Citing <em>BIDSonym</em></a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release History</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v0-0-5-2021-08-28">v0.0.5 (2021-08-28)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-0-4-2021-01-16">v0.0.4 (2021-01-16)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-0-3-2021-01-16">v0.0.3 (2021-01-16)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v0-0-2-2020-08-12">v0.0.2 (2020-08-12)</a></li>
@@ -181,6 +182,16 @@
             
   <section id="release-history">
 <h1>Release History<a class="headerlink" href="#release-history" title="Permalink to this headline">¶</a></h1>
+<section id="v0-0-5-2021-08-28">
+<h2>v0.0.5 (2021-08-28)<a class="headerlink" href="#v0-0-5-2021-08-28" title="Permalink to this headline">¶</a></h2>
+<p>This release includes a variety of bug fixes and <a class="reference external" href="https://github.com/openjournals/joss-reviews/issues/3169">JOSS review process</a>.
+Concerning bug fixes an <a class="reference external" href="https://github.com/PeerHerholz/BIDSonym/commit/177f447753ad72df8ac37440017d23903c6a0b8e">argument swap in the copy_no_deid function was corrected</a>,
+plotting functions were adapted (<a class="reference external" href="https://github.com/PeerHerholz/BIDSonym/commit/08a233db148c2260cad82b4a78b8acf9f930b3aa">wrt T2w defacing</a> and
+<a class="reference external" href="https://github.com/PeerHerholz/BIDSonym/commit/4ca3ed985e5b6aed5f164a2f40c9948c6782a595">main plotting function</a>) and <a class="reference external" href="https://github.com/PeerHerholz/BIDSonym/commit/5ddcc4281b39f2b1db9d872138df965553f1ab4d">mridefacer problems solved</a>.
+Regarding the <a class="reference external" href="https://github.com/openjournals/joss-reviews/issues/3169">JOSS review process</a>, multiple sections of the documentation were extended and several typos were fixed. A new section displaying
+<a class="reference external" href="https://github.com/PeerHerholz/BIDSonym/commit/bdd683f3434cf96e656b7a41372d3750b30d3804">an usage example</a> was added to help interested users and allow software testing. As this uses <a class="reference external" href="https://openneuro.org/datasets/ds000031/versions/00001">an open non-deidentified dataset</a>,
+the <a class="reference external" href="https://github.com/PeerHerholz/BIDSonym/commit/732f290f277c21c07f7a8d3085f1543565d23801">example data was removed</a>. Additionally, the <code class="docutils literal notranslate"><span class="pre">Singularity</span> <span class="pre">image</span></code> was <a class="reference external" href="https://github.com/PeerHerholz/BIDSonym/commit/573011c595507fb18210a87cd3afc87b34dda812">dropped</a> due to recent developments around <code class="docutils literal notranslate"><span class="pre">Singularity</span> <span class="pre">hub</span></code> and adapted to suggest obtaining a <code class="docutils literal notranslate"><span class="pre">Singularity</span> <span class="pre">image</span></code> through a direct download from <code class="docutils literal notranslate"><span class="pre">Dockerhub</span></code>.</p>
+</section>
 <section id="v0-0-4-2021-01-16">
 <h2>v0.0.4 (2021-01-16)<a class="headerlink" href="#v0-0-4-2021-01-16" title="Permalink to this headline">¶</a></h2>
 <p>This version adds bidsonym to PyPi.</p>
