@@ -34,7 +34,7 @@ In concordance with the BIDS-App template [@gorgolewski_bids_2017], BIDSonym ope
 is intended to run in its containerized version (either using Docker ([https://www.docker.com](https://www.docker.com)) or Singularity ([https://sylabs.io](https://sylabs.io)), providing all necessary software dependencies. However, it is also available as a Python package via PyPI ([https://pypi.org](https://pypi.org)) to facilitate reuse in a development environment. BIDSonym expects BIDS datasets [@gorgolewski_brain_2016] and provides three core functionalities as depicted in \autoref{fig:overview}: defacing of structural (i.e., T1- and T2-weighted) images, adaptation of potentially sensitive metadata information, and evaluation of (pseudo-) anonymization results.
 
 
-![Overview of BIDSonym’s functionality | Providing a dataset in BIDS as input, structural images are defaced, meta-data fields adapted as requested, and the performance of the defacing, as well as all metadata fields (in both the json sidecar files and image headers) evaluated.\label{fig:overview}](bidsonym_functionality.png)
+![Overview of BIDSonym’s functionality | Providing a dataset in BIDS as input, structural images are defaced, metadata fields adapted as requested, and the performance of the defacing, as well as all metadata fields (in both the json sidecar files and image headers) evaluated.\label{fig:overview}](bidsonym_functionality.png)
 
 
 
