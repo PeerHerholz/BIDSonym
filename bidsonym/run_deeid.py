@@ -106,19 +106,20 @@ def run_deeid():
                         "This refers to:")
         print(list_part_prob)
 
-    sessions_to_analyze = layout.get(return_type='id', target='session')
-
-    if not sessions_to_analyze:
-        print('Processing data from one session.')
-    else:
-        print('Processing data from %s sessions:' % str(len(sessions_to_analyze)))
-        print(sessions_to_analyze)
-
     list_check_meta = args.check_meta
 
     list_field_del = args.del_meta
 
     for subject_label in subjects_to_analyze:
+        
+        sessions_to_analyze = layout.get(return_type='id', subject=subject_label, target='session')
+
+        if not sessions_to_analyze:
+            print('Processing data from one session.')
+        else:
+            print('Processing data from %s sessions:' % str(len(sessions_to_analyze)))
+            print(sessions_to_analyze)
+
         if not sessions_to_analyze:
             list_t1w = layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
                                   return_type='filename')
