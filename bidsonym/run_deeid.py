@@ -165,15 +165,15 @@ def run_deeid():
                 logger.warn("You indicated that a T2w image should be defaced as well."
                                 "However, no T2w image exists for subject %s."
                                 "Please check again." % subject_label)
+            else:
+                for T2_file in list_t2w:
+                    if args.brainextraction == 'bet':
+                        run_brain_extraction_bet(T2_file, args.bet_frac[0], subject_label, args.bids_dir)
+                    elif args.brainextraction == 'nobrainer':
+                        run_brain_extraction_nb(T2_file, subject_label, args.bids_dir)
 
-            for T2_file in list_t2w:
-                if args.brainextraction == 'bet':
-                    run_brain_extraction_bet(T2_file, args.bet_frac[0], subject_label, args.bids_dir)
-                elif args.brainextraction == 'nobrainer':
-                    run_brain_extraction_nb(T2_file, subject_label, args.bids_dir)
-
-                source_t2w = copy_no_deid(args.bids_dir, subject_label, T2_file)
-                run_t2w_deface(source_t2w, T1_file, T2_file)
+                    source_t2w = copy_no_deid(args.bids_dir, subject_label, T2_file)
+                    run_t2w_deface(source_t2w, T1_file, T2_file)
 
         rename_non_deid(args.bids_dir, subject_label)
 
