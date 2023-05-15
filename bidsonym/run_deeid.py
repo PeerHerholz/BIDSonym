@@ -162,7 +162,7 @@ def run_deeid():
                 list_t2w = layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
                                       return_type='filename', session=sessions_to_analyze)
             if list_t2w == []:
-                raise ValueError("You indicated that a T2w image should be defaced as well."
+                logger.warn("You indicated that a T2w image should be defaced as well."
                                 "However, no T2w image exists for subject %s."
                                 "Please check again." % subject_label)
 
