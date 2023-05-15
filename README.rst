@@ -91,8 +91,6 @@ This App has the following command line arguments:
 	positional arguments:
 	  bids_dir              The directory with the input dataset formatted
 				according to the BIDS standard.
-	  output_dir            The directory where the not de-identified raw files should be stored,
-				in case you decide to keep them.
 	  {participant,group}   Level of the analysis that will be performed. Multiple
 				participant level analyses can be run independently
 				(in parallel) using the same output_dir.
