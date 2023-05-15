@@ -118,7 +118,7 @@ This App has the following command line arguments:
 				Indicate (via strings) if and which information from the :code:`.json` meta-data
 				files should be deleted. If so, the original :code:`.json` files
 				will be copied to :code:`sourcedata/`.
-	  --brainextraction {BET, no_brainer}
+	  --brainextraction {bet, no_brainer}
 				What algorithm should be used for pre-defacing brain extraction
 				(outputs will be used in quality control).
 	  --bet_frac [BET_FRAC]
