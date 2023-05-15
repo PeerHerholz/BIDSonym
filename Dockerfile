@@ -89,12 +89,6 @@ RUN export PATH="/opt/miniconda-latest/bin:$PATH" \
     && sync \
     && sed -i '$isource activate bidsonym' $ND_ENTRYPOINT
 
-RUN bash -c 'source activate bidsonym && git clone https://github.com/poldracklab/pydeface.git && cd pydeface && python setup.py install && cd -'
-
-RUN bash -c 'source activate bidsonym && git clone https://github.com/nipy/quickshear.git  && cd quickshear && python setup.py install && cd -'
-
-RUN bash -c 'source activate bidsonym && git clone https://github.com/neuronets/nobrainer.git  && cd nobrainer && python setup.py install && cd -'
-
 RUN bash -c 'mkdir -p /opt/nobrainer/models && cd /opt/nobrainer/models && curl -LJO  https://github.com/neuronets/nobrainer-models/releases/download/0.1/brain-extraction-unet-128iso-model.h5 && cd ~ '
 
 RUN bash -c 'git clone https://github.com/mih/mridefacer'

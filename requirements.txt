@@ -6,3 +6,7 @@ nipype
 nilearn
 duecredit
 pybids
+# tools
+git+https://github.com/poldracklab/pydeface.git
+git+https://github.com/nipy/quickshear.git
+git+https://github.com/neuronets/nobrainer.git
