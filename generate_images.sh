@@ -17,6 +17,7 @@ generate_docker() {
                 conda_install="python=3.10 numpy nipype nibabel pandas" \
                 pip_install="deepdefacer tensorflow scikit-image pydeface==2.0.2 nobrainer==0.4.0 quickshear==1.2.0 datalad datalad-osf" \
              --fsl version=6.0.6.4 method=binaries \
+             --run-bash "conda init bash" \
              --run-bash "mkdir -p /opt/nobrainer/models && cd /opt/nobrainer/models && conda activate bidsonym && datalad datalad clone https://github.com/neuronets/trained-models && cd trained-models && git-annex enableremote osf-storage && datalad get -s osf-storage ." \
              --run-bash "git clone https://github.com/mih/mridefacer" \
              --env MRIDEFACER_DATA_DIR=/mridefacer/data \
