@@ -1,28 +1,26 @@
-#Generate Dockerfile.
-
 #!/bin/sh
 
- set -e
+#Generate Dockerfile.
+
+set -e
 
 generate_docker() {
-  docker run --rm kaczmarj/neurodocker:0.6.0 generate docker \
-             --base neurodebian:stretch-non-free \
+  docker run --rm repronim/neurodocker:0.9.5 generate docker \
+             --base-image bids/base_validator \
+             --yes \
              --pkg-manager apt \
-             --install fsl-core fsl-mni152-templates git num-utils gcc g++ curl build-essential nano\
-             --run-bash "curl -sL https://deb.nodesource.com/setup_10.x | bash - && apt-get install -y nodejs && apt-get install -y npm"\
-             --add-to-entrypoint "source /etc/fsl/fsl.sh" \
+             --install git num-utils gcc g++ curl build-essential nano\
              --miniconda \
-                conda_install="python=3.6 numpy nipype nibabel pandas" \
-                pip_install='deepdefacer tensorflow scikit-image' \
-                create_env='bidsonym' \
-                activate=true \
-             --run-bash "source activate bidsonym && git clone https://github.com/poldracklab/pydeface.git && cd pydeface && python setup.py install && cd -" \
-             --run-bash "source activate bidsonym && git clone https://github.com/nipy/quickshear.git  && cd quickshear && python setup.py install && cd -" \
-             --run-bash "source activate bidsonym && git clone https://github.com/neuronets/nobrainer.git  && cd nobrainer && python setup.py install && cd -" \
-             --run-bash "mkdir -p /opt/nobrainer/models && cd /opt/nobrainer/models && curl -LJO  https://github.com/neuronets/nobrainer-models/releases/download/0.1/brain-extraction-unet-128iso-model.h5 && cd ~ " \
+                version=latest \
+                env_name=bidsonym \
+                env_exists=false\
+                conda_install="python=3.10 numpy nipype nibabel pandas" \
+                pip_install="deepdefacer tensorflow scikit-image pydeface==2.0.2 nobrainer==0.4.0 quickshear==1.2.0 datalad datalad-osf" \
+             --fsl version=6.0.6.4 method=binaries \
+             --run-bash "conda init bash" \
+             --run-bash "mkdir -p /opt/nobrainer/models && cd /opt/nobrainer/models && conda activate bidsonym && datalad datalad clone https://github.com/neuronets/trained-models && cd trained-models && git-annex enableremote osf-storage && datalad get -s osf-storage ." \
              --run-bash "git clone https://github.com/mih/mridefacer" \
              --env MRIDEFACER_DATA_DIR=/mridefacer/data \
-             --run-bash "npm install -g bids-validator@1.5.4" \
              --run-bash "mkdir /home/mri-deface-detector && cd /home/mri-deface-detector && npm install sharp --unsafe-perm && npm install -g mri-deface-detector --unsafe-perm && cd ~" \
              --run-bash "git clone https://github.com/miykael/gif_your_nifti && cd gif_your_nifti && source activate bidsonym && python setup.py install" \
              --copy . /home/bm \

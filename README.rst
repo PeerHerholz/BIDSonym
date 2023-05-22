@@ -162,6 +162,19 @@ To get the BIDSonym Docker image, you need to `install docker <https://docs.dock
 
 :code:`docker pull peerherholz/bidsonym`
 
+Content
+=======
+
+The dockerfile is generated using neurodocker: see `generate_images.sh` for details.
+
+The image contains the following software:
+- base image: bids/base_validator with bids-validator@1.9.9
+- FSL 6.0.6.4
+- conda with python 3.10
+- pydeface==2.0.2 
+- nobrainer==0.4.0 
+- quickshear==1.2.0
+
 
 Documentation
 =============
