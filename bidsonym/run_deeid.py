@@ -7,9 +7,10 @@ from bidsonym.utils import (check_outpath, copy_no_deid, check_meta_data, del_me
                             run_brain_extraction_nb, run_brain_extraction_bet, validate_input_dir,
                             rename_non_deid, clean_up_files)
 from bidsonym.reports import create_graphics
+
 from bids import BIDSLayout
 
-from .utils.logs import logger
+from ._logs import logger
 
 
 def get_parser():
@@ -196,5 +197,4 @@ def run_deeid():
 
 
 if __name__ == "__main__":
-
     run_deeid()

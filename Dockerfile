@@ -8,53 +8,9 @@
 # 
 #     https://github.com/kaczmarj/neurodocker
 
-FROM neurodebian:stretch-non-free
+FROM neurodebian:sid-non-free
 
-ARG DEBIAN_FRONTEND="noninteractive"
-
-ENV LANG="en_US.UTF-8" \
-    LC_ALL="en_US.UTF-8" \
-    ND_ENTRYPOINT="/neurodocker/startup.sh"
-RUN export ND_ENTRYPOINT="/neurodocker/startup.sh" \
-    && apt-get update -qq \
-    && apt-get install -y -q --no-install-recommends \
-           apt-utils \
-           bzip2 \
-           ca-certificates \
-           curl \
-           locales \
-           unzip \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
-    && dpkg-reconfigure --frontend=noninteractive locales \
-    && update-locale LANG="en_US.UTF-8" \
-    && chmod 777 /opt && chmod a+s /opt \
-    && mkdir -p /neurodocker \
-    && if [ ! -f "$ND_ENTRYPOINT" ]; then \
-         echo '#!/usr/bin/env bash' >> "$ND_ENTRYPOINT" \
-    &&   echo 'set -e' >> "$ND_ENTRYPOINT" \
-    &&   echo 'export USER="${USER:=`whoami`}"' >> "$ND_ENTRYPOINT" \
-    &&   echo 'if [ -n "$1" ]; then "$@"; else /usr/bin/env bash; fi' >> "$ND_ENTRYPOINT"; \
-    fi \
-    && chmod -R 777 /neurodocker && chmod a+s /neurodocker
-
-ENTRYPOINT ["/neurodocker/startup.sh"]
-
-RUN apt-get update -qq \
-    && apt-get install -y -q --no-install-recommends \
-           fsl-core \
-           fsl-mni152-templates \
-           git \
-           num-utils \
-           gcc \
-           g++ \
-           curl \
-           build-essential \
-           nano \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
+RUN apt-get update -qq
 RUN bash -c 'curl -sL https://deb.nodesource.com/setup_10.x | bash - && apt-get install -y nodejs && apt-get install -y npm'
 
 RUN sed -i '$isource /etc/fsl/fsl.sh' $ND_ENTRYPOINT
@@ -230,3 +186,4 @@ RUN echo '{ \
     \n    ] \
     \n  ] \
     \n}' > /neurodocker/neurodocker_specs.json
+    

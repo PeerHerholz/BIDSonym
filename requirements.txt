@@ -7,6 +7,7 @@ nilearn
 duecredit
 pybids
 # tools
-git+https://github.com/poldracklab/pydeface.git
-git+https://github.com/nipy/quickshear.git
-git+https://github.com/neuronets/nobrainer.git
+pydeface @ git+https://github.com/poldracklab/pydeface.git
+# TODO: change vferat to nipy once PR merged.
+quickshear @ git+https://github.com/vferat/quickshear.git
+nobrainer @ git+https://github.com/neuronets/nobrainer.git
