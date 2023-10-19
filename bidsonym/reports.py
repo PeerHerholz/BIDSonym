@@ -11,7 +11,7 @@ def plot_defaced(bids_dir, subject_label, session=None, t2w=None):
         Label of subject to be plotted (without 'sub-').
     session : str, optional
         If multiple sessions exist, create one plot per session.
-    session : bool, optional
+    t2w : bool, optional
         If T2w image exists, create a plot for defaced T2w.
     """
 
