@@ -10,12 +10,12 @@ from bidsonym.utils import (check_outpath, copy_no_deid, check_meta_data,
                             rename_non_deid, clean_up_files)
 from bidsonym.reports import create_graphics
 from bids import BIDSLayout
+from ._version import get_versions
 
 
 def get_parser():
 
-    __version__ = open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                    '_version.py')).read()
+    __version__ = get_versions()['version']
 
     parser = argparse.ArgumentParser(description='a BIDS app for de-identification of neuroimaging data')
     parser.add_argument('bids_dir', action='store', type=Path,
