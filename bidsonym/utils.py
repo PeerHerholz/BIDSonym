@@ -203,8 +203,10 @@ def del_meta_data(bids_dir, subject_label, fields_del):
                 if field in meta_data:
                     meta_data[field] = 'deleted_by_bidsonym'
                 else:
+                    print("The field you indicated to delete does not exist in %s" % meta_file_deid)
                     continue
         with open(meta_file, 'w') as json_output_file:
+            print('writing %s' % meta_file)
             json.dump(meta_data, json_output_file, indent=4)
 
 
@@ -458,8 +460,8 @@ def deface_t2w(image, warped_mask, outfile):
                            infile_img.get_fdata().shape[-1], axis=-1)
         outdata = infile_img.fget_data() * tmpdata
 
-    masked_brain = Nifti1Image(outdata, infile_img.get_affine(),
-                               infile_img.get_header())
+    masked_brain = Nifti1Image(outdata, infile_img._affine,
+                               infile_img._header)
     masked_brain.to_filename(outfile)
 
 
