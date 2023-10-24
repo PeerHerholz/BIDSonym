@@ -126,7 +126,8 @@ def run_deeid():
 
     for subject_label in subjects_to_analyze:
 
-        sessions_to_analyze = layout.get(subject=subject_label, return_type='id', target='session')
+        sessions_to_analyze = layout.get(subject=subject_label,
+                                         return_type='id', target='session')
 
         print("Found the following session(s) for participant %s:" % subject_label)
         print(sessions_to_analyze)
@@ -150,8 +151,9 @@ def run_deeid():
                                     "This refers to:")
                     print(list_ses_prob)
 
-                list_t1w = layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
-                                      return_type='filename', session=ses)
+                list_t1w = layout.get(subject=subject_label, extension='nii.gz',
+                                      suffix='T1w', return_type='filename',
+                                      session=ses)
 
                 print(list_t1w)
 
@@ -169,17 +171,22 @@ def run_deeid():
                         else:
 
                             run_brain_extraction_bet(
-                                T1_file, args.bet_frac[0], subject_label, args.bids_dir)
+                                T1_file, args.bet_frac[0], subject_label,
+                                args.bids_dir)
 
                     elif args.brainextraction == 'nobrainer':
 
-                        run_brain_extraction_nb(T1_file, subject_label, args.bids_dir)
+                        run_brain_extraction_nb(T1_file, subject_label,
+                                                args.bids_dir)
 
-                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
-                    source_t1w = copy_no_deid(args.bids_dir, subject_label, T1_file)
+                    check_meta_data(args.bids_dir, subject_label,
+                                    list_check_meta)
+                    source_t1w = copy_no_deid(args.bids_dir, subject_label,
+                                              T1_file)
 
                     if args.del_meta:
-                        del_meta_data(args.bids_dir, subject_label, list_field_del)
+                        del_meta_data(args.bids_dir, subject_label,
+                                      list_field_del)
                     if args.deid == "pydeface":
                         run_pydeface(source_t1w, T1_file)
                     elif args.deid == "mri_deface":
@@ -189,12 +196,13 @@ def run_deeid():
                     elif args.deid == "mridefacer":
                         run_mridefacer(source_t1w, T1_file)
                     elif args.deid == "deepdefacer":
-                        run_deepdefacer(source_t1w, subject_label, args.bids_dir)
+                        run_deepdefacer(source_t1w, subject_label,
+                                        args.bids_dir)
 
         elif list_sessions == ["all"] or not args.session:
 
-            list_t1w = layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
-                                  return_type='filename')
+            list_t1w = layout.get(subject=subject_label, extension='nii.gz',
+                                  suffix='T1w', return_type='filename')
 
         for T1_file in list_t1w:
 
@@ -209,7 +217,8 @@ def run_deeid():
 
                 else:
 
-                    run_brain_extraction_bet(T1_file, args.bet_frac[0], subject_label, args.bids_dir)
+                    run_brain_extraction_bet(T1_file, args.bet_frac[0],
+                                             subject_label, args.bids_dir)
 
             elif args.brainextraction == 'nobrainer':
 
@@ -243,12 +252,14 @@ def run_deeid():
                                         "This refers to:")
                         print(list_ses_prob)
 
-                    list_t2w = layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
+                    list_t2w = layout.get(subject=subject_label,
+                                          extension='nii.gz', suffix='T2w',
                                           return_type='filename', session=ses)
 
             elif list_sessions == ["all"] or not args.session:
 
-                list_t2w = layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
+                list_t2w = layout.get(subject=subject_label,
+                                      extension='nii.gz', suffix='T2w',
                                       return_type='filename')
 
                 if list_t2w == []:
@@ -258,18 +269,23 @@ def run_deeid():
 
             for T2_file in list_t2w:
                 if args.brainextraction == 'bet':
-                    run_brain_extraction_bet(T2_file, args.bet_frac[0], subject_label, args.bids_dir)
+                    run_brain_extraction_bet(T2_file, args.bet_frac[0],
+                                             subject_label, args.bids_dir)
                 elif args.brainextraction == 'nobrainer':
-                    run_brain_extraction_nb(T2_file, subject_label, args.bids_dir)
+                    run_brain_extraction_nb(T2_file, subject_label,
+                                            args.bids_dir)
 
-                source_t2w = copy_no_deid(args.bids_dir, subject_label, T2_file)
+                source_t2w = copy_no_deid(args.bids_dir, subject_label,
+                                          T2_file)
 
                 if 'ses' in T2_file:
 
                     session = T2_file[T2_file.rfind('ses')+4:].split("_")[0]
 
-                    T1_file = layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
-                                         return_type='filename', session=session)[0]
+                    T1_file = layout.get(subject=subject_label,
+                                         extension='nii.gz', suffix='T1w',
+                                         return_type='filename',
+                                         session=session)[0]
                     if T1_file == []:
                         raise Exception("No T1w file exists for session %s in subject %s." % (session, subject_label),
                                         "The prior T1w image will thus be used:",
@@ -289,37 +305,43 @@ def run_deeid():
                 else:
 
                     if args.deface_t2w is False:
-                        create_graphics(args.bids_dir, subject_label, session=ses, t2w=None)
+                        create_graphics(args.bids_dir, subject_label,
+                                        session=ses, t2w=None)
                     elif args.deface_t2w:
-                        create_graphics(args.bids_dir, subject_label, session=ses, t2w=True)
+                        create_graphics(args.bids_dir, subject_label,
+                                        session=ses, t2w=True)
 
                 clean_up_files(args.bids_dir, subject_label, session=session)
 
         else:
 
-            T1_files = layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
-                                 return_type='filename')
+            T1_files = layout.get(subject=subject_label, extension='nii.gz',
+                                  suffix='T1w', return_type='filename')
 
             if len(T1_files) == 1 and args.deface_t2w is False:
 
-                create_graphics(args.bids_dir, subject_label, session=None, t2w=None)
+                create_graphics(args.bids_dir, subject_label, session=None,
+                                t2w=None)
                 clean_up_files(args.bids_dir, subject_label, session=None)
 
             elif len(T1_file) == 1 and args.deface_t2w:
-                create_graphics(args.bids_dir, subject_label, session=None, t2w=True)
+                create_graphics(args.bids_dir, subject_label, session=None,
+                                t2w=True)
                 clean_up_files(args.bids_dir, subject_label, session=None)
 
             elif len(T1_file) >= 1 and args.deface_t2w is False:
 
                 for session in sessions_to_analyze:
-                    create_graphics(args.bids_dir, subject_label, session=session, t2w=None)
+                    create_graphics(args.bids_dir, subject_label,
+                                    session=session, t2w=None)
                     clean_up_files(args.bids_dir, subject_label,
                                    session=session)
 
             elif len(T1_file) >= 1 and args.deface_t2w:
 
                 for session in sessions_to_analyze:
-                    create_graphics(args.bids_dir, subject_label, session=session, t2w=True)
+                    create_graphics(args.bids_dir, subject_label,
+                                    session=session, t2w=True)
                     clean_up_files(args.bids_dir, subject_label,
                                    session=session)
 
