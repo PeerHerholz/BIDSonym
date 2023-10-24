@@ -27,10 +27,6 @@ jobs:
     - name: Install bids_atlas
       run: |
         pip install ./
-    - name: Test code
-      shell: bash -l {0}
-      run: |
-        pytest
     - name: Build the docs
       run: |
         cd docs && make clean html
