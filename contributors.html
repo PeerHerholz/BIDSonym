@@ -13,9 +13,9 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/documentation_options.js?v=32cdbe30"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=663e809e"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
         <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/js/theme.js"></script>
@@ -95,7 +95,7 @@
            <div itemprop="articleBody">
              
   <section id="contributing-to-bidsonym">
-<h1>Contributing to BIDSonym<a class="headerlink" href="#contributing-to-bidsonym" title="Link to this heading">¶</a></h1>
+<h1>Contributing to BIDSonym<a class="headerlink" href="#contributing-to-bidsonym" title="Permalink to this heading">¶</a></h1>
 <p>Welcome to BIDSonym! We’re excited you’re here and want to contribute.</p>
 <p>These guidelines are designed to make it as easy as possible to get involved. If you have any questions that aren’t discussed below, please let us know by opening an <a class="reference external" href="https://github.com/PeerHerholz/BIDSonym">issue</a>!</p>
 <p>Before you start you’ll need to set up a free <a class="reference external" href="https://github.com">GitHub</a> account and sign in. Here are some <a class="reference external" href="https://help.github.com/articles/signing-up-for-a-new-github-account/">instructions</a>.
@@ -111,7 +111,7 @@ may be found on <a class="reference external" href="https://www.reproducibleimag
 <li><p>Recognizing contributions</p></li>
 </ul>
 <section id="issue-labels">
-<h2>Issue labels<a class="headerlink" href="#issue-labels" title="Link to this heading">¶</a></h2>
+<h2>Issue labels<a class="headerlink" href="#issue-labels" title="Permalink to this heading">¶</a></h2>
 <img alt="Bugs" src="https://img.shields.io/badge/-bugs-fc2929.svg" /><p><em>These issues point to problems in the project.</em></p>
 <p>If you find new a bug, please provide as much information as possible to recreate the error.
 The <a class="reference external" href="https://github.com/PeerHerholz/BIDSonym/blob/master/.github/ISSUE_TEMPLATE/bug_report.md">issue template</a> will automatically populate any new issue you open, and contains information we’ve found to be helpful in addressing bug reports.
@@ -131,7 +131,7 @@ An adopted PR should be updated to merge or rebase the current master, and a new
 below) that references the original PR.</p>
 </section>
 <section id="making-a-change">
-<h2>Making a change<a class="headerlink" href="#making-a-change" title="Link to this heading">¶</a></h2>
+<h2>Making a change<a class="headerlink" href="#making-a-change" title="Permalink to this heading">¶</a></h2>
 <p>We appreciate all contributions to BIDSonym, but those accepted fastest will follow a workflow similar to the following:</p>
 <p><strong>1. Comment on an existing issue or open a new issue referencing your addition.</strong></p>
 <p>This allows other members of the BIDSonym development team to confirm that you aren’t overlapping with work that’s currently underway and that everyone is on the same page with the goal of the work you’re going to carry out.</p>
@@ -170,23 +170,23 @@ The development team may prefer a different path than you’ve outlined, so it�
 <p>One your PR is ready a member of the development team will review your changes to confirm that they can be merged into the main codebase.</p>
 </section>
 <section id="notes-for-new-code">
-<h2>Notes for New Code<a class="headerlink" href="#notes-for-new-code" title="Link to this heading">¶</a></h2>
+<h2>Notes for New Code<a class="headerlink" href="#notes-for-new-code" title="Permalink to this heading">¶</a></h2>
 <section id="catching-exceptions">
-<h3>Catching exceptions<a class="headerlink" href="#catching-exceptions" title="Link to this heading">¶</a></h3>
+<h3>Catching exceptions<a class="headerlink" href="#catching-exceptions" title="Permalink to this heading">¶</a></h3>
 <p>In general, do not catch exceptions without good reason.
 For non-fatal exceptions, log the exception as a warning and add more information about what may have caused the error.</p>
 <p>If you do need to catch an exception, raise a new exception using <code class="docutils literal notranslate"><span class="pre">raise_from(NewException(&quot;message&quot;),</span> <span class="pre">oldException)</span></code> from <code class="docutils literal notranslate"><span class="pre">future</span></code>.
 Do not log this, as it creates redundant/confusing logs.</p>
 </section>
 <section id="testing">
-<h3>Testing<a class="headerlink" href="#testing" title="Link to this heading">¶</a></h3>
+<h3>Testing<a class="headerlink" href="#testing" title="Permalink to this heading">¶</a></h3>
 <p>New code should be tested, whenever feasible.
 Bug fixes should include an example that exposes the issue.
 Any new features should have tests that show at least a minimal example.
 If you’re not sure what this means for your code, please ask in your pull request.</p>
 </section>
 <section id="recognizing-contributions">
-<h3>Recognizing contributions<a class="headerlink" href="#recognizing-contributions" title="Link to this heading">¶</a></h3>
+<h3>Recognizing contributions<a class="headerlink" href="#recognizing-contributions" title="Permalink to this heading">¶</a></h3>
 <p>We welcome and recognize all contributions from documentation to testing to code development.</p>
 <p>The development team member who accepts/merges your pull request will update the CHANGES file to reference your contribution.</p>
 <p><strong>Thank you! You’re awesome.</strong></p>
