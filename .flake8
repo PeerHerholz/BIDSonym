@@ -1,2 +1,17 @@
 [flake8]
-exclude = .git,__pycache__,build,dist,versioneer.py,bidsonym/_version.py,docs/source/conf.py
+exclude =
+    .git,
+    __pycache__,
+    build,
+    dist,
+    versioneer.py,
+    bids_atlas/_version.py,
+    docs/source/conf.py,
+    docs/*,
+    setup.py,
+    examples/*
+max-line-length = 205
+ignore = E203, 
+         W503,
+         W293,
+         F841  
