@@ -1,0 +1,43 @@
+name: tests & build
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements-dev.txt
+    - name: Install bidsonym
+      run: |
+        pip install ./
+    - name: Test code
+      shell: bash -l {0}
+      run: |
+        pytest
+        flake8
+    - name: Build the docs
+      run: |
+        cd docs && make clean html
+    - name: GitHub Pages action
+      uses: peaceiris/actions-gh-pages@v3.6.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/build/html
+        commit_message: ${{ github.event.head_commit.message }}
