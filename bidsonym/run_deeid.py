@@ -40,8 +40,7 @@ def get_parser():
                         'sessions can be specified with a space separated list.',
                         nargs="+")
     parser.add_argument('--deid', help='Approach to use for de-identifictation.',
-                        choices=['pydeface', 'mri_deface', 'quickshear', 'mridefacer',
-                                 'deepdefacer'])
+                        choices=['pydeface', 'mri_deface', 'quickshear', 'mridefacer'])
     parser.add_argument('--deface_t2w',  action="store_true", default=False,
                         help='Deface T2w images by using defaced T1w image as deface-mask.')
     parser.add_argument('--check_meta',
@@ -116,7 +115,10 @@ def run_deeid():
                         "This refers to:")
         print(list_part_prob)
 
-    list_sessions = args.session
+    if args.session:
+        list_sessions = args.session
+    else:
+        list_sessions = []
 
     list_check_meta = args.check_meta
 
@@ -126,11 +128,19 @@ def run_deeid():
 
         sessions_to_analyze = layout.get(subject=subject_label, return_type='id', target='session')
 
+        print("Found the following session(s) for participant %s:" % subject_label)
+        print(sessions_to_analyze)
+
         list_ses_prob = []
 
-        if list_sessions != "all":
+        if args.session and args.session != ["all"]:
 
-            for ses in list_sessions:
+            print("However, only the following session(s) will be pseudonymized as indicated by the user:")
+            print(args.session)
+
+            for ses in args.session:
+
+                print("working on session %s" % ses)
 
                 if ses not in sessions_to_analyze:
                     list_ses_prob.append(part)
@@ -142,7 +152,46 @@ def run_deeid():
 
                 list_t1w = layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
                                       return_type='filename', session=ses)
-        else:
+
+                print(list_t1w)
+
+                for T1_file in list_t1w:
+
+                    check_outpath(args.bids_dir, subject_label)
+
+                    if args.brainextraction == 'bet':
+
+                        if args.bet_frac is None:
+
+                            raise Exception("If you want to use BET for pre-defacing brain extraction,"
+                                            "please provide a Frac value. For example: --bet_frac 0.5")
+
+                        else:
+
+                            run_brain_extraction_bet(
+                                T1_file, args.bet_frac[0], subject_label, args.bids_dir)
+
+                    elif args.brainextraction == 'nobrainer':
+
+                        run_brain_extraction_nb(T1_file, subject_label, args.bids_dir)
+
+                    check_meta_data(args.bids_dir, subject_label, list_check_meta)
+                    source_t1w = copy_no_deid(args.bids_dir, subject_label, T1_file)
+
+                    if args.del_meta:
+                        del_meta_data(args.bids_dir, subject_label, list_field_del)
+                    if args.deid == "pydeface":
+                        run_pydeface(source_t1w, T1_file)
+                    elif args.deid == "mri_deface":
+                        run_mri_deface(source_t1w, T1_file)
+                    elif args.deid == "quickshear":
+                        run_quickshear(source_t1w, T1_file)
+                    elif args.deid == "mridefacer":
+                        run_mridefacer(source_t1w, T1_file)
+                    elif args.deid == "deepdefacer":
+                        run_deepdefacer(source_t1w, subject_label, args.bids_dir)
+
+        elif list_sessions == ["all"] or not args.session:
 
             list_t1w = layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
                                   return_type='filename')
@@ -179,14 +228,12 @@ def run_deeid():
                 run_quickshear(source_t1w, T1_file)
             elif args.deid == "mridefacer":
                 run_mridefacer(source_t1w, T1_file)
-            elif args.deid == "deepdefacer":
-                run_deepdefacer(source_t1w, subject_label, args.bids_dir)
 
         if args.deface_t2w:
 
-            if list_sessions != "all":
+            if args.session and args.session != ["all"]:
 
-                for ses in list_sessions:
+                for ses in args.session:
 
                     if ses not in sessions_to_analyze:
                         list_ses_prob.append(part)
@@ -198,7 +245,8 @@ def run_deeid():
 
                     list_t2w = layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
                                           return_type='filename', session=ses)
-            else:
+
+            elif list_sessions == ["all"] or not args.session:
 
                 list_t2w = layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
                                       return_type='filename')
@@ -221,7 +269,7 @@ def run_deeid():
                     session = T2_file[T2_file.rfind('ses')+4:].split("_")[0]
 
                     T1_file = layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
-                                         return_type='filename', session=session)
+                                         return_type='filename', session=session)[0]
                     if T1_file == []:
                         raise Exception("No T1w file exists for session %s in subject %s." % (session, subject_label),
                                         "The prior T1w image will thus be used:",
@@ -231,7 +279,7 @@ def run_deeid():
 
         rename_non_deid(args.bids_dir, subject_label)
 
-        if list_sessions != "all":
+        if args.session and args.session != ["all"]:
 
             for ses in list_sessions:
 
@@ -252,7 +300,7 @@ def run_deeid():
             T1_files = layout.get(subject=subject_label, extension='nii.gz', suffix='T1w',
                                  return_type='filename')
 
-            if len(T1_file) == 1 and args.deface_t2w is False:
+            if len(T1_files) == 1 and args.deface_t2w is False:
 
                 create_graphics(args.bids_dir, subject_label, session=None, t2w=None)
                 clean_up_files(args.bids_dir, subject_label, session=None)
