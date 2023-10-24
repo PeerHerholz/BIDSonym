@@ -6,3 +6,5 @@ nipype
 nilearn
 duecredit
 pybids
+pydeface
+scikit-image
