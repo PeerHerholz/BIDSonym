@@ -44,7 +44,7 @@ Project maintainers have the right and responsibility to remove, edit, or reject
 
 ## Enforcement
 
-Members of the community who violate these rules - no matter how much they have contributed to the BIDS Starter Kit, or how specialised their skill set - will be approached by Peer or Rita. If inappropriate behaviour persists after this discussion, the contributer will be asked to discontinue their participation in the BIDSonym project.
+Members of the community who violate these rules - no matter how much they have contributed to the BIDS Starter Kit, or how specialised their skill set - will be approached by Peer or Rita. If inappropriate behaviour persists after this discussion, the contributor will be asked to discontinue their participation in the BIDSonym project.
 
 **To report an issue you have with community interactions** please contact [Peer](https://github.com/peerherholz) or [Michael](https://github.com/M-earnest). All communication will be treated as confidential.
 

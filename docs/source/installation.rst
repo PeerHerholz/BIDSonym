@@ -30,7 +30,7 @@ to employ the ``latest``/most up to date ``version`` you can either run
 
     docker pull peerherholz/bidsonym:latest
 
-or the same command withouth the ``:latest`` tag, as ``Docker`` searches for the ``latest`` tag by default.
+or the same command without the ``:latest`` tag, as ``Docker`` searches for the ``latest`` tag by default.
 However, as the ``latest`` version is subject to changes and not necessarily in synch with the most recent ``numbered version``, it 
 is recommend to utilize the latter to ensure reproducibility. For example, if you want to employ ``BIDSonym v0.0.4`` the command would look as follows:
 

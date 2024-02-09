@@ -212,7 +212,7 @@ def del_meta_data(bids_dir, subject_label, fields_del):
 
 def rename_non_deid(bids_dir, subject_label):
     """
-    Rename orginal non-defaced images and meta-data json files
+    Rename original non-defaced images and meta-data json files
     to add respective identifier ('desc-nondeid').
 
     Parameters
