@@ -87,7 +87,7 @@ def run_deeid():
     if args.brainextraction is None:
         raise Exception("For post defacing quality it is required to run a form of brainextraction"
                         "on the non-deindentified data. Thus please either indicate bet "
-                        "(--brainextration bet) or nobrainer (--brainextraction nobrainer).")
+                        "(--brainextraction bet) or nobrainer (--brainextraction nobrainer).")
 
     if args.skip_bids_validation:
         print("Input data will not be checked for BIDS compliance.")
