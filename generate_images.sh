@@ -14,7 +14,7 @@ generate_docker() {
              --fsl version=6.0.1 method=binaries \
              --miniconda \
                 conda_install="python=3.10 numpy nipype nibabel pandas datalad" \
-                pip_install='tensorflow scikit-image pydeface==2.0.2 nobrainer==0.4.0 quickshear==1.2.0 datalad-osf' \
+                pip_install='tensorflow scikit-image pydeface==2.0.2 nobrainer==0.4.0 quickshear==1.2.0 datalad-osf pybids==0.16.4' \
                 create_env='bidsonym' \
                 activate=true \
              --run-bash "git config --global user.email "bidsonym@example.com" && git config --global user.name "BIDSonym"" \
