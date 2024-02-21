@@ -128,7 +128,8 @@ RUN export PATH="/opt/miniconda-latest/bin:$PATH" \
              "pydeface==2.0.2" \
              "nobrainer==0.4.0" \
              "quickshear==1.2.0" \
-             "datalad-osf"" \
+             "datalad-osf" \
+             "pybids==0.16.4" \
     && rm -rf ~/.cache/pip/* \
     && sync \
     && sed -i '$isource activate bidsonym' $ND_ENTRYPOINT
