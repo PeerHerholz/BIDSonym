@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements-dev.txt
-    - name: Install bids_atlas
+    - name: Install bidsonym
       run: |
         pip install ./
     - name: Build the docs
