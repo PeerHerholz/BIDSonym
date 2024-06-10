@@ -47,7 +47,7 @@ When running ``BIDSonym``, the following processing steps are executed:
     back from to the ``bids_dataset`` directory without the necessity to run the corresponding DICOM to Nifti in
     BIDS conversion again.
 
-  4. **evalution of metadata**:
+  4. **evaluation of metadata**:
 
     The metadata found in both, the ``header of the images`` and ``sidecar JSON files`` will gathered
     and saved in a tabular data file (.tsv) of the form ``metadata field : value`` to the
