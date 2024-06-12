@@ -10,13 +10,16 @@ RUN apt-get update -qq \
                   gcc \
                   git \
                   git-annex \
+                  less \
                   nano \
                   npm \
                   num-utils \
+                  tig \
+                  unzip \
                   yarn \
            && rm -rf /var/lib/apt/lists/*
-RUN bash -c 'curl -sL https://deb.nodesource.com/setup_18.x | bash - && apt update && apt-get install -y nodejs'
-RUN bash -c 'npm install -g bids-validator@1.14.6'
+RUN bash -c 'curl -sL https://deb.nodesource.com/setup_18.x | bash - && apt update && apt-get install -y nodejs && rm -rf /tmp/*'
+RUN bash -c 'npm install -g bids-validator@1.14.6 && rm -rf /tmp/*'
 ENV FSLDIR="/opt/fsl-6.0.7.4" \
     PATH="/opt/fsl-6.0.7.4/bin:$PATH" \
     FSLOUTPUTTYPE="NIFTI_GZ" \
@@ -82,8 +85,7 @@ RUN apt-get update -qq \
     && conda config --system --set show_channel_urls true \
     # Enable `conda activate`
     && conda init bash \
-    && conda create -y  --name bidsonym \
-    && conda install -y  --name bidsonym \
+    && conda install -y  --name base \
            "python=3.11" \
            "numpy" \
            "nipype" \
@@ -91,7 +93,7 @@ RUN apt-get update -qq \
            "pandas" \
            "datalad" \
            "deno" \
-    && bash -c "source activate bidsonym \
+    && bash -c "source activate base \
     &&   python -m pip install --no-cache-dir  \
              "tensorflow" \
              "scikit-image" \
@@ -103,17 +105,19 @@ RUN apt-get update -qq \
     # Clean up
     && sync && conda clean --all --yes && sync \
     && rm -rf ~/.cache/pip/*
+ENV PATH="${PATH}:/opt/miniconda-latest/bin"
 RUN bash -c 'git config --global user.email 'bidsonym@example.com' && git config --global user.name 'BIDSonym''
-RUN bash -c 'mkdir -p /opt/nobrainer/models && cd /opt/nobrainer/models && source activate bidsonym && datalad clone https://github.com/neuronets/trained-models && cd trained-models && git-annex enableremote osf-storage && datalad get -s osf-storage neuronets/brainy/0.1.0/weights/brain-extraction-unet-128iso-model.h5'
-RUN bash -c 'mkdir /home/mri-deface-detector && cd /home/mri-deface-detector && npm install sharp --unsafe-perm && npm install -g mri-deface-detector --unsafe-perm && cd ~'
-RUN bash -c 'git clone https://github.com/miykael/gif_your_nifti && cd gif_your_nifti && source activate bidsonym && python setup.py install'
+RUN bash -c 'cd /opt && mkdir -p nobrainer/models && cd nobrainer/models && datalad clone https://github.com/neuronets/trained-models && cd trained-models && git-annex enableremote osf-storage && datalad get -s osf-storage neuronets/brainy/0.1.0/weights/brain-extraction-unet-128iso-model.h5'
+RUN bash -c 'cd /opt && mkdir mri-deface-detector && cd mri-deface-detector && npm install sharp --unsafe-perm && npm install -g mri-deface-detector --unsafe-perm && cd ~'
+RUN bash -c 'cd /opt && git clone --filter=blob:none https://github.com/miykael/gif_your_nifti && cd gif_your_nifti && python setup.py install'
+RUN bash -c 'cd /opt && git clone --filter=blob:none https://github.com/bids-standard/bids-validator && deno compile -o /usr/local/bin/bids-validator-deno -A  bids-validator/bids-validator/src/bids-validator.ts && cd -'
 COPY [".", \
-      "/home/bm"]
-RUN bash -c 'chmod a+x /home/bm/bidsonym/fs_data/mri_deface'
-RUN bash -c 'source activate bidsonym && cd /home/bm && pip install -e .'
+      "/opt/bidsonym-src"]
+RUN bash -c 'cd /opt/bidsonym-src && chmod a+x bidsonym/fs_data/mri_deface && pip install -e .'
 ENV IS_DOCKER="1"
-WORKDIR /tmp/
-ENTRYPOINT ["/neurodocker/startup.sh", "bidsonym"]
+RUN bash -c 'git config --global safe.directory "*"'
+RUN bash -c 'rm -rf /tmp/*'
+ENTRYPOINT ["bidsonym"]
 
 # Save specification to JSON.
 RUN printf '{ \
@@ -147,7 +151,10 @@ RUN printf '{ \
           "build-essential", \
           "nano", \
           "git-annex", \
-          "npm" \
+          "npm", \
+          "less", \
+          "unzip", \
+          "tig" \
         ], \
         "opts": null \
       } \
@@ -155,19 +162,19 @@ RUN printf '{ \
     { \
       "name": "run", \
       "kwds": { \
-        "command": "apt-get update -qq \\\\\\n    && apt-get install -y -q --no-install-recommends \\\\\\n           build-essential \\\\\\n           curl \\\\\\n           g++ \\\\\\n           gcc \\\\\\n           git \\\\\\n           git-annex \\\\\\n           nano \\\\\\n           npm \\\\\\n           num-utils \\\\\\n           yarn \\\\\\n    && rm -rf /var/lib/apt/lists/*" \
+        "command": "apt-get update -qq \\\\\\n    && apt-get install -y -q --no-install-recommends \\\\\\n           build-essential \\\\\\n           curl \\\\\\n           g++ \\\\\\n           gcc \\\\\\n           git \\\\\\n           git-annex \\\\\\n           less \\\\\\n           nano \\\\\\n           npm \\\\\\n           num-utils \\\\\\n           tig \\\\\\n           unzip \\\\\\n           yarn \\\\\\n    && rm -rf /var/lib/apt/lists/*" \
       } \
     }, \
     { \
       "name": "run", \
       "kwds": { \
-        "command": "bash -c '"'"'curl -sL https://deb.nodesource.com/setup_18.x | bash - && apt update && apt-get install -y nodejs'"'"'" \
+        "command": "bash -c '"'"'curl -sL https://deb.nodesource.com/setup_18.x | bash - && apt update && apt-get install -y nodejs && rm -rf /tmp/*'"'"'" \
       } \
     }, \
     { \
       "name": "run", \
       "kwds": { \
-        "command": "bash -c '"'"'npm install -g bids-validator@1.14.6'"'"'" \
+        "command": "bash -c '"'"'npm install -g bids-validator@1.14.6 && rm -rf /tmp/*'"'"'" \
       } \
     }, \
     { \
@@ -201,7 +208,13 @@ RUN printf '{ \
     { \
       "name": "run", \
       "kwds": { \
-        "command": "apt-get update -qq\\napt-get install -y -q --no-install-recommends \\\\\\n    bzip2 \\\\\\n    ca-certificates \\\\\\n    curl\\nrm -rf /var/lib/apt/lists/*\\n# Install dependencies.\\nexport PATH=\\"/opt/miniconda-latest/bin:$PATH\\"\\necho \\"Downloading Miniconda installer ...\\"\\nconda_installer=\\"/tmp/miniconda.sh\\"\\ncurl -fsSL -o \\"$conda_installer\\" https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh\\nbash \\"$conda_installer\\" -b -p /opt/miniconda-latest\\nrm -f \\"$conda_installer\\"\\nconda update -yq -nbase conda\\n# Prefer packages in conda-forge\\nconda config --system --prepend channels conda-forge\\n# Packages in lower-priority channels not considered if a package with the same\\n# name exists in a higher priority channel. Can dramatically speed up installations.\\n# Conda recommends this as a default\\n# https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html\\nconda config --set channel_priority strict\\nconda config --system --set auto_update_conda false\\nconda config --system --set show_channel_urls true\\n# Enable `conda activate`\\nconda init bash\\nconda create -y  --name bidsonym\\nconda install -y  --name bidsonym \\\\\\n    \\"python=3.11\\" \\\\\\n    \\"numpy\\" \\\\\\n    \\"nipype\\" \\\\\\n    \\"nibabel\\" \\\\\\n    \\"pandas\\" \\\\\\n    \\"datalad\\" \\\\\\n    \\"deno\\"\\nbash -c \\"source activate bidsonym\\n  python -m pip install --no-cache-dir  \\\\\\n      \\"tensorflow\\" \\\\\\n      \\"scikit-image\\" \\\\\\n      \\"pydeface==2.0.2\\" \\\\\\n      \\"nobrainer==1.2.1\\" \\\\\\n      \\"quickshear==1.2.0\\" \\\\\\n      \\"datalad-osf\\" \\\\\\n      \\"pybids==0.16.5\\"\\"\\n# Clean up\\nsync && conda clean --all --yes && sync\\nrm -rf ~/.cache/pip/*" \
+        "command": "apt-get update -qq\\napt-get install -y -q --no-install-recommends \\\\\\n    bzip2 \\\\\\n    ca-certificates \\\\\\n    curl\\nrm -rf /var/lib/apt/lists/*\\n# Install dependencies.\\nexport PATH=\\"/opt/miniconda-latest/bin:$PATH\\"\\necho \\"Downloading Miniconda installer ...\\"\\nconda_installer=\\"/tmp/miniconda.sh\\"\\ncurl -fsSL -o \\"$conda_installer\\" https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh\\nbash \\"$conda_installer\\" -b -p /opt/miniconda-latest\\nrm -f \\"$conda_installer\\"\\nconda update -yq -nbase conda\\n# Prefer packages in conda-forge\\nconda config --system --prepend channels conda-forge\\n# Packages in lower-priority channels not considered if a package with the same\\n# name exists in a higher priority channel. Can dramatically speed up installations.\\n# Conda recommends this as a default\\n# https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html\\nconda config --set channel_priority strict\\nconda config --system --set auto_update_conda false\\nconda config --system --set show_channel_urls true\\n# Enable `conda activate`\\nconda init bash\\nconda install -y  --name base \\\\\\n    \\"python=3.11\\" \\\\\\n    \\"numpy\\" \\\\\\n    \\"nipype\\" \\\\\\n    \\"nibabel\\" \\\\\\n    \\"pandas\\" \\\\\\n    \\"datalad\\" \\\\\\n    \\"deno\\"\\nbash -c \\"source activate base\\n  python -m pip install --no-cache-dir  \\\\\\n      \\"tensorflow\\" \\\\\\n      \\"scikit-image\\" \\\\\\n      \\"pydeface==2.0.2\\" \\\\\\n      \\"nobrainer==1.2.1\\" \\\\\\n      \\"quickshear==1.2.0\\" \\\\\\n      \\"datalad-osf\\" \\\\\\n      \\"pybids==0.16.5\\"\\"\\n# Clean up\\nsync && conda clean --all --yes && sync\\nrm -rf ~/.cache/pip/*" \
+      } \
+    }, \
+    { \
+      "name": "env", \
+      "kwds": { \
+        "PATH": "${PATH}:/opt/miniconda-latest/bin" \
       } \
     }, \
     { \
@@ -213,19 +226,25 @@ RUN printf '{ \
     { \
       "name": "run", \
       "kwds": { \
-        "command": "bash -c '"'"'mkdir -p /opt/nobrainer/models && cd /opt/nobrainer/models && source activate bidsonym && datalad clone https://github.com/neuronets/trained-models && cd trained-models && git-annex enableremote osf-storage && datalad get -s osf-storage neuronets/brainy/0.1.0/weights/brain-extraction-unet-128iso-model.h5'"'"'" \
+        "command": "bash -c '"'"'cd /opt && mkdir -p nobrainer/models && cd nobrainer/models && datalad clone https://github.com/neuronets/trained-models && cd trained-models && git-annex enableremote osf-storage && datalad get -s osf-storage neuronets/brainy/0.1.0/weights/brain-extraction-unet-128iso-model.h5'"'"'" \
       } \
     }, \
     { \
       "name": "run", \
       "kwds": { \
-        "command": "bash -c '"'"'mkdir /home/mri-deface-detector && cd /home/mri-deface-detector && npm install sharp --unsafe-perm && npm install -g mri-deface-detector --unsafe-perm && cd ~'"'"'" \
+        "command": "bash -c '"'"'cd /opt && mkdir mri-deface-detector && cd mri-deface-detector && npm install sharp --unsafe-perm && npm install -g mri-deface-detector --unsafe-perm && cd ~'"'"'" \
       } \
     }, \
     { \
       "name": "run", \
       "kwds": { \
-        "command": "bash -c '"'"'git clone https://github.com/miykael/gif_your_nifti && cd gif_your_nifti && source activate bidsonym && python setup.py install'"'"'" \
+        "command": "bash -c '"'"'cd /opt && git clone --filter=blob:none https://github.com/miykael/gif_your_nifti && cd gif_your_nifti && python setup.py install'"'"'" \
+      } \
+    }, \
+    { \
+      "name": "run", \
+      "kwds": { \
+        "command": "bash -c '"'"'cd /opt && git clone --filter=blob:none https://github.com/bids-standard/bids-validator && deno compile -o /usr/local/bin/bids-validator-deno -A  bids-validator/bids-validator/src/bids-validator.ts && cd -'"'"'" \
       } \
     }, \
     { \
@@ -233,21 +252,15 @@ RUN printf '{ \
       "kwds": { \
         "source": [ \
           ".", \
-          "/home/bm" \
+          "/opt/bidsonym-src" \
         ], \
-        "destination": "/home/bm" \
+        "destination": "/opt/bidsonym-src" \
       } \
     }, \
     { \
       "name": "run", \
       "kwds": { \
-        "command": "bash -c '"'"'chmod a+x /home/bm/bidsonym/fs_data/mri_deface'"'"'" \
-      } \
-    }, \
-    { \
-      "name": "run", \
-      "kwds": { \
-        "command": "bash -c '"'"'source activate bidsonym && cd /home/bm && pip install -e .'"'"'" \
+        "command": "bash -c '"'"'cd /opt/bidsonym-src && chmod a+x bidsonym/fs_data/mri_deface && pip install -e .'"'"'" \
       } \
     }, \
     { \
@@ -257,16 +270,21 @@ RUN printf '{ \
       } \
     }, \
     { \
-      "name": "workdir", \
+      "name": "run", \
       "kwds": { \
-        "path": "/tmp/" \
+        "command": "bash -c '"'"'git config --global safe.directory \\"*\\"'"'"'" \
+      } \
+    }, \
+    { \
+      "name": "run", \
+      "kwds": { \
+        "command": "bash -c '"'"'rm -rf /tmp/*'"'"'" \
       } \
     }, \
     { \
       "name": "entrypoint", \
       "kwds": { \
         "args": [ \
-          "/neurodocker/startup.sh", \
           "bidsonym" \
         ] \
       } \
