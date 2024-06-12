@@ -21,7 +21,7 @@ generate_docker() {
              --run-bash "git config --global user.email 'bidsonym@example.com' && git config --global user.name 'BIDSonym'" \
              --run-bash "cd /opt && mkdir -p nobrainer/models && cd nobrainer/models && datalad clone https://github.com/neuronets/trained-models && cd trained-models && git-annex enableremote osf-storage && datalad get -s osf-storage neuronets/brainy/0.1.0/weights/brain-extraction-unet-128iso-model.h5" \
              --run-bash "cd /opt && mkdir mri-deface-detector && cd mri-deface-detector && npm install sharp --unsafe-perm && npm install -g mri-deface-detector --unsafe-perm && cd ~" \
-             --run-bash "cd /opt && git clone --filter=blob:none https://github.com/miykael/gif_your_nifti && cd gif_your_nifti && python setup.py install" \
+             --run-bash "cd /opt && git clone --filter=blob:none -b bf-imageio https://github.com/yarikoptic/gif_your_nifti && cd gif_your_nifti && python setup.py install" \
              --run-bash "cd /opt && git clone --filter=blob:none https://github.com/bids-standard/bids-validator && deno compile -o /usr/local/bin/bids-validator-deno -A  bids-validator/bids-validator/src/bids-validator.ts && cd -" \
              --copy . /opt/bidsonym-src \
              --run-bash "cd /opt/bidsonym-src && chmod a+x bidsonym/fs_data/mri_deface && pip install -e ." \
