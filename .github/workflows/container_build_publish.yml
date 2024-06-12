@@ -24,6 +24,21 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Build image and push to Docker Hub and GitHub Container Registry
+        # TODO: upgrade to @v5?
+        uses: docker/build-push-action@v2
+        with:
+          # relative path to the place where source code with Dockerfile is located
+          context: ./
+          # Note: tags has to be all lower-case
+          # TODO: add a tag for a release if on a tag?
+          #  see https://docs.docker.com/build/ci/github-actions/manage-tags-labels/
+          tags: |
+            peerherholz/bidsonym:latest 
+            ghcr.io/peerherholz/bidsonym:latest
+          # build on feature branches, push only on main branch
+          push: ${{ github.ref == 'refs/heads/main' }}
+
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
@@ -37,17 +52,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Build image and push to Docker Hub and GitHub Container Registry
-        uses: docker/build-push-action@v2
-        with:
-          # relative path to the place where source code with Dockerfile is located
-          context: ./
-          # Note: tags has to be all lower-case
-          tags: |
-            peerherholz/bidsonym:latest 
-            ghcr.io/peerherholz/bidsonym:latest
-          # build on feature branches, push only on main branch
-          push: ${{ github.ref == 'refs/heads/main' }}
-
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
