@@ -109,15 +109,10 @@ ENV PATH="${PATH}:/opt/miniconda-latest/bin"
 RUN bash -c 'git config --global user.email 'bidsonym@example.com' && git config --global user.name 'BIDSonym''
 RUN bash -c 'cd /opt && mkdir -p nobrainer/models && cd nobrainer/models && datalad clone https://github.com/neuronets/trained-models && cd trained-models && git-annex enableremote osf-storage && datalad get -s osf-storage neuronets/brainy/0.1.0/weights/brain-extraction-unet-128iso-model.h5'
 RUN bash -c 'cd /opt && mkdir mri-deface-detector && cd mri-deface-detector && npm install sharp --unsafe-perm && npm install -g mri-deface-detector --unsafe-perm && cd ~'
-RUN bash -c 'cd /opt && git clone --filter=blob:none https://github.com/miykael/gif_your_nifti && cd gif_your_nifti && python setup.py install'
+RUN bash -c 'cd /opt && git clone --filter=blob:none -b bf-imageio https://github.com/yarikoptic/gif_your_nifti && cd gif_your_nifti && python setup.py install'
 RUN bash -c 'cd /opt && git clone --filter=blob:none https://github.com/bids-standard/bids-validator && deno compile -o /usr/local/bin/bids-validator-deno -A  bids-validator/bids-validator/src/bids-validator.ts && cd -'
-COPY [".", \
-      "/opt/bidsonym-src"]
-RUN bash -c 'cd /opt/bidsonym-src && chmod a+x bidsonym/fs_data/mri_deface && pip install -e .'
-ENV IS_DOCKER="1"
-RUN bash -c 'git config --global safe.directory "*"'
-RUN bash -c 'rm -rf /tmp/*'
-ENTRYPOINT ["bidsonym"]
+RUN bash -c 'cd /opt && git clone --filter=blob:none https://github.com/mih/mridefacer'
+ENV MRIDEFACER_DATA_DIR="/opt/mridefacer/data"
 
 # Save specification to JSON.
 RUN printf '{ \
@@ -238,7 +233,7 @@ RUN printf '{ \
     { \
       "name": "run", \
       "kwds": { \
-        "command": "bash -c '"'"'cd /opt && git clone --filter=blob:none https://github.com/miykael/gif_your_nifti && cd gif_your_nifti && python setup.py install'"'"'" \
+        "command": "bash -c '"'"'cd /opt && git clone --filter=blob:none -b bf-imageio https://github.com/yarikoptic/gif_your_nifti && cd gif_your_nifti && python setup.py install'"'"'" \
       } \
     }, \
     { \
@@ -248,45 +243,15 @@ RUN printf '{ \
       } \
     }, \
     { \
-      "name": "copy", \
-      "kwds": { \
-        "source": [ \
-          ".", \
-          "/opt/bidsonym-src" \
-        ], \
-        "destination": "/opt/bidsonym-src" \
-      } \
-    }, \
-    { \
       "name": "run", \
       "kwds": { \
-        "command": "bash -c '"'"'cd /opt/bidsonym-src && chmod a+x bidsonym/fs_data/mri_deface && pip install -e .'"'"'" \
+        "command": "bash -c '"'"'cd /opt && git clone --filter=blob:none https://github.com/mih/mridefacer'"'"'" \
       } \
     }, \
     { \
       "name": "env", \
       "kwds": { \
-        "IS_DOCKER": "1" \
-      } \
-    }, \
-    { \
-      "name": "run", \
-      "kwds": { \
-        "command": "bash -c '"'"'git config --global safe.directory \\"*\\"'"'"'" \
-      } \
-    }, \
-    { \
-      "name": "run", \
-      "kwds": { \
-        "command": "bash -c '"'"'rm -rf /tmp/*'"'"'" \
-      } \
-    }, \
-    { \
-      "name": "entrypoint", \
-      "kwds": { \
-        "args": [ \
-          "bidsonym" \
-        ] \
+        "MRIDEFACER_DATA_DIR": "/opt/mridefacer/data" \
       } \
     } \
   ] \
