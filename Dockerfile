@@ -15,14 +15,14 @@ RUN apt-get update -qq \
                   num-utils \
                   yarn \
            && rm -rf /var/lib/apt/lists/*
-RUN bash -c 'curl -sL https://deb.nodesource.com/setup_15.x | bash - && apt update && apt-get install -y nodejs'
-RUN bash -c 'npm install -g bids-validator@1.9.9'
-ENV FSLDIR="/opt/fsl-6.0.6.4" \
-    PATH="/opt/fsl-6.0.6.4/bin:$PATH" \
+RUN bash -c 'curl -sL https://deb.nodesource.com/setup_18.x | bash - && apt update && apt-get install -y nodejs'
+RUN bash -c 'npm install -g bids-validator@1.14.6'
+ENV FSLDIR="/opt/fsl-6.0.7.4" \
+    PATH="/opt/fsl-6.0.7.4/bin:$PATH" \
     FSLOUTPUTTYPE="NIFTI_GZ" \
     FSLMULTIFILEQUIT="TRUE" \
-    FSLTCLSH="/opt/fsl-6.0.6.4/bin/fsltclsh" \
-    FSLWISH="/opt/fsl-6.0.6.4/bin/fslwish" \
+    FSLTCLSH="/opt/fsl-6.0.7.4/bin/fsltclsh" \
+    FSLWISH="/opt/fsl-6.0.7.4/bin/fslwish" \
     FSLLOCKDIR="" \
     FSLMACHINELIST="" \
     FSLREMOTECALL="" \
@@ -54,7 +54,7 @@ RUN apt-get update -qq \
            wget \
     && rm -rf /var/lib/apt/lists/* \
     && echo "Installing FSL ..." \
-    && curl -fsSL https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/releases/fslinstaller.py | python3 - -d /opt/fsl-6.0.6.4 -V 6.0.6.4
+    && curl -fsSL https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/releases/fslinstaller.py | python3 - -d /opt/fsl-6.0.7.4 -V 6.0.7.4
 ENV CONDA_DIR="/opt/miniconda-latest" \
     PATH="/opt/miniconda-latest/bin:$PATH"
 RUN apt-get update -qq \
@@ -84,21 +84,22 @@ RUN apt-get update -qq \
     && conda init bash \
     && conda create -y  --name bidsonym \
     && conda install -y  --name bidsonym \
-           "python=3.10" \
+           "python=3.11" \
            "numpy" \
            "nipype" \
            "nibabel" \
            "pandas" \
            "datalad" \
+           "deno" \
     && bash -c "source activate bidsonym \
     &&   python -m pip install --no-cache-dir  \
              "tensorflow" \
              "scikit-image" \
              "pydeface==2.0.2" \
-             "nobrainer==0.4.0" \
+             "nobrainer==1.2.1" \
              "quickshear==1.2.0" \
              "datalad-osf" \
-             "pybids==0.16.4"" \
+             "pybids==0.16.5"" \
     # Clean up
     && sync && conda clean --all --yes && sync \
     && rm -rf ~/.cache/pip/*
@@ -160,24 +161,24 @@ RUN printf '{ \
     { \
       "name": "run", \
       "kwds": { \
-        "command": "bash -c '"'"'curl -sL https://deb.nodesource.com/setup_15.x | bash - && apt update && apt-get install -y nodejs'"'"'" \
+        "command": "bash -c '"'"'curl -sL https://deb.nodesource.com/setup_18.x | bash - && apt update && apt-get install -y nodejs'"'"'" \
       } \
     }, \
     { \
       "name": "run", \
       "kwds": { \
-        "command": "bash -c '"'"'npm install -g bids-validator@1.9.9'"'"'" \
+        "command": "bash -c '"'"'npm install -g bids-validator@1.14.6'"'"'" \
       } \
     }, \
     { \
       "name": "env", \
       "kwds": { \
-        "FSLDIR": "/opt/fsl-6.0.6.4", \
-        "PATH": "/opt/fsl-6.0.6.4/bin:$PATH", \
+        "FSLDIR": "/opt/fsl-6.0.7.4", \
+        "PATH": "/opt/fsl-6.0.7.4/bin:$PATH", \
         "FSLOUTPUTTYPE": "NIFTI_GZ", \
         "FSLMULTIFILEQUIT": "TRUE", \
-        "FSLTCLSH": "/opt/fsl-6.0.6.4/bin/fsltclsh", \
-        "FSLWISH": "/opt/fsl-6.0.6.4/bin/fslwish", \
+        "FSLTCLSH": "/opt/fsl-6.0.7.4/bin/fsltclsh", \
+        "FSLWISH": "/opt/fsl-6.0.7.4/bin/fslwish", \
         "FSLLOCKDIR": "", \
         "FSLMACHINELIST": "", \
         "FSLREMOTECALL": "", \
@@ -187,7 +188,7 @@ RUN printf '{ \
     { \
       "name": "run", \
       "kwds": { \
-        "command": "apt-get update -qq\\napt-get install -y -q --no-install-recommends \\\\\\n    bc \\\\\\n    ca-certificates \\\\\\n    curl \\\\\\n    dc \\\\\\n    file \\\\\\n    libfontconfig1 \\\\\\n    libfreetype6 \\\\\\n    libgl1-mesa-dev \\\\\\n    libgl1-mesa-dri \\\\\\n    libglu1-mesa-dev \\\\\\n    libgomp1 \\\\\\n    libice6 \\\\\\n    libopenblas-base \\\\\\n    libxcursor1 \\\\\\n    libxft2 \\\\\\n    libxinerama1 \\\\\\n    libxrandr2 \\\\\\n    libxrender1 \\\\\\n    libxt6 \\\\\\n    nano \\\\\\n    python3 \\\\\\n    sudo \\\\\\n    wget\\nrm -rf /var/lib/apt/lists/*\\n\\necho \\"Installing FSL ...\\"\\ncurl -fsSL https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/releases/fslinstaller.py | python3 - -d /opt/fsl-6.0.6.4 -V 6.0.6.4" \
+        "command": "apt-get update -qq\\napt-get install -y -q --no-install-recommends \\\\\\n    bc \\\\\\n    ca-certificates \\\\\\n    curl \\\\\\n    dc \\\\\\n    file \\\\\\n    libfontconfig1 \\\\\\n    libfreetype6 \\\\\\n    libgl1-mesa-dev \\\\\\n    libgl1-mesa-dri \\\\\\n    libglu1-mesa-dev \\\\\\n    libgomp1 \\\\\\n    libice6 \\\\\\n    libopenblas-base \\\\\\n    libxcursor1 \\\\\\n    libxft2 \\\\\\n    libxinerama1 \\\\\\n    libxrandr2 \\\\\\n    libxrender1 \\\\\\n    libxt6 \\\\\\n    nano \\\\\\n    python3 \\\\\\n    sudo \\\\\\n    wget\\nrm -rf /var/lib/apt/lists/*\\n\\necho \\"Installing FSL ...\\"\\ncurl -fsSL https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/releases/fslinstaller.py | python3 - -d /opt/fsl-6.0.7.4 -V 6.0.7.4" \
       } \
     }, \
     { \
@@ -200,7 +201,7 @@ RUN printf '{ \
     { \
       "name": "run", \
       "kwds": { \
-        "command": "apt-get update -qq\\napt-get install -y -q --no-install-recommends \\\\\\n    bzip2 \\\\\\n    ca-certificates \\\\\\n    curl\\nrm -rf /var/lib/apt/lists/*\\n# Install dependencies.\\nexport PATH=\\"/opt/miniconda-latest/bin:$PATH\\"\\necho \\"Downloading Miniconda installer ...\\"\\nconda_installer=\\"/tmp/miniconda.sh\\"\\ncurl -fsSL -o \\"$conda_installer\\" https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh\\nbash \\"$conda_installer\\" -b -p /opt/miniconda-latest\\nrm -f \\"$conda_installer\\"\\nconda update -yq -nbase conda\\n# Prefer packages in conda-forge\\nconda config --system --prepend channels conda-forge\\n# Packages in lower-priority channels not considered if a package with the same\\n# name exists in a higher priority channel. Can dramatically speed up installations.\\n# Conda recommends this as a default\\n# https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html\\nconda config --set channel_priority strict\\nconda config --system --set auto_update_conda false\\nconda config --system --set show_channel_urls true\\n# Enable `conda activate`\\nconda init bash\\nconda create -y  --name bidsonym\\nconda install -y  --name bidsonym \\\\\\n    \\"python=3.10\\" \\\\\\n    \\"numpy\\" \\\\\\n    \\"nipype\\" \\\\\\n    \\"nibabel\\" \\\\\\n    \\"pandas\\" \\\\\\n    \\"datalad\\"\\nbash -c \\"source activate bidsonym\\n  python -m pip install --no-cache-dir  \\\\\\n      \\"tensorflow\\" \\\\\\n      \\"scikit-image\\" \\\\\\n      \\"pydeface==2.0.2\\" \\\\\\n      \\"nobrainer==0.4.0\\" \\\\\\n      \\"quickshear==1.2.0\\" \\\\\\n      \\"datalad-osf\\" \\\\\\n      \\"pybids==0.16.4\\"\\"\\n# Clean up\\nsync && conda clean --all --yes && sync\\nrm -rf ~/.cache/pip/*" \
+        "command": "apt-get update -qq\\napt-get install -y -q --no-install-recommends \\\\\\n    bzip2 \\\\\\n    ca-certificates \\\\\\n    curl\\nrm -rf /var/lib/apt/lists/*\\n# Install dependencies.\\nexport PATH=\\"/opt/miniconda-latest/bin:$PATH\\"\\necho \\"Downloading Miniconda installer ...\\"\\nconda_installer=\\"/tmp/miniconda.sh\\"\\ncurl -fsSL -o \\"$conda_installer\\" https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh\\nbash \\"$conda_installer\\" -b -p /opt/miniconda-latest\\nrm -f \\"$conda_installer\\"\\nconda update -yq -nbase conda\\n# Prefer packages in conda-forge\\nconda config --system --prepend channels conda-forge\\n# Packages in lower-priority channels not considered if a package with the same\\n# name exists in a higher priority channel. Can dramatically speed up installations.\\n# Conda recommends this as a default\\n# https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html\\nconda config --set channel_priority strict\\nconda config --system --set auto_update_conda false\\nconda config --system --set show_channel_urls true\\n# Enable `conda activate`\\nconda init bash\\nconda create -y  --name bidsonym\\nconda install -y  --name bidsonym \\\\\\n    \\"python=3.11\\" \\\\\\n    \\"numpy\\" \\\\\\n    \\"nipype\\" \\\\\\n    \\"nibabel\\" \\\\\\n    \\"pandas\\" \\\\\\n    \\"datalad\\" \\\\\\n    \\"deno\\"\\nbash -c \\"source activate bidsonym\\n  python -m pip install --no-cache-dir  \\\\\\n      \\"tensorflow\\" \\\\\\n      \\"scikit-image\\" \\\\\\n      \\"pydeface==2.0.2\\" \\\\\\n      \\"nobrainer==1.2.1\\" \\\\\\n      \\"quickshear==1.2.0\\" \\\\\\n      \\"datalad-osf\\" \\\\\\n      \\"pybids==0.16.5\\"\\"\\n# Clean up\\nsync && conda clean --all --yes && sync\\nrm -rf ~/.cache/pip/*" \
       } \
     }, \
     { \
