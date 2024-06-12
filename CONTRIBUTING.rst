@@ -55,7 +55,7 @@ If you find one that's similar but there are subtle differences, please referenc
 *These pull requests have been closed for inactivity.*
 
 Before proposing a new pull request, browse through the "orphaned" pull requests.
-You may find that someone has already made significant progress toward your goal, and you can re-use their
+You may find that someone has already made significant progress toward your goal, and you can reuse their
 unfinished work.
 An adopted PR should be updated to merge or rebase the current master, and a new PR should be created (see
 below) that references the original PR.
