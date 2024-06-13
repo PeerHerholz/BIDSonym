@@ -16,6 +16,7 @@ RUN apt-get update -qq \
                   num-utils \
                   tig \
                   unzip \
+                  vim \
                   yarn \
            && rm -rf /var/lib/apt/lists/*
 RUN bash -c 'curl -sL https://deb.nodesource.com/setup_18.x | bash - && apt update && apt-get install -y nodejs && rm -rf /tmp/*'
@@ -113,6 +114,13 @@ RUN bash -c 'cd /opt && git clone --filter=blob:none -b bf-imageio https://githu
 RUN bash -c 'cd /opt && git clone --filter=blob:none https://github.com/bids-standard/bids-validator && deno compile -o /usr/local/bin/bids-validator-deno -A  bids-validator/bids-validator/src/bids-validator.ts && cd -'
 RUN bash -c 'cd /opt && git clone --filter=blob:none https://github.com/mih/mridefacer'
 ENV MRIDEFACER_DATA_DIR="/opt/mridefacer/data"
+COPY [".", \
+      "/opt/bidsonym-src"]
+RUN bash -c 'cd /opt/bidsonym-src && chmod a+x bidsonym/fs_data/mri_deface && pip install -e .'
+ENV IS_DOCKER="1"
+RUN bash -c 'git config --global safe.directory "*"'
+RUN bash -c 'rm -rf /tmp/*'
+ENTRYPOINT ["bidsonym"]
 
 # Save specification to JSON.
 RUN printf '{ \
@@ -149,7 +157,8 @@ RUN printf '{ \
           "npm", \
           "less", \
           "unzip", \
-          "tig" \
+          "tig", \
+          "vim" \
         ], \
         "opts": null \
       } \
@@ -157,7 +166,7 @@ RUN printf '{ \
     { \
       "name": "run", \
       "kwds": { \
-        "command": "apt-get update -qq \\\\\\n    && apt-get install -y -q --no-install-recommends \\\\\\n           build-essential \\\\\\n           curl \\\\\\n           g++ \\\\\\n           gcc \\\\\\n           git \\\\\\n           git-annex \\\\\\n           less \\\\\\n           nano \\\\\\n           npm \\\\\\n           num-utils \\\\\\n           tig \\\\\\n           unzip \\\\\\n           yarn \\\\\\n    && rm -rf /var/lib/apt/lists/*" \
+        "command": "apt-get update -qq \\\\\\n    && apt-get install -y -q --no-install-recommends \\\\\\n           build-essential \\\\\\n           curl \\\\\\n           g++ \\\\\\n           gcc \\\\\\n           git \\\\\\n           git-annex \\\\\\n           less \\\\\\n           nano \\\\\\n           npm \\\\\\n           num-utils \\\\\\n           tig \\\\\\n           unzip \\\\\\n           vim \\\\\\n           yarn \\\\\\n    && rm -rf /var/lib/apt/lists/*" \
       } \
     }, \
     { \
@@ -252,6 +261,48 @@ RUN printf '{ \
       "name": "env", \
       "kwds": { \
         "MRIDEFACER_DATA_DIR": "/opt/mridefacer/data" \
+      } \
+    }, \
+    { \
+      "name": "copy", \
+      "kwds": { \
+        "source": [ \
+          ".", \
+          "/opt/bidsonym-src" \
+        ], \
+        "destination": "/opt/bidsonym-src" \
+      } \
+    }, \
+    { \
+      "name": "run", \
+      "kwds": { \
+        "command": "bash -c '"'"'cd /opt/bidsonym-src && chmod a+x bidsonym/fs_data/mri_deface && pip install -e .'"'"'" \
+      } \
+    }, \
+    { \
+      "name": "env", \
+      "kwds": { \
+        "IS_DOCKER": "1" \
+      } \
+    }, \
+    { \
+      "name": "run", \
+      "kwds": { \
+        "command": "bash -c '"'"'git config --global safe.directory \\"*\\"'"'"'" \
+      } \
+    }, \
+    { \
+      "name": "run", \
+      "kwds": { \
+        "command": "bash -c '"'"'rm -rf /tmp/*'"'"'" \
+      } \
+    }, \
+    { \
+      "name": "entrypoint", \
+      "kwds": { \
+        "args": [ \
+          "bidsonym" \
+        ] \
       } \
     } \
   ] \

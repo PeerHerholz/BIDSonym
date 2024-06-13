@@ -9,7 +9,7 @@ generate_docker() {
              --base-image ubuntu:20.04 \
              --pkg-manager apt \
 	     --env DEBIAN_FRONTEND=noninteractive \
-             --install git num-utils gcc g++ curl yarn build-essential nano git-annex npm less unzip tig \
+             --install git num-utils gcc g++ curl yarn build-essential nano git-annex npm less unzip tig vim \
              --run-bash "curl -sL https://deb.nodesource.com/setup_18.x | bash - && apt update && apt-get install -y nodejs && rm -rf /tmp/*" \
              --run-bash "npm install -g bids-validator@1.14.6 && rm -rf /tmp/*" \
              --fsl version=6.0.7.4 method=binaries \
