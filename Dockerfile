@@ -112,7 +112,7 @@ RUN bash -c 'cd /opt && mkdir -p nobrainer/models && cd nobrainer/models && data
 RUN bash -c 'cd /opt && mkdir mri-deface-detector && cd mri-deface-detector && npm install sharp --unsafe-perm && npm install -g mri-deface-detector --unsafe-perm && cd ~'
 RUN bash -c 'cd /opt && git clone --filter=blob:none -b bf-imageio https://github.com/yarikoptic/gif_your_nifti && cd gif_your_nifti && python setup.py install'
 RUN bash -c 'cd /opt && git clone --filter=blob:none https://github.com/bids-standard/bids-validator && deno compile -o /usr/local/bin/bids-validator-deno -A  bids-validator/bids-validator/src/bids-validator.ts && cd -'
-RUN bash -c 'cd /opt && git clone --filter=blob:none https://github.com/mih/mridefacer'
+RUN bash -c 'cd /opt && git clone --filter=blob:none -b enh-shellcheck https://github.com/yarikoptic/mridefacer; echo 'TODO: later switch to /mih/ master whenever PR#9 is merged''
 ENV MRIDEFACER_DATA_DIR="/opt/mridefacer/data"
 COPY [".", \
       "/opt/bidsonym-src"]
@@ -254,7 +254,7 @@ RUN printf '{ \
     { \
       "name": "run", \
       "kwds": { \
-        "command": "bash -c '"'"'cd /opt && git clone --filter=blob:none https://github.com/mih/mridefacer'"'"'" \
+        "command": "bash -c '"'"'cd /opt && git clone --filter=blob:none -b enh-shellcheck https://github.com/yarikoptic/mridefacer; echo '"'"'TODO: later switch to /mih/ master whenever PR#9 is merged'"'"''"'"'" \
       } \
     }, \
     { \
