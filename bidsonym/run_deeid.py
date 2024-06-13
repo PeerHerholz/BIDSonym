@@ -107,13 +107,15 @@ def run_deeid():
         subjects_to_analyze = layout.get(return_type='id', target='subject')
 
     list_part_prob = []
+    part = None
+    session = None
+
     for part in subjects_to_analyze:
         if part not in layout.get_subjects():
             list_part_prob.append(part)
     if len(list_part_prob) >= 1:
         raise Exception("The participant(s) you indicated are not present in the BIDS dataset, please check again."
-                        "This refers to:")
-        print(list_part_prob)
+                        f"This refers to: {list_part_prob}")
 
     if args.session:
         list_sessions = args.session
@@ -133,6 +135,7 @@ def run_deeid():
         print(sessions_to_analyze)
 
         list_ses_prob = []
+        list_t1w = []
 
         if args.session and args.session != ["all"]:
 
@@ -148,8 +151,7 @@ def run_deeid():
 
                 if len(list_ses_prob) >= 1:
                     raise Exception("The session(s) you indicated are not present in the BIDS dataset, please check again."
-                                    "This refers to:")
-                    print(list_ses_prob)
+                                    f"This refers to: {list_ses_prob}")
 
                 list_t1w = layout.get(subject=subject_label, extension='nii.gz',
                                       suffix='T1w', return_type='filename',
@@ -240,6 +242,7 @@ def run_deeid():
 
         if args.deface_t2w:
 
+            list_t2w = []
             if args.session and args.session != ["all"]:
 
                 for ses in args.session:
@@ -249,8 +252,7 @@ def run_deeid():
 
                     if len(list_ses_prob) >= 1:
                         raise Exception("The session(s) you indicated are not present in the BIDS dataset, please check again."
-                                        "This refers to:")
-                        print(list_ses_prob)
+                                        f"This refers to: {list_ses_prob}")
 
                     list_t2w = layout.get(subject=subject_label,
                                           extension='nii.gz', suffix='T2w',
@@ -262,7 +264,7 @@ def run_deeid():
                                       extension='nii.gz', suffix='T2w',
                                       return_type='filename')
 
-                if list_t2w == []:
+                if not list_t2w:
                     raise Exception("You indicated that a T2w image should be defaced as well."
                                     "However, no T2w image exists for subject %s and indicated sessions."
                                     "Please check again." % subject_label)
@@ -278,6 +280,7 @@ def run_deeid():
                 source_t2w = copy_no_deid(args.bids_dir, subject_label,
                                           T2_file)
 
+                T1_file = None
                 if 'ses' in T2_file:
 
                     session = T2_file[T2_file.rfind('ses')+4:].split("_")[0]
@@ -324,12 +327,12 @@ def run_deeid():
                                 t2w=None)
                 clean_up_files(args.bids_dir, subject_label, session=None)
 
-            elif len(T1_file) == 1 and args.deface_t2w:
+            elif len(T1_files) == 1 and args.deface_t2w:
                 create_graphics(args.bids_dir, subject_label, session=None,
                                 t2w=True)
                 clean_up_files(args.bids_dir, subject_label, session=None)
 
-            elif len(T1_file) >= 1 and args.deface_t2w is False:
+            elif len(T1_files) >= 1 and args.deface_t2w is False:
 
                 for session in sessions_to_analyze:
                     create_graphics(args.bids_dir, subject_label,
@@ -337,7 +340,7 @@ def run_deeid():
                     clean_up_files(args.bids_dir, subject_label,
                                    session=session)
 
-            elif len(T1_file) >= 1 and args.deface_t2w:
+            elif len(T1_files) >= 1 and args.deface_t2w:
 
                 for session in sessions_to_analyze:
                     create_graphics(args.bids_dir, subject_label,
