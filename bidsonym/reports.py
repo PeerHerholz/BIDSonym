@@ -47,6 +47,7 @@ def plot_defaced(bids_dir, subject_label, session=None, t2w=None):
         plt.savefig(opj(bidsonym_path,
                         t1w[t1w.rfind('/')+1:t1w.rfind('.nii')] + '_desc-brainmaskdeid.png'))
 
+    defaced_t2w = None
     if t2w is not None:
         if session is not None:
             defaced_t2w = layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
@@ -67,7 +68,7 @@ def plot_defaced(bids_dir, subject_label, session=None, t2w=None):
             plt.savefig(opj(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
                             t2w[t2w.rfind('/')+1:t2w.rfind('.nii')] + '_desc-brainmaskdeid.png'))
 
-    return (t1w, t2w)
+    return (defaced_t1w, defaced_t2w)
 
 
 def gif_defaced(bids_dir, subject_label, session=None, t2w=None):

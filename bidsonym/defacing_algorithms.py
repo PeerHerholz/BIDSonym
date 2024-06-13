@@ -146,7 +146,7 @@ def mridefacer_cmd(image, T1_file):
 
     outdir = T1_file[:T1_file.rfind('/')]
 
-    cmd = ["/mridefacer/mridefacer", "--apply", image, "--outdir", outdir]
+    cmd = ["/opt/mridefacer/mridefacer", "--apply", image, "--outdir", outdir]
     check_call(cmd)
     return
 
