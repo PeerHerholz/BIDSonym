@@ -49,24 +49,41 @@ def plot_defaced(bids_dir, subject_label, session=None, t2w=None):
 
     if t2w is not None:
         if session is not None:
-            defaced_t2w = layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
+            # defaced_t2w = layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
+            #                          return_type='filename', session=session)
+            defaced_flair = layout.get(subject=subject_label, extension='nii.gz', suffix='FLAIR',
                                      return_type='filename', session=session)
         else:
-            defaced_t2w = layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
-                                     return_type='filename')
+            # defaced_t2w = layout.get(subject=subject_label, extension='nii.gz', suffix='T2w',
+            #                          return_type='filename')
+            defaced_flair = layout.get(subject=subject_label, extension='nii.gz', suffix='FLAIR',
+                                      return_type='filename')
 
-        for t2w in defaced_t2w:
-            brainmask_t2w = glob(opj(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
-                                     t2w[t2w.rfind('/') + 1:t2w.rfind('.nii')] +
+        # for t2w in defaced_t2w:
+        #     brainmask_t2w = glob(opj(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
+        #                              t2w[t2w.rfind('/') + 1:t2w.rfind('.nii')] +
+        #                              '_brainmask_desc-nondeid.nii.gz'))[0]
+        #     for i, e in enumerate(['x', 'y', 'z']):
+        #         ax = fig.add_subplot(3, 1, i + 1)
+        #         cuts = find_cut_slices(t2w, direction=e, n_cuts=12)
+        #         plot_stat_map(brainmask_t2w, bg_img=t2w, display_mode=e,
+        #                       cut_coords=cuts, annotate=False, dim=-1, axes=ax, colorbar=False)
+        #     plt.savefig(opj(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
+        #                     t2w[t2w.rfind('/')+1:t2w.rfind('.nii')] + '_desc-brainmaskdeid.png'))
+
+        for flair in defaced_flair:
+            brainmask_flair = glob(opj(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
+                                     flair[flair.rfind('/') + 1:flair.rfind('.nii')] +
                                      '_brainmask_desc-nondeid.nii.gz'))[0]
             for i, e in enumerate(['x', 'y', 'z']):
                 ax = fig.add_subplot(3, 1, i + 1)
-                cuts = find_cut_slices(t2w, direction=e, n_cuts=12)
-                plot_stat_map(brainmask_t2w, bg_img=t2w, display_mode=e,
+                cuts = find_cut_slices(flair, direction=e, n_cuts=12)
+                plot_stat_map(brainmask_flair, bg_img=flair, display_mode=e,
                               cut_coords=cuts, annotate=False, dim=-1, axes=ax, colorbar=False)
             plt.savefig(opj(bids_dir, 'sourcedata/bidsonym/sub-%s' % subject_label,
-                            t2w[t2w.rfind('/')+1:t2w.rfind('.nii')] + '_desc-brainmaskdeid.png'))
+                            flair[flair.rfind('/') + 1:flair.rfind('.nii')] + '_desc-brainmaskdeid.png'))
 
+    #return (t1w, t2w, flair)
     return (t1w, t2w)
 
 
@@ -163,20 +180,20 @@ def create_graphics(bids_dir, subject_label, session=None, t2w=None):
 
     report_wf.connect([(inputnode, plt_defaced, [('bids_dir', 'bids_dir'),
                                                  ('subject_label', 'subject_label')]),
-                       (inputnode, gf_defaced, [('bids_dir', 'bids_dir'),
-                                                ('subject_label', 'subject_label')]),
+                    #    (inputnode, gf_defaced, [('bids_dir', 'bids_dir'),
+                    #                             ('subject_label', 'subject_label')]),
                        ])
 
     if session:
         inputnode.inputs.session = session
         report_wf.connect([(inputnode, plt_defaced, [('session', 'session')]),
-                           (inputnode, gf_defaced, [('session', 'session')]),
+                           #(inputnode, gf_defaced, [('session', 'session')]),
                            ])
 
     if t2w:
         inputnode.inputs.t2w = t2w
         report_wf.connect([(inputnode, plt_defaced, [('t2w', 't2w')]),
-                           (inputnode, gf_defaced, [('t2w', 't2w')]),
+                           #(inputnode, gf_defaced, [('t2w', 't2w')]),
                            ])
 
     inputnode.inputs.bids_dir = bids_dir

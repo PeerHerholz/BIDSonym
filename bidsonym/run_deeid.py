@@ -41,8 +41,10 @@ def get_parser():
                         nargs="+")
     parser.add_argument('--deid', help='Approach to use for de-identifictation.',
                         choices=['pydeface', 'mri_deface', 'quickshear', 'mridefacer'])
-    parser.add_argument('--deface_t2w',  action="store_true", default=False,
+    parser.add_argument('--deface_t2w', action="store_true", default=False,
                         help='Deface T2w images by using defaced T1w image as deface-mask.')
+    parser.add_argument('--deface_flair', action="store_true", default=False,
+                        help='Deface FLAIR images by using defaced T1w image as deface-mask.')    
     parser.add_argument('--check_meta',
                         help='Indicate which information from the image and \
                         .json meta-data files should be check for potentially problematic information. \
@@ -86,8 +88,8 @@ def run_deeid():
 
     if args.brainextraction is None:
         raise Exception("For post defacing quality it is required to run a form of brainextraction"
-                        "on the non-deindentified data. Thus please either indicate bet "
-                        "(--brainextraction bet) or nobrainer (--brainextraction nobrainer).")
+                        "on the non-de-identified data. Thus please either indicate bet "
+                        "(--brainextration bet) or nobrainer (--brainextraction nobrainer).")
 
     if args.skip_bids_validation:
         print("Input data will not be checked for BIDS compliance.")
@@ -182,7 +184,7 @@ def run_deeid():
                     check_meta_data(args.bids_dir, subject_label,
                                     list_check_meta)
                     source_t1w = copy_no_deid(args.bids_dir, subject_label,
-                                              T1_file)
+                                              T1_file, session=ses)
 
                     if args.del_meta:
                         del_meta_data(args.bids_dir, subject_label,
@@ -225,8 +227,13 @@ def run_deeid():
                 run_brain_extraction_nb(T1_file, subject_label, args.bids_dir)
 
             check_meta_data(args.bids_dir, subject_label, list_check_meta)
-            source_t1w = copy_no_deid(args.bids_dir, subject_label, T1_file)
 
+            if 'ses' in T1_file:
+                session = T1_file[T1_file.rfind('ses') + 4:].split("_")[0]
+                source_t1w = copy_no_deid(args.bids_dir, subject_label, T1_file, session=session)
+            else:
+                source_t1w = copy_no_deid(args.bids_dir, subject_label, T1_file)
+                
             if args.del_meta:
                 del_meta_data(args.bids_dir, subject_label, list_field_del)
             if args.deid == "pydeface":
@@ -266,8 +273,9 @@ def run_deeid():
                     raise Exception("You indicated that a T2w image should be defaced as well."
                                     "However, no T2w image exists for subject %s and indicated sessions."
                                     "Please check again." % subject_label)
-
+            
             for T2_file in list_t2w:
+
                 if args.brainextraction == 'bet':
                     run_brain_extraction_bet(T2_file, args.bet_frac[0],
                                              subject_label, args.bids_dir)
@@ -280,7 +288,7 @@ def run_deeid():
 
                 if 'ses' in T2_file:
 
-                    session = T2_file[T2_file.rfind('ses')+4:].split("_")[0]
+                    session = T2_file[T2_file.rfind('ses') + 4:].split("_")[0]
 
                     T1_file = layout.get(subject=subject_label,
                                          extension='nii.gz', suffix='T1w',
@@ -292,6 +300,62 @@ def run_deeid():
                                         T1_file)
 
                 run_t2w_deface(source_t2w, T1_file, T2_file)
+
+        if args.deface_flair:
+
+            if args.session and args.session != ["all"]:
+
+                for ses in args.session:
+
+                    if ses not in sessions_to_analyze:
+                        list_ses_prob.append(part)
+
+                    if len(list_ses_prob) >= 1:
+                        raise Exception("The session(s) you indicated are not present in the BIDS dataset, please check again."
+                                        "This refers to:")
+                        print(list_ses_prob)
+                    
+                    list_flair = layout.get(subject=subject_label,
+                                            extension='nii.gz', suffix='FLAIR',
+                                            return_type='filename', session=ses)
+                    
+            elif list_sessions == ["all"] or not args.session:
+
+                list_flair = layout.get(subject=subject_label,
+                                        extension='nii.gz', suffix='FLAIR',
+                                        return_type='filename')
+                
+                if list_flair == []:
+                    raise Exception("You indicated that a FLAIR image should be defaced as well."
+                                    "However, no FLAIR image exists for subject %s and indicated sessions."
+                                    "Please check again." % subject_label)
+
+            for flair_file in list_flair:
+
+                if args.brainextraction == 'bet':
+                    run_brain_extraction_bet(flair_file, args.bet_frac[0],
+                                             subject_label, args.bids_dir)
+                elif args.brainextraction == 'nobrainer':
+                    run_brain_extraction_nb(flair_file, subject_label,
+                                            args.bids_dir)
+
+                source_flair = copy_no_deid(args.bids_dir, subject_label,
+                                            flair_file)
+
+                if 'ses' in flair_file:
+
+                    session = flair_file[flair_file.rfind('ses') + 4:].split("_")[0]
+
+                    T1_file = layout.get(subject=subject_label,
+                                         extension='nii.gz', suffix='T1w',
+                                         return_type='filename',
+                                         session=session)[0]
+                    if T1_file == []:
+                        raise Exception("No T1w file exists for session %s in subject %s." % (session, subject_label),
+                                        "The prior T1w image will thus be used:",
+                                        T1_file)
+
+                run_t2w_deface(source_flair, T1_file, flair_file)
 
         rename_non_deid(args.bids_dir, subject_label)
 

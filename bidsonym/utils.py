@@ -30,7 +30,7 @@ def check_outpath(bids_dir, subject_label):
         os.makedirs(out_path)
 
 
-def copy_no_deid(bids_dir, subject_label, image_file):
+def copy_no_deid(bids_dir, subject_label, image_file, session=None):
     """
     Move original non-defaced images to sourcedata.
 
@@ -42,6 +42,8 @@ def copy_no_deid(bids_dir, subject_label, image_file):
         Label of subject to move (without 'sub-').
     image_file : str
         Original non-defaced image.
+    session : str
+        Session label (if applicable).
 
     Returns
     -------
@@ -49,10 +51,18 @@ def copy_no_deid(bids_dir, subject_label, image_file):
         Path to moved original non-defaced image.
     """
 
-    path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
+    if session is not None:
+        path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s/ses-%s" % (subject_label, session))
+    else:
+        path = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label)
     outfile = image_file[image_file.rfind('/') + 1:]
+
     if os.path.isdir(path) is True:
-        move(image_file, os.path.join(path, outfile))
+        raise Exception(
+            "A directory to store non-de-identified images for subject %s already exists under %s.\n"
+            "In order to avoid overwriting non-de-identified data, please evaluate the current state of the sourcedata and raw data"
+            "" % (subject_label, path)
+        )
     else:
         os.makedirs(path)
         move(image_file, os.path.join(path, outfile))

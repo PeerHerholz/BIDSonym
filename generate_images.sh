@@ -8,10 +8,10 @@ generate_docker() {
   docker run --rm kaczmarj/neurodocker:0.6.0 generate docker \
              --base ubuntu:20.04 \
              --pkg-manager apt \
-             --install git num-utils gcc g++ curl yarn build-essential nano git-annex npm\
+             --install git num-utils gcc g++ curl yarn build-essential nano git-annex npm \
              --run-bash "curl -sL https://deb.nodesource.com/setup_15.x | bash - && apt update && apt-get install -y nodejs"\
              --run-bash "npm install -g bids-validator@1.9.9" \
-             --fsl version=6.0.1 method=binaries \
+             --fsl version=6.0.0 method=binaries \
              --miniconda \
                 conda_install="python=3.10 numpy nipype nibabel pandas datalad" \
                 pip_install='tensorflow scikit-image pydeface==2.0.2 nobrainer==0.4.0 quickshear==1.2.0 datalad-osf pybids==0.16.4' \
@@ -25,6 +25,7 @@ generate_docker() {
              --run-bash "chmod a+x /home/bm/bidsonym/fs_data/mri_deface" \
              --run-bash "source activate bidsonym && cd /home/bm && pip install -e ." \
              --env IS_DOCKER=1 \
+             --install libopenblas-dev \
              --workdir '/tmp/' \
              --entrypoint "/neurodocker/startup.sh  bidsonym"
 }
