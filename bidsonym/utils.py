@@ -372,7 +372,7 @@ def brain_extraction_nb(image, subject_label, bids_dir):
     # The mask will be saved in the subject's backup directory with descriptive naming
     # Extract the base filename and add brain mask identifier and non-deid descriptor
     outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
-                           image[image.rfind('/')+1:image.rfind('.nii')] + '_brainmask_desc-nondeid.nii.gz')
+                           image[image.rfind('/') + 1:image.rfind('.nii')] + '_brainmask_desc-nondeid.nii.gz')
 
     # Construct the nobrainer command for brain extraction
     # nobrainer is a deep learning-based neuroimaging tool for brain extraction
@@ -459,7 +459,7 @@ def run_brain_extraction_bet(image, frac, subject_label, bids_dir):
     # The output will be saved in the subject's backup directory with descriptive naming
     # Extract the base filename and add brain mask identifier and non-deid descriptor
     outfile = os.path.join(bids_dir, "sourcedata/bidsonym/sub-%s" % subject_label,
-                           image[image.rfind('/')+1:image.rfind('.nii')] + '_brainmask_desc-nondeid.nii.gz')
+                           image[image.rfind('/') + 1:image.rfind('.nii')] + '_brainmask_desc-nondeid.nii.gz')
 
     # Create a Nipype workflow for FSL BET brain extraction
     # BET (Brain Extraction Tool) is FSL's classic brain extraction algorithm
@@ -810,7 +810,7 @@ def revert_bidsonym(bids_dir, subject_label, session=None, confirm=True):
     session_desc = f" (session: {session})" if session is not None else ""
     
     # Display header with subject and session information
-    log_print("🔄 BIDSonym Reversion Tool")
+    log_print("BIDSonym Revert")
     log_print(f"Subject: sub-{subject_label}")
     
     # Build descriptive message including session if provided
@@ -844,19 +844,19 @@ def revert_bidsonym(bids_dir, subject_label, session=None, confirm=True):
     log_print("-" * 60)
     
     # Check if sourcedata directory exists - this indicates BIDSonym was previously run
-    log_print(f"\n🔍 Checking for BIDSonym backup data{session_desc}...")
+    log_print(f"\n Checking for BIDSonym backup data{session_desc}...")
     if not os.path.exists(sourcedata_base_dir):
-        log_print(f"❌ ERROR: No BIDSonym sourcedata found for subject {subject_label}{session_desc}", "ERROR")
+        log_print(f"ERROR: No BIDSonym sourcedata found for subject {subject_label}{session_desc}", "ERROR")
         log_print(f"   Expected location: {sourcedata_base_dir}", "ERROR")
         log_print("   This indicates BIDSonym was never run on this subject, or", "ERROR")
         log_print("   the backup data has been manually removed.", "ERROR")
         return False
     else:
-        log_print(f"✅ Found BIDSonym backup directory: {sourcedata_base_dir}")
+        log_print(f"Found BIDSonym backup directory: {sourcedata_base_dir}")
     
     # Find all original files in sourcedata directory tree
     # These files have 'desc-nondeid' identifier and represent the original, non-anonymized data
-    log_print(f"\n🔎 Scanning for original (non-anonymized) files{session_desc}...")
+    log_print(f"\nScanning for original (non-anonymized) files{session_desc}...")
     
     # Look for files with 'desc-nondeid' identifier in the main sourcedata directory
     # Use recursive search to handle both organized and unorganized file structures
@@ -882,7 +882,7 @@ def revert_bidsonym(bids_dir, subject_label, session=None, confirm=True):
     
     # Find current defaced/modified files in main BIDS structure that need to be replaced
     # These are the anonymized files that will be removed and replaced with originals
-    log_print(f"\n🔎 Scanning current BIDS structure for files to replace{session_desc}...")
+    log_print(f"\nScanning current BIDS structure for files to replace{session_desc}...")
     if session is not None:
         # For session-specific reversion, only scan the target session directory
         log_print(f"   Scanning session-specific directory: {subject_dir}")
@@ -897,7 +897,7 @@ def revert_bidsonym(bids_dir, subject_label, session=None, confirm=True):
     # Validate that we found backup files to restore
     # If no original files are found, this suggests BIDSonym was never run or backup data is missing
     if not original_images and not original_json_files:
-        log_print(f"⚠️  WARNING: No original files found in sourcedata for subject {subject_label}{session_desc}", "WARNING")
+        log_print(f"  WARNING: No original files found in sourcedata for subject {subject_label}{session_desc}", "WARNING")
         log_print("   This may indicate that:", "WARNING")
         log_print("   - BIDSonym was not previously run on this subject/session", "WARNING")
         log_print("   - The backup files were manually removed", "WARNING")
@@ -906,28 +906,28 @@ def revert_bidsonym(bids_dir, subject_label, session=None, confirm=True):
         return False
     
     # Display comprehensive summary of what will be restored
-    log_print("\n📋 REVERSION SUMMARY:")
+    log_print("\n REVERSION SUMMARY:")
     log_print("=" * 60)
     
-    log_print(f"📁 Original image files to restore: {len(original_images)}")
+    log_print(f" Original image files to restore: {len(original_images)}")
     if original_images:
         for img in original_images[:3]:  # Show first 3
-            log_print(f"   ✓ {os.path.basename(img)}")
+            log_print(f"    {os.path.basename(img)}")
         if len(original_images) > 3:
             log_print(f"   ... and {len(original_images) - 3} more image files")
     
-    log_print(f"\n📄 Original JSON metadata files to restore: {len(original_json_files)}")
+    log_print(f"\n Original JSON metadata files to restore: {len(original_json_files)}")
     if original_json_files:
         for json_file in original_json_files[:3]:  # Show first 3
-            log_print(f"   ✓ {os.path.basename(json_file)}")
+            log_print(f"    {os.path.basename(json_file)}")
         if len(original_json_files) > 3:
             log_print(f"   ... and {len(original_json_files) - 3} more JSON files")
     
-    log_print("\n🗑️  Current files to be removed:")
+    log_print("\n  Current files to be removed:")
     log_print(f"   - {len(current_images)} defaced/modified image files")
     log_print(f"   - {len(current_json_files)} de-identified JSON files")
     
-    log_print("\n🧹 Directories to be cleaned up:")
+    log_print("\n Directories to be cleaned up:")
     log_print(f"   - {sourcedata_base_dir}")
     
     # Check if we'll remove the entire bidsonym directory structure
@@ -955,7 +955,7 @@ def revert_bidsonym(bids_dir, subject_label, session=None, confirm=True):
     # Confirmation prompt with clear warning
     if confirm:
         log_print("\n" + "=" * 60)
-        log_print("⚠️  IMPORTANT WARNING:")
+        log_print("  IMPORTANT WARNING:")
         log_print("   This will permanently replace all defaced/de-identified files")
         log_print(f"   with the original non-anonymized versions for subject {subject_label}{session_desc}.")
         log_print("   This action cannot be undone!")
@@ -970,12 +970,12 @@ def revert_bidsonym(bids_dir, subject_label, session=None, confirm=True):
         log_print(f"User response to confirmation prompt: '{response}'", "INFO")
         
         if response.lower() != 'yes':
-            log_print("🚫 BIDSonym reversion cancelled by user.", "INFO")
+            log_print(" BIDSonym reversion cancelled by user.", "INFO")
             return False
     
     try:
         # Step 1: Remove current defaced/modified files from main BIDS structure
-        log_print(f"\n🗑️  STEP 1: Removing defaced/de-identified files{session_desc}...")
+        log_print(f"\n  STEP 1: Removing defaced/de-identified files{session_desc}...")
         log_print(f"   Cleaning up main BIDS directory: {subject_dir}")
         
         # Initialize counters to track removal progress
@@ -987,23 +987,23 @@ def revert_bidsonym(bids_dir, subject_label, session=None, confirm=True):
             try:
                 os.remove(img_file)
                 removed_images += 1
-                log_print(f"     ✓ Removed image: {os.path.basename(img_file)}")
+                log_print(f"      Removed image: {os.path.basename(img_file)}")
             except OSError as e:
-                log_print(f"     ⚠️  WARNING: Could not remove {os.path.basename(img_file)}: {e}", "WARNING")
+                log_print(f"       WARNING: Could not remove {os.path.basename(img_file)}: {e}", "WARNING")
         
         # Remove all current JSON files (these contain de-identified metadata)
         for json_file in current_json_files:
             try:
                 os.remove(json_file)
                 removed_json += 1
-                log_print(f"     ✓ Removed JSON: {os.path.basename(json_file)}")
+                log_print(f"      Removed JSON: {os.path.basename(json_file)}")
             except OSError as e:
-                log_print(f"     ⚠️  WARNING: Could not remove {os.path.basename(json_file)}: {e}", "WARNING")
+                log_print(f"       WARNING: Could not remove {os.path.basename(json_file)}: {e}", "WARNING")
                 
         log_print(f"   Summary: Removed {removed_images} images and {removed_json} JSON files")
         
         # Step 2: Restore original image files to their proper BIDS locations
-        log_print(f"\n📁 STEP 2: Restoring original image files{session_desc}...")
+        log_print(f"\n STEP 2: Restoring original image files{session_desc}...")
         log_print("   Copying from sourcedata back to main BIDS structure")
         
         # Initialize counter to track restoration progress
@@ -1053,12 +1053,12 @@ def revert_bidsonym(bids_dir, subject_label, session=None, confirm=True):
             target_path = os.path.join(target_dir, restored_basename)
             copy2(original_img, target_path)
             restored_images += 1
-            log_print(f"     ✓ Restored {modality}: {restored_basename}")
+            log_print(f"      Restored {modality}: {restored_basename}")
         
         log_print(f"   Summary: Restored {restored_images} original image files")
         
         # Step 3: Restore original JSON metadata files
-        log_print(f"\n📄 STEP 3: Restoring original JSON metadata files{session_desc}...")
+        log_print(f"\n STEP 3: Restoring original JSON metadata files{session_desc}...")
         log_print("   Restoring non-de-identified metadata")
         
         # Initialize counter to track JSON restoration progress
@@ -1102,74 +1102,74 @@ def revert_bidsonym(bids_dir, subject_label, session=None, confirm=True):
             target_path = os.path.join(target_dir, restored_basename)
             copy2(original_json, target_path)
             restored_json += 1
-            log_print(f"     ✓ Restored {metadata_type} metadata: {restored_basename}")
+            log_print(f"      Restored {metadata_type} metadata: {restored_basename}")
         
         log_print(f"   Summary: Restored {restored_json} original JSON metadata files")
         
         # Step 4: Remove the entire BIDSonym sourcedata directory structure
-        log_print("\n🧹 STEP 4: Cleaning up BIDSonym backup directories...")
+        log_print("\n STEP 4: Cleaning up BIDSonym backup directories...")
         
         # Remove the subject's BIDSonym directory
         shutil.rmtree(sourcedata_base_dir)
-        log_print(f"     ✓ Removed subject backup directory: {sourcedata_base_dir}")
+        log_print(f"      Removed subject backup directory: {sourcedata_base_dir}")
         
         # Check if the parent sourcedata/bidsonym directory is now empty
         bidsonym_dir = os.path.join(bids_dir, "sourcedata", "bidsonym")
         if os.path.exists(bidsonym_dir) and not os.listdir(bidsonym_dir):
             shutil.rmtree(bidsonym_dir)
-            log_print(f"     ✓ Removed empty BIDSonym directory: {bidsonym_dir}")
+            log_print(f"      Removed empty BIDSonym directory: {bidsonym_dir}")
             
             # Check if sourcedata directory is now empty
             sourcedata_dir = os.path.join(bids_dir, "sourcedata")
             if os.path.exists(sourcedata_dir) and not os.listdir(sourcedata_dir):
                 shutil.rmtree(sourcedata_dir)
-                log_print(f"     ✓ Removed empty sourcedata directory: {sourcedata_dir}")
+                log_print(f"      Removed empty sourcedata directory: {sourcedata_dir}")
         else:
             remaining_subjects = [
                 d for d in os.listdir(bidsonym_dir)
                 if os.path.isdir(os.path.join(bidsonym_dir, d))
             ]
-            log_print(f"     📁 BIDSonym directory retained ({len(remaining_subjects)} other subjects remain)")
+            log_print(f"      BIDSonym directory retained ({len(remaining_subjects)} other subjects remain)")
         
         # Final success message with summary
         log_print("\n" + "=" * 60)
-        log_print("✅ REVERSION COMPLETED SUCCESSFULLY!")
+        log_print(" REVERSION COMPLETED SUCCESSFULLY!")
         log_print(f"Subject: sub-{subject_label}{session_desc}")
         log_print("")
-        log_print("📊 Summary:")
+        log_print(" Summary:")
         log_print(f"  • Restored {restored_images} original image files")
         log_print(f"  • Restored {restored_json} original JSON metadata files") 
         log_print(f"  • Removed {removed_images + removed_json} anonymized files")
         log_print("  • Cleaned up backup directories")
         log_print("")
-        log_print("⚠️  IMPORTANT: Your data is now in its original, non-anonymized state.")
+        log_print("  IMPORTANT: Your data is now in its original, non-anonymized state.")
         log_print(f"   All facial features and identifying metadata have been restored{session_desc}.")
         log_print("")
         if log_path:
-            log_print(f"📋 Log file saved: {log_path}")
+            log_print(f" Log file saved: {log_path}")
         log_print("=" * 60)
         return True
         
     except Exception as e:
         log_print("\n" + "=" * 60, "ERROR")
-        log_print("❌ ERROR DURING BIDSONYM REVERSION!", "ERROR")
+        log_print(" ERROR DURING BIDSONYM REVERSION!", "ERROR")
         log_print(f"Subject: sub-{subject_label}{session_desc}", "ERROR")
         log_print("")
         log_print(f"Error details: {e}", "ERROR")
         log_print("")
-        log_print("⚠️  IMPORTANT: The reversion process may be incomplete.", "ERROR")
+        log_print("  IMPORTANT: The reversion process may be incomplete.", "ERROR")
         log_print("   Please manually check your dataset for:", "ERROR")
         log_print("   • Missing or corrupted files", "ERROR")
         log_print("   • Partially restored directories", "ERROR")
         log_print("   • Remaining BIDSonym backup files", "ERROR")
         log_print("")
-        log_print("💡 Troubleshooting tips:", "ERROR")
+        log_print(" Troubleshooting tips:", "ERROR")
         log_print("   • Check file permissions in BIDS and sourcedata directories", "ERROR")
         log_print("   • Verify sufficient disk space", "ERROR")
         log_print("   • Ensure no other processes are accessing the files", "ERROR")
         log_print("   • Consider running with confirm=False to bypass prompts", "ERROR")
         log_print("")
         if log_path:
-            log_print(f"📋 Error log saved: {log_path}", "ERROR")
+            log_print(f" Error log saved: {log_path}", "ERROR")
         log_print("=" * 60, "ERROR")
         return False
