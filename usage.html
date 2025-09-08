@@ -16,7 +16,7 @@
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=47b51fc5"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
@@ -51,8 +51,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#execution-and-the-bids-format">Execution and the BIDS format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#command-line-arguments">Command-Line Arguments</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#bidsonym.run_deeid-get_parser-positional-arguments">Positional Arguments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bidsonym.run_deeid-get_parser-named-arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#positional-arguments">Positional Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#named-arguments">Named Arguments</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#example-call-s">Example Call(s)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#example-1">Example 1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#example-2">Example 2</a></li>
@@ -143,8 +143,8 @@ non-defaced images can be re-used, without the necessity to run the conversion a
                 <span class="n">bids_dir</span> <span class="p">{</span><span class="n">participant</span><span class="p">,</span><span class="n">group</span><span class="p">}</span>
 </pre></div>
 </div>
-<section id="bidsonym.run_deeid-get_parser-positional-arguments">
-<h3>Positional Arguments<a class="headerlink" href="#bidsonym.run_deeid-get_parser-positional-arguments" title="Link to this heading"></a></h3>
+<section id="positional-arguments">
+<h3>Positional Arguments<a class="headerlink" href="#positional-arguments" title="Link to this heading"></a></h3>
 <dl class="option-list">
 <dt><kbd>bids_dir</kbd></dt>
 <dd><p>The directory with the input dataset formatted according to the BIDS standard.</p>
@@ -155,8 +155,8 @@ non-defaced images can be re-used, without the necessity to run the conversion a
 </dd>
 </dl>
 </section>
-<section id="bidsonym.run_deeid-get_parser-named-arguments">
-<h3>Named Arguments<a class="headerlink" href="#bidsonym.run_deeid-get_parser-named-arguments" title="Link to this heading"></a></h3>
+<section id="named-arguments">
+<h3>Named Arguments<a class="headerlink" href="#named-arguments" title="Link to this heading"></a></h3>
 <dl class="option-list">
 <dt><kbd>--participant_label</kbd></dt>
 <dd><p>The label(s) of the participant(s) that should be pseudonymized. The label corresponds to sub-&lt;participant_label&gt; from the BIDS spec (so it does not include “sub-“). If this parameter is not provided all subjects will be pseudonymized. Multiple participants can be specified with a space separated list.</p>
