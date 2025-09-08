@@ -1,25 +1,25 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation &mdash; BIDSonym 0+untagged.1.gdc0153e documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+  <title>Installation &mdash; BIDSonym 0+untagged.1.g7ab6c0f documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/documentation_options.js?v=e871dc75"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=47b51fc5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -38,9 +38,6 @@
           <a href="index.html" class="icon icon-home">
             BIDSonym
           </a>
-              <div class="version">
-                0+untagged.1.gdc0153e
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -101,7 +98,7 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>Installation<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h1>
+<h1>Installation<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
 <p>In general, there are two distinct ways to install and use <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>:
 either through virtualization/container technology, that is <a class="reference internal" href="#docker">Docker</a> or
 <a class="reference external" href="https://github.com/singularityware/singularity">Singularity</a>, or in a <a class="reference internal" href="#bare-metal-version-python-3-6">Bare metal version (Python 3.6+)</a>.
@@ -109,7 +106,7 @@ Using a container method is highly recommended as they entail entire operating s
 thus include all software necessary to run <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>, while at the same time presenting a lightweight alternative to virtual machines.
 Once you are ready to run <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>, see <a class="reference external" href="./usage.rst">Usage</a> for details.</p>
 <section id="docker">
-<h2>Docker<a class="headerlink" href="#docker" title="Link to this heading">¶</a></h2>
+<h2>Docker<a class="headerlink" href="#docker" title="Link to this heading"></a></h2>
 <p>In order to run <code class="docutils literal notranslate"><span class="pre">`BIDSonym`</span></code> in a Docker container, Docker must be <a class="reference external" href="https://docs.docker.com/engine/installation/">installed</a> on your system.
 Once Docker is installed, you can get <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> through running the following
 command in the terminal of your choice:</p>
@@ -148,13 +145,13 @@ you can run <code class="docutils literal notranslate"><span class="pre">BIDSony
 about and familiarize yourself with <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>’s functionality.</p>
 </section>
 <section id="id3">
-<h2>Singularity<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<h2>Singularity<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
 <p>For security reasons, many HPCs (e.g., TACC) do not allow Docker containers, but support
 allow <a class="reference external" href="https://github.com/singularityware/singularity">Singularity</a> containers. Depending
 on the <code class="docutils literal notranslate"><span class="pre">Singularity</span></code> version available to you, there are two options to get <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> as
 a <code class="docutils literal notranslate"><span class="pre">Singularity</span> <span class="pre">image</span></code>.</p>
 <section id="preparing-a-singularity-image-singularity-version-2-5">
-<h3>Preparing a Singularity image (Singularity version &gt;= 2.5)<a class="headerlink" href="#preparing-a-singularity-image-singularity-version-2-5" title="Link to this heading">¶</a></h3>
+<h3>Preparing a Singularity image (Singularity version &gt;= 2.5)<a class="headerlink" href="#preparing-a-singularity-image-singularity-version-2-5" title="Link to this heading"></a></h3>
 <p>If the version of Singularity on your HPC is modern enough you can create a <code class="docutils literal notranslate"><span class="pre">Singularity</span>
 <span class="pre">image</span></code> directly on the HCP.
 This is as simple as:</p>
@@ -168,7 +165,7 @@ For example, if you want to use <code class="docutils literal notranslate"><span
 </div>
 </section>
 <section id="id5">
-<h3>Preparing a Singularity image (Singularity version &lt; 2.5)<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<h3>Preparing a Singularity image (Singularity version &lt; 2.5)<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <p>In this case, start with a machine (e.g., your personal computer) with <code class="docutils literal notranslate"><span class="pre">Docker</span></code> installed and
 the use <a class="reference external" href="https://github.com/singularityware/docker2singularity">docker2singularity</a> to
 create a <code class="docutils literal notranslate"><span class="pre">Singularity</span> <span class="pre">image</span></code>. You will need an active internet connection and some time.</p>
@@ -205,7 +202,7 @@ should be stored. Sticking with the example of <code class="docutils literal not
 with your <code class="docutils literal notranslate"><span class="pre">user</span> <span class="pre">name</span></code> on the HPC and <code class="docutils literal notranslate"><span class="pre">&lt;hcpserver.edu&gt;</span></code> with the address of the HPC.</p>
 </section>
 <section id="running-a-singularity-image">
-<h3>Running a Singularity Image<a class="headerlink" href="#running-a-singularity-image" title="Link to this heading">¶</a></h3>
+<h3>Running a Singularity Image<a class="headerlink" href="#running-a-singularity-image" title="Link to this heading"></a></h3>
 <p>If the data to be preprocessed is also on the HPC, you are ready to run bidsonym.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>singularity<span class="w"> </span>run<span class="w"> </span>--cleanenv<span class="w"> </span>/my_images/bidsonym-&lt;version&gt;.simg<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>path/to/your/bids_dataset<span class="w"> </span><span class="se">\</span>
@@ -263,7 +260,7 @@ For example:</p>
 </section>
 </section>
 <section id="bare-metal-version-python-3-6">
-<h2>Bare metal version (Python 3.6+)<a class="headerlink" href="#bare-metal-version-python-3-6" title="Link to this heading">¶</a></h2>
+<h2>Bare metal version (Python 3.6+)<a class="headerlink" href="#bare-metal-version-python-3-6" title="Link to this heading"></a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This method is not recommended! Make sure you would rather do this than
@@ -284,7 +281,7 @@ is found in the <a class="reference external" href="https://github.com/peerherho
 </pre></div>
 </div>
 <section id="external-dependencies">
-<h3>External Dependencies<a class="headerlink" href="#external-dependencies" title="Link to this heading">¶</a></h3>
+<h3>External Dependencies<a class="headerlink" href="#external-dependencies" title="Link to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> is written using Python 3.6 (or above).
 It requires some other neuroimaging software tools that are
 not handled by the Python’s packaging system (Pypi) used to deploy
@@ -298,7 +295,7 @@ the <code class="docutils literal notranslate"><span class="pre">BIDSonym</span>
 </ul>
 </section>
 <section id="previous-image-versions-on-osf">
-<h3>Previous image versions on OSF<a class="headerlink" href="#previous-image-versions-on-osf" title="Link to this heading">¶</a></h3>
+<h3>Previous image versions on OSF<a class="headerlink" href="#previous-image-versions-on-osf" title="Link to this heading"></a></h3>
 <p>As mentioned above, Dockerhub introduced the deletion of images older than 6 months.
 Thus all previous versions of the <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> <code class="docutils literal notranslate"><span class="pre">Docker</span></code> image can be found on <a class="reference external" href="https://osf.io/x4dku/">OSF</a>.
 After downloading and unzipping your desired version, images be made available and ready to run via:</p>

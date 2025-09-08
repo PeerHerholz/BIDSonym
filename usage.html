@@ -1,25 +1,25 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; BIDSonym 0+untagged.1.gdc0153e documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+  <title>Usage &mdash; BIDSonym 0+untagged.1.g7ab6c0f documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/documentation_options.js?v=e871dc75"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="_static/copybutton.js?v=f281be69"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=47b51fc5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -38,9 +38,6 @@
           <a href="index.html" class="icon icon-home">
             BIDSonym
           </a>
-              <div class="version">
-                0+untagged.1.gdc0153e
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -54,8 +51,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#execution-and-the-bids-format">Execution and the BIDS format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#command-line-arguments">Command-Line Arguments</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#positional-arguments">Positional Arguments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#named-arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bidsonym.run_deeid-get_parser-positional-arguments">Positional Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bidsonym.run_deeid-get_parser-named-arguments">Named Arguments</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#example-call-s">Example Call(s)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#example-1">Example 1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#example-2">Example 2</a></li>
@@ -102,9 +99,9 @@
            <div itemprop="articleBody">
              
   <section id="usage">
-<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h1>
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
 <section id="execution-and-the-bids-format">
-<h2>Execution and the BIDS format<a class="headerlink" href="#execution-and-the-bids-format" title="Link to this heading">¶</a></h2>
+<h2>Execution and the BIDS format<a class="headerlink" href="#execution-and-the-bids-format" title="Link to this heading"></a></h2>
 <p>The general input of <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> is a path to the dataset that should
 be de-identified. The input dataset is required to be in valid <abbr title="Brain Imaging Data Structure">BIDS</abbr> format.
 We highly recommend that you validate your dataset before you run <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code>
@@ -129,22 +126,25 @@ in case the defacing was not successful (too much or too little cut out) the
 non-defaced images can be re-used, without the necessity to run the conversion again.</p>
 </section>
 <section id="command-line-arguments">
-<h2>Command-Line Arguments<a class="headerlink" href="#command-line-arguments" title="Link to this heading">¶</a></h2>
+<h2>Command-Line Arguments<a class="headerlink" href="#command-line-arguments" title="Link to this heading"></a></h2>
 <p><p>a BIDS app for de-identification of neuroimaging data</p>
 </p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">bidsonym</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">participant_label</span> <span class="n">PARTICIPANT_LABEL</span> <span class="p">[</span><span class="n">PARTICIPANT_LABEL</span> <span class="o">...</span><span class="p">]]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">session</span> <span class="n">SESSION</span> <span class="p">[</span><span class="n">SESSION</span> <span class="o">...</span><span class="p">]]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">deid</span> <span class="p">{</span><span class="n">pydeface</span><span class="p">,</span><span class="n">mri_deface</span><span class="p">,</span><span class="n">quickshear</span><span class="p">,</span><span class="n">mridefacer</span><span class="p">}]</span>
-                <span class="p">[</span><span class="o">--</span><span class="n">deface_t2w</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">check_meta</span> <span class="n">CHECK_META</span> <span class="p">[</span><span class="n">CHECK_META</span> <span class="o">...</span><span class="p">]]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">deface_t2w</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">deface_flair</span><span class="p">]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">modalities</span> <span class="p">{</span><span class="n">T1w</span><span class="p">,</span><span class="n">T2w</span><span class="p">,</span><span class="n">FLAIR</span><span class="p">}</span> <span class="p">[{</span><span class="n">T1w</span><span class="p">,</span><span class="n">T2w</span><span class="p">,</span><span class="n">FLAIR</span><span class="p">}</span> <span class="o">...</span><span class="p">]]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">check_meta</span> <span class="n">CHECK_META</span> <span class="p">[</span><span class="n">CHECK_META</span> <span class="o">...</span><span class="p">]]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">del_meta</span> <span class="n">DEL_META</span> <span class="p">[</span><span class="n">DEL_META</span> <span class="o">...</span><span class="p">]]</span>
                 <span class="p">[</span><span class="o">--</span><span class="n">brainextraction</span> <span class="p">{</span><span class="n">bet</span><span class="p">,</span><span class="n">nobrainer</span><span class="p">}]</span> <span class="p">[</span><span class="o">--</span><span class="n">bet_frac</span> <span class="n">BET_FRAC</span><span class="p">]</span>
-                <span class="p">[</span><span class="o">--</span><span class="n">skip_bids_validation</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span>
+                <span class="p">[</span><span class="o">--</span><span class="n">skip_bids_validation</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">revert</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">revert_confirm_off</span><span class="p">]</span>
+                <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span>
                 <span class="n">bids_dir</span> <span class="p">{</span><span class="n">participant</span><span class="p">,</span><span class="n">group</span><span class="p">}</span>
 </pre></div>
 </div>
-<section id="positional-arguments">
-<h3>Positional Arguments<a class="headerlink" href="#positional-arguments" title="Link to this heading">¶</a></h3>
+<section id="bidsonym.run_deeid-get_parser-positional-arguments">
+<h3>Positional Arguments<a class="headerlink" href="#bidsonym.run_deeid-get_parser-positional-arguments" title="Link to this heading"></a></h3>
 <dl class="option-list">
 <dt><kbd>bids_dir</kbd></dt>
 <dd><p>The directory with the input dataset formatted according to the BIDS standard.</p>
@@ -155,8 +155,8 @@ non-defaced images can be re-used, without the necessity to run the conversion a
 </dd>
 </dl>
 </section>
-<section id="named-arguments">
-<h3>Named Arguments<a class="headerlink" href="#named-arguments" title="Link to this heading">¶</a></h3>
+<section id="bidsonym.run_deeid-get_parser-named-arguments">
+<h3>Named Arguments<a class="headerlink" href="#bidsonym.run_deeid-get_parser-named-arguments" title="Link to this heading"></a></h3>
 <dl class="option-list">
 <dt><kbd>--participant_label</kbd></dt>
 <dd><p>The label(s) of the participant(s) that should be pseudonymized. The label corresponds to sub-&lt;participant_label&gt; from the BIDS spec (so it does not include “sub-“). If this parameter is not provided all subjects will be pseudonymized. Multiple participants can be specified with a space separated list.</p>
@@ -166,26 +166,39 @@ non-defaced images can be re-used, without the necessity to run the conversion a
 </dd>
 <dt><kbd>--deid</kbd></dt>
 <dd><p>Possible choices: pydeface, mri_deface, quickshear, mridefacer</p>
-<p>Approach to use for de-identifictation.</p>
+<p>Approach to use for de-identification.</p>
 </dd>
 <dt><kbd>--deface_t2w</kbd></dt>
 <dd><p>Deface T2w images by using defaced T1w image as deface-mask.</p>
 </dd>
+<dt><kbd>--deface_flair</kbd></dt>
+<dd><p>Deface FLAIR images by using defaced T1w image as deface-mask.</p>
+</dd>
+<dt><kbd>--modalities</kbd></dt>
+<dd><p>Possible choices: T1w, T2w, FLAIR</p>
+<p>Specify which image modalities to process for quality control visualizations. Default is T1w only. Multiple modalities can be specified.</p>
+</dd>
 <dt><kbd>--check_meta</kbd></dt>
-<dd><p>Indicate which information from the image and                         .json meta-data files should be check for potentially problematic information.                         Indicate strings that should be searched for.                         The results will be saved to sourcedata/</p>
+<dd><p>Indicate which information from the image and .json meta-data files should be check for potentially problematic information. Indicate strings that should be searched for. The results will be saved to sourcedata/</p>
 </dd>
 <dt><kbd>--del_meta</kbd></dt>
-<dd><p>Indicate if and which information from the .json meta-data files should be deleted.                         If so, the original .json files will be copied to sourcedata/</p>
+<dd><p>Indicate if and which information from the .json meta-data files should be deleted. If so, the original .json files will be copied to sourcedata/</p>
 </dd>
 <dt><kbd>--brainextraction</kbd></dt>
 <dd><p>Possible choices: bet, nobrainer</p>
-<p>What algorithm should be used for pre-defacing brain extraction                         (outputs will be used in quality control).</p>
+<p>What algorithm should be used for pre-defacing brain extraction (outputs will be used in quality control).</p>
 </dd>
 <dt><kbd>--bet_frac</kbd></dt>
 <dd><p>In case BET is used for pre-defacing brain extraction, provide a Frac value.</p>
 </dd>
 <dt><kbd>--skip_bids_validation</kbd></dt>
-<dd><p>Assume the input dataset is BIDS compliant and skip the validation                              (default: False).</p>
+<dd><p>Assume the input dataset is BIDS compliant and skip the validation (default: False).</p>
+</dd>
+<dt><kbd>--revert</kbd></dt>
+<dd><p>Revert BIDSonym anonymization by restoring original files from sourcedata. This will replace all defaced/de-identified files with the original versions.</p>
+</dd>
+<dt><kbd>--revert_confirm_off</kbd></dt>
+<dd><p>Skip confirmation prompt when using –revert mode. Use with caution as this will immediately restore original files.</p>
 </dd>
 <dt><kbd>-v, --version</kbd></dt>
 <dd><p>show program’s version number and exit</p>
@@ -193,11 +206,11 @@ non-defaced images can be re-used, without the necessity to run the conversion a
 </dl>
 </section>
 <section id="example-call-s">
-<h3>Example Call(s)<a class="headerlink" href="#example-call-s" title="Link to this heading">¶</a></h3>
+<h3>Example Call(s)<a class="headerlink" href="#example-call-s" title="Link to this heading"></a></h3>
 <p>Below you’ll find two examples calls that hopefully help
 you to familiarize yourself with <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> and its options.</p>
 <section id="example-1">
-<h4>Example 1<a class="headerlink" href="#example-1" title="Link to this heading">¶</a></h4>
+<h4>Example 1<a class="headerlink" href="#example-1" title="Link to this heading"></a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bidsonym<span class="w"> </span><span class="se">\</span>
 /home/peer/bids/<span class="w"> </span><span class="se">\</span>
 participant<span class="w"> </span><span class="se">\</span>
@@ -232,7 +245,7 @@ if it exists in the JSON sidecar files of your <code class="docutils literal not
 </ul>
 </section>
 <section id="example-2">
-<h4>Example 2<a class="headerlink" href="#example-2" title="Link to this heading">¶</a></h4>
+<h4>Example 2<a class="headerlink" href="#example-2" title="Link to this heading"></a></h4>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bidsonym<span class="w"> </span><span class="se">\</span>
 /home/peer/bids/<span class="w"> </span><span class="se">\</span>
 group<span class="w"> </span><span class="se">\</span>
@@ -260,7 +273,7 @@ Here we chose <code class="docutils literal notranslate"><span class="pre">nobra
 </section>
 </section>
 <section id="support-and-communication">
-<h2>Support and communication<a class="headerlink" href="#support-and-communication" title="Link to this heading">¶</a></h2>
+<h2>Support and communication<a class="headerlink" href="#support-and-communication" title="Link to this heading"></a></h2>
 <p>The documentation of this project is found here: <a class="reference external" href="https://peerherholz.github.io/BIDSonym">https://peerherholz.github.io/BIDSonym</a>.</p>
 <p>All bugs, concerns and enhancement requests for this software can be submitted here:
 <a class="reference external" href="https://github.com/peerherholz/bidsonym/issues">https://github.com/peerherholz/bidsonym/issues</a>.</p>
@@ -271,7 +284,7 @@ NeuroStars.org is a platform similar to StackOverflow but dedicated to neuroinfo
 <a class="reference external" href="http://neurostars.org/tags/bidsonym/">http://neurostars.org/tags/bidsonym/</a></p>
 </section>
 <section id="not-running-on-a-local-machine-data-transfer">
-<h2>Not running on a local machine? - Data transfer<a class="headerlink" href="#not-running-on-a-local-machine-data-transfer" title="Link to this heading">¶</a></h2>
+<h2>Not running on a local machine? - Data transfer<a class="headerlink" href="#not-running-on-a-local-machine-data-transfer" title="Link to this heading"></a></h2>
 <p>If you intend to run <code class="docutils literal notranslate"><span class="pre">BIDSonym</span></code> on a remote system, you will need to
 make your data available within that system first.</p>
 <p>Please contact you local system administrator regarding
