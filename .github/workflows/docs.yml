@@ -24,6 +24,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements-dev.txt
+        pip install git+https://github.com/miykael/gif_your_nifti.git
     - name: Install bidsonym
       run: |
         pip install ./
