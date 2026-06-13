@@ -128,6 +128,8 @@ conda install -y  --name bidsonym \
     "datalad" \
     "deno"
 bash -c "source activate bidsonym
+  python -m ensurepip --upgrade"
+bash -c "source activate bidsonym
   python -m pip install --no-cache-dir  \
       "tensorflow" \
       "scikit-image" \
@@ -146,7 +148,7 @@ bash -c 'mkdir -p /opt/nobrainer/models && cd /opt/nobrainer/models && source ac
 
 bash -c 'mkdir /home/mri-deface-detector && cd /home/mri-deface-detector && npm install sharp --unsafe-perm && npm install -g mri-deface-detector --unsafe-perm && cd ~'
 
-bash -c 'git clone https://github.com/miykael/gif_your_nifti && cd gif_your_nifti && source activate bidsonym && python setup.py install'
+bash -c 'source activate bidsonym && pip install git+https://github.com/miykael/gif_your_nifti.git'
 
 bash -c 'chmod a+x /home/bm/bidsonym/fs_data/mri_deface'
 
@@ -339,4 +341,4 @@ printf '{ \
 # End saving to specification to JSON.
 
 %runscript
-/neurodocker/startup.sh bidsonym
+/neurodocker/startup.sh bidsonym "$@"
