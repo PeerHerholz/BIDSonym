@@ -535,8 +535,11 @@ def copy_no_deid(bids_dir, subject_label, image_file, session=None):
     
     # Copy the NIfTI image file
     nondeid_image_path = opj(output_dir, nondeid_basename)
-    copy2(image_file, nondeid_image_path)
-    print(f"Copied original image to: {nondeid_image_path}")
+    if os.path.exists(nondeid_image_path):
+        print(f"File already exists: {nondeid_image_path}, not overwritten.")
+    else:
+        copy2(image_file, nondeid_image_path)
+        print(f"Copied original image to: {nondeid_image_path}")
     
     # Look for corresponding JSON file
     json_file = image_file.replace('.nii.gz', '.json')
@@ -544,8 +547,11 @@ def copy_no_deid(bids_dir, subject_label, image_file, session=None):
         # Copy JSON file with desc-nondeid naming
         nondeid_json_basename = original_basename.replace('.nii.gz', '_desc-nondeid.json')
         nondeid_json_path = opj(output_dir, nondeid_json_basename)
-        copy2(json_file, nondeid_json_path)
-        print(f"Copied original JSON to: {nondeid_json_path}")
+        if os.path.exists(nondeid_json_path):
+            print(f"File already exists: {nondeid_json_path}, not overwritten.")
+        else:
+            copy2(json_file, nondeid_json_path)
+            print(f"Copied original JSON to: {nondeid_json_path}")
     else:
         print(f"No JSON file found for: {image_file}")
     

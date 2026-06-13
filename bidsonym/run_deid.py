@@ -183,8 +183,9 @@ def process_subject_session(args, layout, subject_label, session_label=None, log
         check_outpath(args.bids_dir, subject_label)
         
         # Copy original files with session awareness BEFORE defacing
-        copy_no_deid(args.bids_dir, subject_label, T1_file, session=session_label)
-        
+        nondeid_image_path=copy_no_deid(args.bids_dir, subject_label, T1_file, session=session_label)
+        if os.path.exists(nondeid_image_path.replace('nii.gz', 'DONE')):
+            continue
         # Run brain extraction for quality control BEFORE defacing
         if args.brainextraction == 'bet':
             if args.bet_frac is None:
@@ -217,15 +218,16 @@ def process_subject_session(args, layout, subject_label, session_label=None, log
         
         # Run the specified defacing algorithm
         if args.deid == "pydeface":
-            run_pydeface(T1_file, T1_file)
+            run_pydeface(nondeid_image_path, T1_file)
         elif args.deid == "mri_deface":
-            run_mri_deface(T1_file, T1_file)
+            run_mri_deface(nondeid_image_path, T1_file)
         elif args.deid == "quickshear":
-            run_quickshear(T1_file, T1_file)
+            run_quickshear(nondeid_image_path, T1_file)
         elif args.deid == "mridefacer":
-            run_mridefacer(T1_file, T1_file)
+            run_mridefacer(nondeid_image_path, T1_file)
         elif args.deid == "deepdefacer":
             run_deepdefacer(T1_file, subject_label, args.bids_dir)
+        Path(nondeid_image_path.replace('nii.gz', 'DONE')).touch()
     
     # Process T2w images if requested
     if args.deface_t2w:
@@ -300,7 +302,7 @@ def process_additional_modality(args, layout, subject_label, modality,
             log_print(f"Processing {modality} file: {modality_file}")
             
             # Copy original file to sourcedata BEFORE processing
-            copy_no_deid(args.bids_dir, subject_label, modality_file, session=session)
+            nondeid_image_path=copy_no_deid(args.bids_dir, subject_label, modality_file, session=session)
             
             # Run brain extraction for quality control
             if args.brainextraction == 'bet':
@@ -355,7 +357,7 @@ def process_additional_modality(args, layout, subject_label, modality,
             T1_file = t1w_files[0]  # Use first T1w file as reference
             
             # Apply defacing using T1w mask
-            run_image_deface(modality_file, T1_file, modality_file)
+            run_image_deface(nondeid_image_path, T1_file, modality_file)
             
         except Exception as e:
             log_print(
@@ -677,7 +679,7 @@ def run_deid():
         else:
             # Single-session or no-session processing
             process_subject_session(args, layout, subject_label,
-                                    session=None, log_print=log_print)
+                                    session_label=None, log_print=log_print)
         
         # Rename non-deidentified files with descriptive labels
         rename_non_deid(args.bids_dir, subject_label)
