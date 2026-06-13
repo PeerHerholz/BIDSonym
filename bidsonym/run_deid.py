@@ -677,7 +677,7 @@ def run_deid():
         else:
             # Single-session or no-session processing
             process_subject_session(args, layout, subject_label,
-                                    session=None, log_print=log_print)
+                                    session_label=None, log_print=log_print)
         
         # Rename non-deidentified files with descriptive labels
         rename_non_deid(args.bids_dir, subject_label)
